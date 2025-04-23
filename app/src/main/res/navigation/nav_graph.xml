@@ -3,22 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/homeFragment">
-    <fragment
-        android:id="@+id/homeFragment"
-        android:name="com.example.androidvirtualcollections.HomeFragment"
-        android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+    app:startDestination="@id/catalogFragment">
     <fragment
         android:id="@+id/catalogFragment"
         android:name="com.example.androidvirtualcollections.CatalogFragment"
         android:label="fragment_catalog"
         tools:layout="@layout/fragment_catalog" />
-    <fragment
-        android:id="@+id/profileFragment"
-        android:name="com.example.androidvirtualcollections.ProfileFragment"
-        android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/collectionListFragment"
         android:name="com.example.androidvirtualcollections.CollectionListFragment"

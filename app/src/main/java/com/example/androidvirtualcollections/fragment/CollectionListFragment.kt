@@ -4,6 +4,9 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
@@ -52,8 +55,10 @@ class CollectionListFragment : Fragment() {
                 title = "Моя коллекция монет",
                 description = "Нумизматическая коллекция",
                 items = mutableListOf(
-                    MediaItem(1, "Монета 1", "Серебряная монета", R.drawable.ic_catalog),
-                    MediaItem(2, "Монета 2", "Золотая монета", R.drawable.ic_catalog)
+                    MediaItem(1, "Монета 1", "Серебряная монета",
+                        R.drawable.ic_catalog),
+                    MediaItem(2, "Монета 2", "Золотая монета",
+                        R.drawable.ic_catalog)
                 )
             )
             )
@@ -73,6 +78,26 @@ class CollectionListFragment : Fragment() {
         }
         requireContext().startService(intent)
         Toast.makeText(context, "Создание резервной копии...", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.collection_menu, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_backup -> {
+                createBackup()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
     }
 
     private fun addNewCollection() {

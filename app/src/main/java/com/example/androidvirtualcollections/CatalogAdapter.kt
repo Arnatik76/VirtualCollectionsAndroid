@@ -21,6 +21,10 @@ class CatalogAdapter(private val items: List<CatalogItem>) : RecyclerView.Adapte
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val item = items[position]
+        holder.title.text = item.title
+        holder.description.text = item.description
+        holder.image.setImageResource(item.imageUrl)
     }
 
     override fun getItemCount() = items.size

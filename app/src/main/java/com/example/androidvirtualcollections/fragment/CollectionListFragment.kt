@@ -1,16 +1,19 @@
 package com.example.androidvirtualcollections.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.androidvirtualcollections.R
 import com.example.androidvirtualcollections.adapter.CollectionAdapter
 import com.example.androidvirtualcollections.model.Collection
 import com.example.androidvirtualcollections.model.MediaItem
+import com.example.androidvirtualcollections.service.CollectionService
 import com.example.androidvirtualcollections.util.FileUtils
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
@@ -62,6 +65,14 @@ class CollectionListFragment : Fragment() {
         adapter = CollectionAdapter(collections)
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
+    }
+
+    private fun createBackup() {
+        val intent = Intent(requireContext(), CollectionService::class.java).apply {
+            action = CollectionService.ACTION_BACKUP_COLLECTIONS
+        }
+        requireContext().startService(intent)
+        Toast.makeText(context, "Создание резервной копии...", Toast.LENGTH_SHORT).show()
     }
 
     private fun addNewCollection() {

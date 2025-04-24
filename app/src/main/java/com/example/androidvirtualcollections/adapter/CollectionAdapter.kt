@@ -1,4 +1,4 @@
-package com.example.androidvirtualcollections
+package com.example.androidvirtualcollections.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,6 +6,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.androidvirtualcollections.R
+import com.example.androidvirtualcollections.model.Collection
 
 class CollectionAdapter(private val collections: List<Collection>) :
     RecyclerView.Adapter<CollectionAdapter.ViewHolder>() {
@@ -25,7 +27,7 @@ class CollectionAdapter(private val collections: List<Collection>) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val collection = collections[position]
         holder.title.text = collection.title
-        holder.itemCount.text = "${collection.items.size} предметов"
+        holder.itemCount.text = "${collection.items?.size ?: 0} предметов"
         holder.image.setImageResource(collection.imageResId)
     }
 

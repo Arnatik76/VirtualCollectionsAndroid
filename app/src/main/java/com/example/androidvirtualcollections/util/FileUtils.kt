@@ -1,7 +1,9 @@
-package com.example.androidvirtualcollections
+package com.example.androidvirtualcollections.util
 
 import android.content.Context
 import android.util.Log
+import android.widget.Toast
+import com.example.androidvirtualcollections.model.Collection
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.io.File
@@ -17,8 +19,10 @@ object FileUtils {
                 it.write(json.toByteArray())
             }
             Log.d(TAG, "Коллекции сохранены: ${collections.size}")
+            Toast.makeText(context, "Коллекции сохранены", Toast.LENGTH_SHORT).show()
         } catch (e: Exception) {
             Log.e(TAG, "Ошибка сохранения коллекций", e)
+            Toast.makeText(context, "Ошибка сохранения коллекций", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -35,7 +39,11 @@ object FileUtils {
                 inputStream.read(buffer)
                 val json = String(buffer)
                 val type = object : TypeToken<List<Collection>>() {}.type
-                return Gson().fromJson(json, type) ?: emptyList()
+                val loadedCollections = Gson().fromJson<List<Collection>>(json, type) ?: emptyList()
+
+                return loadedCollections.map { collection ->
+                    collection.copy(items = collection.items ?: mutableListOf())
+                }
             }
         } catch (e: Exception) {
             Log.e(TAG, "Ошибка загрузки коллекций", e)

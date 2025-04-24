@@ -1,14 +1,17 @@
-package com.example.androidvirtualcollections
+package com.example.androidvirtualcollections.fragment
 
-import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.androidvirtualcollections.R
+import com.example.androidvirtualcollections.adapter.CollectionAdapter
+import com.example.androidvirtualcollections.model.Collection
+import com.example.androidvirtualcollections.model.MediaItem
+import com.example.androidvirtualcollections.util.FileUtils
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class CollectionListFragment : Fragment() {
@@ -22,19 +25,7 @@ class CollectionListFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_collection_list, container, false)
         recyclerView = view.findViewById(R.id.collectionsRecyclerView)
 
-        // Добавляем FAB
-        val fab = FloatingActionButton(requireContext())
-        fab.id = View.generateViewId()
-        fab.setImageResource(android.R.drawable.ic_input_add)
-        val params = ViewGroup.MarginLayoutParams(
-            ViewGroup.LayoutParams.WRAP_CONTENT,
-            ViewGroup.LayoutParams.WRAP_CONTENT
-        )
-        params.setMargins(0, 0, 16, 16)
-        fab.layoutParams = params
-        (view as ViewGroup).addView(fab)
-
-        fab.setOnClickListener {
+        view.findViewById<FloatingActionButton>(R.id.fabAddCollection).setOnClickListener {
             addNewCollection()
         }
 
@@ -52,7 +43,8 @@ class CollectionListFragment : Fragment() {
             collections.addAll(savedCollections)
         } else {
             // Демо-коллекции
-            collections.add(Collection(
+            collections.add(
+                Collection(
                 id = 1,
                 title = "Моя коллекция монет",
                 description = "Нумизматическая коллекция",
@@ -60,7 +52,8 @@ class CollectionListFragment : Fragment() {
                     MediaItem(1, "Монета 1", "Серебряная монета", R.drawable.ic_catalog),
                     MediaItem(2, "Монета 2", "Золотая монета", R.drawable.ic_catalog)
                 )
-            ))
+            )
+            )
             FileUtils.saveCollections(requireContext(), collections)
         }
     }
@@ -76,7 +69,8 @@ class CollectionListFragment : Fragment() {
         val newCollection = Collection(
             id = newId,
             title = "Новая коллекция ${newId}",
-            description = "Описание коллекции"
+            description = "Описание коллекции",
+            items = mutableListOf()
         )
 
         collections.add(newCollection)

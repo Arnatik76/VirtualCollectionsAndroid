@@ -24,8 +24,8 @@ class CollectionAdapter(private val collections: List<Collection>) : RecyclerVie
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val collection = collections[position]
         holder.title.text = collection.title
-        holder.itemCount.text = "${collection.itemCout} предметов"
-        holder.image.setImageResource(collection.imageResId)
+        holder.itemCount.text = "${collection.itemCount} предметов" // Исправлена опечатка
+        holder.image.setImageResource(collection.imageResId) // Исправлено название свойства
     }
 
     override fun getItemCount() = collections.size

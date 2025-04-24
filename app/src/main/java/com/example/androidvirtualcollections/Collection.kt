@@ -1,8 +1,8 @@
 package com.example.androidvirtualcollections
 
 data class Collection(
-    val id: Long,
+    val id: Int,
     val title: String,
-    val itemCout: Int,
+    val itemCount: Int,
     val imageResId: Int
 )

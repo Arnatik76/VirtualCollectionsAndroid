@@ -6,9 +6,9 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import org.w3c.dom.Text
 
-class CollectionAdapter(private val collections: List<Collection>) : RecyclerView.Adapter<CollectionAdapter.ViewHolder>() {
+class CollectionAdapter(private val collections: List<Collection>) :
+    RecyclerView.Adapter<CollectionAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val image: ImageView = itemView.findViewById(R.id.collectionImage)
@@ -17,15 +17,16 @@ class CollectionAdapter(private val collections: List<Collection>) : RecyclerVie
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_collection, parent, false)
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.item_collection, parent, false)
         return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val collection = collections[position]
         holder.title.text = collection.title
-        holder.itemCount.text = "${collection.itemCount} предметов" // Исправлена опечатка
-        holder.image.setImageResource(collection.imageResId) // Исправлено название свойства
+        holder.itemCount.text = "${collection.items.size} предметов"
+        holder.image.setImageResource(collection.imageResId)
     }
 
     override fun getItemCount() = collections.size

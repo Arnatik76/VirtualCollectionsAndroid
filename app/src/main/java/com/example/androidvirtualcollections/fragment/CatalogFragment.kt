@@ -1,4 +1,4 @@
-package com.example.androidvirtualcollections
+package com.example.androidvirtualcollections.fragment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,6 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.androidvirtualcollections.R
+import com.example.androidvirtualcollections.adapter.CatalogAdapter
+import com.example.androidvirtualcollections.model.MediaItem
 
 class CatalogFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
@@ -22,7 +25,9 @@ class CatalogFragment : Fragment() {
         val catalogItems = listOf(
             MediaItem(1, "Редкие монеты", "Коллекция античных монет", R.drawable.ic_catalog),
             MediaItem(2, "Марки мира", "Филателистическая коллекция", R.drawable.ic_catalog),
-            MediaItem(3, "Старые фотографии", "Винтажные фотографии 19-20 веков", R.drawable.ic_catalog),
+            MediaItem(3, "Старые фотографии", "Винтажные фотографии 19-20 веков",
+                R.drawable.ic_catalog
+            ),
             MediaItem(4, "Книжная полка", "Редкие издания классиков", R.drawable.ic_catalog)
         )
 

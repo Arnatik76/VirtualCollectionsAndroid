@@ -1,4 +1,4 @@
-package com.example.androidvirtualcollections
+package com.example.androidvirtualcollections.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,6 +6,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.androidvirtualcollections.R
+import com.example.androidvirtualcollections.model.MediaItem
 
 class CatalogAdapter(private val items: List<MediaItem>) : RecyclerView.Adapter<CatalogAdapter.ViewHolder>() {
 

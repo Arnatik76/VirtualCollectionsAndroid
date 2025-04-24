@@ -1,4 +1,6 @@
-package com.example.androidvirtualcollections
+package com.example.androidvirtualcollections.model
+
+import com.example.androidvirtualcollections.R
 
 data class MediaItem(
     val id: Int,

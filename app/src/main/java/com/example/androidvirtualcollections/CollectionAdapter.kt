@@ -22,10 +22,11 @@ class CollectionAdapter(private val collections: List<Collection>) : RecyclerVie
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        TODO("Not yet implemented")
+        val collection = collections[position]
+        holder.title.text = collection.title
+        holder.itemCount.text = "${collection.itemCout} предметов"
+        holder.image.setImageResource(collection.imageUrl)
     }
 
-    override fun getItemCount(): Int {
-        TODO("Not yet implemented")
-    }
+    override fun getItemCount() = collections.size
 }

@@ -7,7 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class CatalogAdapter(private val items: List<CatalogItem>) : RecyclerView.Adapter<CatalogAdapter.ViewHolder>() {
+class CatalogAdapter(private val items: List<MediaItem>) : RecyclerView.Adapter<CatalogAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val image: ImageView = itemView.findViewById(R.id.itemImage)

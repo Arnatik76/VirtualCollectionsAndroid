@@ -25,7 +25,7 @@ class CollectionAdapter(private val collections: List<Collection>) : RecyclerVie
         val collection = collections[position]
         holder.title.text = collection.title
         holder.itemCount.text = "${collection.itemCout} предметов"
-        holder.image.setImageResource(collection.imageUrl)
+        holder.image.setImageResource(collection.imageResId)
     }
 
     override fun getItemCount() = collections.size

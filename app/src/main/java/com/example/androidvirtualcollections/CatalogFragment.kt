@@ -30,7 +30,7 @@ class CatalogFragment : Fragment() {
         val items = listOf(
             CatalogItem(1, "Название предмета 1", "Описание предмета 1", R.drawable.ic_catalog),
             CatalogItem(2, "Название предмета 2", "Описание предмета 2", R.drawable.ic_catalog),
-            CatalogItem(3, "Название предмета 3", "Описание предмета 3", R.drawable.ic_catalog))
+            CatalogItem(3, "Название предмета 3", "Описание предмета 3", R.drawable.ic_catalog)
         )
 
         adapter = CatalogAdapter(items)

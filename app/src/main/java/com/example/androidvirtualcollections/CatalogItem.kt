@@ -4,5 +4,5 @@ data class CatalogItem(
     val id: Long,
     val title: String,
     val description: String,
-    val imageUrl: String
+    val imageResId: Int
 )

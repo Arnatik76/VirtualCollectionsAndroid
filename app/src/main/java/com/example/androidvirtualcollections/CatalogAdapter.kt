@@ -24,7 +24,7 @@ class CatalogAdapter(private val items: List<CatalogItem>) : RecyclerView.Adapte
         val item = items[position]
         holder.title.text = item.title
         holder.description.text = item.description
-        holder.image.setImageResource(item.imageUrl)
+        holder.image.setImageResource(item.imageResId)
     }
 
     override fun getItemCount() = items.size

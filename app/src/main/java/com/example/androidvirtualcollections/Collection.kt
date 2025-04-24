@@ -4,5 +4,5 @@ data class Collection(
     val id: Long,
     val title: String,
     val itemCout: Int,
-    val imageUrl: String
+    val imageResId: Int
 )

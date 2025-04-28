@@ -12,6 +12,7 @@ import com.example.androidvirtualcollections.R
 import com.example.androidvirtualcollections.adapter.CollectionAdapter
 import com.example.androidvirtualcollections.model.Collection
 import com.example.androidvirtualcollections.model.MediaItem
+import androidx.navigation.fragment.findNavController
 
 class CatalogFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
@@ -64,7 +65,10 @@ class CatalogFragment : Fragment() {
         )
 
         adapter = CollectionAdapter(catalogCollections) { collection ->
-            Toast.makeText(requireContext(), "Выбрана категория: ${collection.title}", Toast.LENGTH_SHORT).show()
+            // Переход к детальному фрагменту с передачей выбранной коллекции (категории)
+            val action = CatalogFragmentDirections.actionCatalogFragmentToCollectionDetailFragment(collection)
+            findNavController().navigate(action)
+            // Toast.makeText(requireContext(), "Выбрана категория: ${collection.title}", Toast.LENGTH_SHORT).show() // Можно убрать Toast
         }
         recyclerView.adapter = adapter
         recyclerView.layoutManager = GridLayoutManager(requireContext(), 2)

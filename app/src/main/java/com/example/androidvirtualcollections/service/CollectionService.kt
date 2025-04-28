@@ -17,9 +17,7 @@ class CollectionService : Service() {
 
     companion object {
         private const val TAG = "CollectionService"
-
         const val ACTION_BACKUP_COLLECTIONS = "action_backup_collections"
-
         private const val BACKUP_DIR = "backups"
     }
 

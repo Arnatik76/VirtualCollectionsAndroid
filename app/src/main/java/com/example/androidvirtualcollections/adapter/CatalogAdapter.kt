@@ -1,5 +1,6 @@
 package com.example.androidvirtualcollections.adapter
 
+import android.provider.MediaStore.Audio.Media
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +10,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.androidvirtualcollections.R
 import com.example.androidvirtualcollections.model.MediaItem
 
-class CatalogAdapter(private val items: List<MediaItem>) : RecyclerView.Adapter<CatalogAdapter.ViewHolder>() {
+class CatalogAdapter(
+    private val items: List<MediaItem>,
+    private val onItemClick: (MediaItem) -> Unit
+) : RecyclerView.Adapter<CatalogAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val image: ImageView = itemView.findViewById(R.id.itemImage)
@@ -27,6 +31,10 @@ class CatalogAdapter(private val items: List<MediaItem>) : RecyclerView.Adapter<
         holder.title.text = item.title
         holder.description.text = item.description
         holder.image.setImageResource(item.imageResId)
+
+        holder.itemView.setOnClickListener {
+            onItemClick(item)
+        }
     }
 
     override fun getItemCount() = items.size

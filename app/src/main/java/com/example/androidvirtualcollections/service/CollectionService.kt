@@ -19,7 +19,6 @@ class CollectionService : Service() {
         private const val TAG = "CollectionService"
 
         const val ACTION_BACKUP_COLLECTIONS = "action_backup_collections"
-        const val ACTION_EXPORT_COLLECTIONS = "action_export_collections"
 
         private const val BACKUP_DIR = "backups"
     }
@@ -35,11 +34,6 @@ class CollectionService : Service() {
             ACTION_BACKUP_COLLECTIONS -> {
                 thread {
                     backupCollections()
-                    stopSelf(startId)
-                }
-            }
-            ACTION_EXPORT_COLLECTIONS -> {
-                thread {
                     stopSelf(startId)
                 }
             }

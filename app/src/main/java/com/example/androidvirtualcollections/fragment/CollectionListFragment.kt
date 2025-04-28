@@ -19,6 +19,7 @@ import com.example.androidvirtualcollections.model.MediaItem
 import com.example.androidvirtualcollections.service.CollectionService
 import com.example.androidvirtualcollections.util.FileUtils
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import androidx.navigation.fragment.findNavController
 
 class CollectionListFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
@@ -50,16 +51,29 @@ class CollectionListFragment : Fragment() {
         } else {
             collections.add(
                 Collection(
-                id = 1,
-                title = "Моя коллекция монет",
-                description = "Нумизматическая коллекция",
-                items = mutableListOf(
-                    MediaItem(1, "Монета 1", "Серебряная монета",
-                        R.drawable.ic_catalog),
-                    MediaItem(2, "Монета 2", "Золотая монета",
-                        R.drawable.ic_catalog)
+                    id = 1,
+                    title = "Мои любимые фильмы",
+                    description = "Самые лучшие фильмы (субъективно)",
+                    items = mutableListOf(
+                        MediaItem(1, "Матрица", "«Матрица» (англ. The Matrix) — научно-фантастический боевик, поставленный братьями Вачовски по собственному сценарию и спродюсированный Джоэлом Сильвером.",
+                            R.drawable.ic_catalog),
+                        MediaItem(2, "Аватар", "«Авата́р» (англ. Avatar) — американский эпический научно-фантастический фильм 2009 года сценариста и режиссёра Джеймса Кэмерона с Сэмом Уортингтоном и Зои Салданой в главных ролях.",
+                            R.drawable.ic_catalog)
+                    )
                 )
             )
+            collections.add(
+                Collection(
+                    id = 1,
+                    title = "Лучшие видеоигры всех времен!",
+                    description = "SAMYE LUCHSHIE IGRY THAT HUMANITY HAS CREATED",
+                    items = mutableListOf(
+                        MediaItem(1, "Half-life", "Half-Life (с англ. «период полураспада») — компьютерная игра в жанре научно-фантастического шутера от первого лица, разработанная американской компанией Valve Corporation и изданная компанией Sierra Studios 19 ноября 1998 года для персональных компьютеров.",
+                            R.drawable.ic_catalog),
+                        MediaItem(2, "GTA: SA", "Grand Theft Auto: San Andreas (сокр. GTA: San Andreas, GTA: SA) — компьютерная игра в жанре action-adventure, разработанная студией Rockstar North и изданная компанией Rockstar Games.",
+                            R.drawable.ic_catalog)
+                    )
+                )
             )
             FileUtils.saveCollections(requireContext(), collections)
         }
@@ -67,7 +81,9 @@ class CollectionListFragment : Fragment() {
 
     private fun setupRecyclerView() {
         adapter = CollectionAdapter(collections) { collection ->
-            Toast.makeText(context, "Вы выбрали: ${collection.title}", Toast.LENGTH_SHORT).show()
+            // Переход к детальному фрагменту с передачей выбранной коллекции
+            val action = CollectionListFragmentDirections.actionCollectionListFragmentToCollectionDetailFragment(collection)
+            findNavController().navigate(action)
         }
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())

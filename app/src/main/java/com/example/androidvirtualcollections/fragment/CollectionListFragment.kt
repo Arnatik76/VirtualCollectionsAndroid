@@ -48,7 +48,6 @@ class CollectionListFragment : Fragment() {
         if (savedCollections.isNotEmpty()) {
             collections.addAll(savedCollections)
         } else {
-            // Демо-коллекции
             collections.add(
                 Collection(
                 id = 1,
@@ -67,7 +66,9 @@ class CollectionListFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        adapter = CollectionAdapter(collections)
+        adapter = CollectionAdapter(collections) { collection ->
+            Toast.makeText(context, "Вы выбрали: ${collection.title}", Toast.LENGTH_SHORT).show()
+        }
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
     }

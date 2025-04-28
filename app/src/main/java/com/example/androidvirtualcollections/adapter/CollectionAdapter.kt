@@ -9,8 +9,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.androidvirtualcollections.R
 import com.example.androidvirtualcollections.model.Collection
 
-class CollectionAdapter(private val collections: List<Collection>) :
-    RecyclerView.Adapter<CollectionAdapter.ViewHolder>() {
+class CollectionAdapter(
+    private val collections: List<Collection>,
+    private val onItemClick: (Collection) -> Unit
+) : RecyclerView.Adapter<CollectionAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val image: ImageView = itemView.findViewById(R.id.collectionImage)
@@ -29,6 +31,8 @@ class CollectionAdapter(private val collections: List<Collection>) :
         holder.title.text = collection.title
         holder.itemCount.text = "${collection.items?.size ?: 0} предметов"
         holder.image.setImageResource(collection.imageResId)
+
+        holder.itemView.setOnClickListener { onItemClick(collection) }
     }
 
     override fun getItemCount() = collections.size

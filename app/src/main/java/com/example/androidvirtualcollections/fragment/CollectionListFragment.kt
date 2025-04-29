@@ -1,25 +1,26 @@
 package com.example.androidvirtualcollections.fragment
 
-import android.content.Intent
-import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.view.ViewGroup
+import android.view.View
 import android.view.LayoutInflater
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.example.androidvirtualcollections.model.MediaItem
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.navigation.fragment.findNavController
+import android.content.Intent
+import android.widget.Toast
+import com.example.androidvirtualcollections.service.CollectionService
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
-import android.view.View
-import android.view.ViewGroup
-import android.widget.Toast
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import android.os.Bundle
+import androidx.fragment.app.Fragment
+
 import com.example.androidvirtualcollections.R
 import com.example.androidvirtualcollections.adapter.CollectionAdapter
 import com.example.androidvirtualcollections.model.Collection
-import com.example.androidvirtualcollections.model.MediaItem
-import com.example.androidvirtualcollections.service.CollectionService
 import com.example.androidvirtualcollections.util.FileUtils
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import androidx.navigation.fragment.findNavController
 
 class CollectionListFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
@@ -42,6 +43,20 @@ class CollectionListFragment : Fragment() {
         return view
     }
 
+    private fun addNewCollection() {
+        val newId = if (collections.isEmpty()) 1 else collections.maxByOrNull { it.id }!!.id + 1
+        val newCollection = Collection(
+            id = newId,
+            title = "Новая коллекция ${newId}",
+            description = "Описание коллекции",
+            items = mutableListOf()
+        )
+
+        collections.add(newCollection)
+        FileUtils.saveCollections(requireContext(), collections)
+        adapter.notifyItemInserted(collections.size - 1)
+    }
+
     private fun loadCollections() {
         val savedCollections = FileUtils.loadCollections(requireContext())
         collections.clear()
@@ -49,19 +64,6 @@ class CollectionListFragment : Fragment() {
         if (savedCollections.isNotEmpty()) {
             collections.addAll(savedCollections)
         } else {
-            collections.add(
-                Collection(
-                    id = 1,
-                    title = "Мои любимые фильмы",
-                    description = "Самые лучшие фильмы (субъективно)",
-                    items = mutableListOf(
-                        MediaItem(1, "Матрица", "«Матрица» (англ. The Matrix) — научно-фантастический боевик, поставленный братьями Вачовски по собственному сценарию и спродюсированный Джоэлом Сильвером.",
-                            R.drawable.ic_catalog),
-                        MediaItem(2, "Аватар", "«Авата́р» (англ. Avatar) — американский эпический научно-фантастический фильм 2009 года сценариста и режиссёра Джеймса Кэмерона с Сэмом Уортингтоном и Зои Салданой в главных ролях.",
-                            R.drawable.ic_catalog)
-                    )
-                )
-            )
             collections.add(
                 Collection(
                     id = 1,
@@ -81,7 +83,6 @@ class CollectionListFragment : Fragment() {
 
     private fun setupRecyclerView() {
         adapter = CollectionAdapter(collections) { collection ->
-            // Переход к детальному фрагменту с передачей выбранной коллекции
             val action = CollectionListFragmentDirections.actionCollectionListFragmentToCollectionDetailFragment(collection)
             findNavController().navigate(action)
         }
@@ -115,19 +116,5 @@ class CollectionListFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
-    }
-
-    private fun addNewCollection() {
-        val newId = if (collections.isEmpty()) 1 else collections.maxByOrNull { it.id }!!.id + 1
-        val newCollection = Collection(
-            id = newId,
-            title = "Новая коллекция ${newId}",
-            description = "Описание коллекции",
-            items = mutableListOf()
-        )
-
-        collections.add(newCollection)
-        FileUtils.saveCollections(requireContext(), collections)
-        adapter.notifyItemInserted(collections.size - 1)
     }
 }

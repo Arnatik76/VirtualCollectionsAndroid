@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">FinalProject</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="login_logo_description">Логотип приложения</string>
+    <string name="hint_email">Электронная почта</string>
+    <string name="hint_password">Пароль</string>
+    <string name="login_button_text">Войти</string>
+    <string name="forgot_password_text">Забыли пароль?</string>
+    <string name="no_account_text">Нет аккаунта?</string>
+    <string name="sign_up_text">Зарегистрироваться</string>
+    <string name="error_invalid_email">Неверный формат электронной почты</string>
+    <string name="error_empty_password">Пароль не может быть пустым</string>
+    <string name="action_loginFragment_to_registerFragment">action_loginFragment_to_registerFragment</string>
+</resources>

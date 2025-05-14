@@ -1,0 +1,2269 @@
+﻿# PROJECT CODE COMPILATION
+# Generated on 05/14/2025 20:56:12
+# Source: C:\Users\Arnat\AndroidStudioProjects\FinalProject
+
+
+###############################################################################
+# FILE: get_project_code.bat
+###############################################################################
+
+@echo off
+echo Running code collection script...
+powershell.exe -ExecutionPolicy Bypass -File "%~dp0CollectCode.ps1"
+
+###############################################################################
+# FILE: gradle.properties
+###############################################################################
+
+# Project-wide Gradle settings.
+# IDE (e.g. Android Studio) users:
+# Gradle settings configured through the IDE *will override*
+# any settings specified in this file.
+# For more details on how to configure your build environment visit
+# http://www.gradle.org/docs/current/userguide/build_environment.html
+# Specifies the JVM arguments used for the daemon process.
+# The setting is particularly useful for tweaking memory settings.
+org.gradle.jvmargs=-Xmx2048m -Dfile.encoding=UTF-8
+# When configured, Gradle will run in incubating parallel mode.
+# This option should only be used with decoupled projects. For more details, visit
+# https://developer.android.com/r/tools/gradle-multi-project-decoupled-projects
+# org.gradle.parallel=true
+# AndroidX package structure to make it clearer which packages are bundled with the
+# Android operating system, and which are packaged with your app's APK
+# https://developer.android.com/topic/libraries/support-library/androidx-rn
+android.useAndroidX=true
+# Kotlin code style for this project: "official" or "obsolete":
+kotlin.code.style=official
+# Enables namespacing of each library's R class so that its R class includes only the
+# resources declared in the library itself and none from the library's dependencies,
+# thereby reducing the size of the R class for that library
+android.nonTransitiveRClass=true
+
+###############################################################################
+# FILE: gradlew.bat
+###############################################################################
+
+@rem
+@rem Copyright 2015 the original author or authors.
+@rem
+@rem Licensed under the Apache License, Version 2.0 (the "License");
+@rem you may not use this file except in compliance with the License.
+@rem You may obtain a copy of the License at
+@rem
+@rem      https://www.apache.org/licenses/LICENSE-2.0
+@rem
+@rem Unless required by applicable law or agreed to in writing, software
+@rem distributed under the License is distributed on an "AS IS" BASIS,
+@rem WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+@rem See the License for the specific language governing permissions and
+@rem limitations under the License.
+@rem
+
+@if "%DEBUG%" == "" @echo off
+@rem ##########################################################################
+@rem
+@rem  Gradle startup script for Windows
+@rem
+@rem ##########################################################################
+
+@rem Set local scope for the variables with windows NT shell
+if "%OS%"=="Windows_NT" setlocal
+
+set DIRNAME=%~dp0
+if "%DIRNAME%" == "" set DIRNAME=.
+set APP_BASE_NAME=%~n0
+set APP_HOME=%DIRNAME%
+
+@rem Resolve any "." and ".." in APP_HOME to make it shorter.
+for %%i in ("%APP_HOME%") do set APP_HOME=%%~fi
+
+@rem Add default JVM options here. You can also use JAVA_OPTS and GRADLE_OPTS to pass JVM options to this script.
+set DEFAULT_JVM_OPTS="-Xmx64m" "-Xms64m"
+
+@rem Find java.exe
+if defined JAVA_HOME goto findJavaFromJavaHome
+
+set JAVA_EXE=java.exe
+%JAVA_EXE% -version >NUL 2>&1
+if "%ERRORLEVEL%" == "0" goto execute
+
+echo.
+echo ERROR: JAVA_HOME is not set and no 'java' command could be found in your PATH.
+echo.
+echo Please set the JAVA_HOME variable in your environment to match the
+echo location of your Java installation.
+
+goto fail
+
+:findJavaFromJavaHome
+set JAVA_HOME=%JAVA_HOME:"=%
+set JAVA_EXE=%JAVA_HOME%/bin/java.exe
+
+if exist "%JAVA_EXE%" goto execute
+
+echo.
+echo ERROR: JAVA_HOME is set to an invalid directory: %JAVA_HOME%
+echo.
+echo Please set the JAVA_HOME variable in your environment to match the
+echo location of your Java installation.
+
+goto fail
+
+:execute
+@rem Setup the command line
+
+set CLASSPATH=%APP_HOME%\gradle\wrapper\gradle-wrapper.jar
+
+
+@rem Execute Gradle
+"%JAVA_EXE%" %DEFAULT_JVM_OPTS% %JAVA_OPTS% %GRADLE_OPTS% "-Dorg.gradle.appname=%APP_BASE_NAME%" -classpath "%CLASSPATH%" org.gradle.wrapper.GradleWrapperMain %*
+
+:end
+@rem End local scope for the variables with windows NT shell
+if "%ERRORLEVEL%"=="0" goto mainEnd
+
+:fail
+rem Set variable GRADLE_EXIT_CONSOLE if you need the _script_ return code instead of
+rem the _cmd.exe /c_ return code!
+if  not "" == "%GRADLE_EXIT_CONSOLE%" exit 1
+exit /b 1
+
+:mainEnd
+if "%OS%"=="Windows_NT" endlocal
+
+:omega
+
+
+###############################################################################
+# FILE: local.properties
+###############################################################################
+
+## This file is automatically generated by Android Studio.
+# Do not modify this file -- YOUR CHANGES WILL BE ERASED!
+#
+# This file should *NOT* be checked into Version Control Systems,
+# as it contains information specific to your local configuration.
+#
+# Location of the SDK. This is only used by Gradle.
+# For customization when using a Version Control System, please read the
+# header note.
+sdk.dir=C\:\\Users\\Arnat\\AppData\\Local\\Android\\Sdk
+
+###############################################################################
+# FILE: gradle\wrapper\gradle-wrapper.properties
+###############################################################################
+
+#Tue May 06 12:25:58 QYZT 2025
+distributionBase=GRADLE_USER_HOME
+distributionPath=wrapper/dists
+distributionUrl=https\://services.gradle.org/distributions/gradle-8.11.1-bin.zip
+zipStoreBase=GRADLE_USER_HOME
+zipStorePath=wrapper/dists
+
+
+###############################################################################
+# FILE: app\src\main\AndroidManifest.xml
+###############################################################################
+
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.FinalProject"
+        android:usesCleartextTraffic="true"
+        tools:targetApi="31">
+    <activity
+        android:name=".MainActivity"
+        android:exported="true">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+    </activity>
+</application>
+
+<uses-permission android:name="android.permission.INTERNET" />
+    </manifest>
+
+###############################################################################
+# FILE: app\src\main\res\drawable\ic_launcher_background.xml
+###############################################################################
+
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <path
+        android:fillColor="#3DDC84"
+        android:pathData="M0,0h108v108h-108z" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M9,0L9,108"
+        android:strokeWidth="0.8"
+        android:strokeColor="#33FFFFFF" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M19,0L19,108"
+        android:strokeWidth="0.8"
+        android:strokeColor="#33FFFFFF" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M29,0L29,108"
+        android:strokeWidth="0.8"
+        android:strokeColor="#33FFFFFF" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M39,0L39,108"
+        android:strokeWidth="0.8"
+        android:strokeColor="#33FFFFFF" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M49,0L49,108"
+        android:strokeWidth="0.8"
+        android:strokeColor="#33FFFFFF" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M59,0L59,108"
+        android:strokeWidth="0.8"
+        android:strokeColor="#33FFFFFF" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M69,0L69,108"
+        android:strokeWidth="0.8"
+        android:strokeColor="#33FFFFFF" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M79,0L79,108"
+        android:strokeWidth="0.8"
+        android:strokeColor="#33FFFFFF" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M89,0L89,108"
+        android:strokeWidth="0.8"
+        android:strokeColor="#33FFFFFF" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M99,0L99,108"
+        android:strokeWidth="0.8"
+        android:strokeColor="#33FFFFFF" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M0,9L108,9"
+        android:strokeWidth="0.8"
+        android:strokeColor="#33FFFFFF" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M0,19L108,19"
+        android:strokeWidth="0.8"
+        android:strokeColor="#33FFFFFF" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M0,29L108,29"
+        android:strokeWidth="0.8"
+        android:strokeColor="#33FFFFFF" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M0,39L108,39"
+        android:strokeWidth="0.8"
+        android:strokeColor="#33FFFFFF" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M0,49L108,49"
+        android:strokeWidth="0.8"
+        android:strokeColor="#33FFFFFF" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M0,59L108,59"
+        android:strokeWidth="0.8"
+        android:strokeColor="#33FFFFFF" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M0,69L108,69"
+        android:strokeWidth="0.8"
+        android:strokeColor="#33FFFFFF" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M0,79L108,79"
+        android:strokeWidth="0.8"
+        android:strokeColor="#33FFFFFF" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M0,89L108,89"
+        android:strokeWidth="0.8"
+        android:strokeColor="#33FFFFFF" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M0,99L108,99"
+        android:strokeWidth="0.8"
+        android:strokeColor="#33FFFFFF" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M19,29L89,29"
+        android:strokeWidth="0.8"
+        android:strokeColor="#33FFFFFF" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M19,39L89,39"
+        android:strokeWidth="0.8"
+        android:strokeColor="#33FFFFFF" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M19,49L89,49"
+        android:strokeWidth="0.8"
+        android:strokeColor="#33FFFFFF" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M19,59L89,59"
+        android:strokeWidth="0.8"
+        android:strokeColor="#33FFFFFF" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M19,69L89,69"
+        android:strokeWidth="0.8"
+        android:strokeColor="#33FFFFFF" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M19,79L89,79"
+        android:strokeWidth="0.8"
+        android:strokeColor="#33FFFFFF" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M29,19L29,89"
+        android:strokeWidth="0.8"
+        android:strokeColor="#33FFFFFF" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M39,19L39,89"
+        android:strokeWidth="0.8"
+        android:strokeColor="#33FFFFFF" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M49,19L49,89"
+        android:strokeWidth="0.8"
+        android:strokeColor="#33FFFFFF" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M59,19L59,89"
+        android:strokeWidth="0.8"
+        android:strokeColor="#33FFFFFF" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M69,19L69,89"
+        android:strokeWidth="0.8"
+        android:strokeColor="#33FFFFFF" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M79,19L79,89"
+        android:strokeWidth="0.8"
+        android:strokeColor="#33FFFFFF" />
+</vector>
+
+
+###############################################################################
+# FILE: app\src\main\res\drawable\ic_launcher_foreground.xml
+###############################################################################
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <path android:pathData="M31,63.928c0,0 6.4,-11 12.1,-13.1c7.2,-2.6 26,-1.4 26,-1.4l38.1,38.1L107,108.928l-32,-1L31,63.928z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:endX="85.84757"
+                android:endY="92.4963"
+                android:startX="42.9492"
+                android:startY="49.59793"
+                android:type="linear">
+                <item
+                    android:color="#44000000"
+                    android:offset="0.0" />
+                <item
+                    android:color="#00000000"
+                    android:offset="1.0" />
+            </gradient>
+        </aapt:attr>
+    </path>
+    <path
+        android:fillColor="#FFFFFF"
+        android:fillType="nonZero"
+        android:pathData="M65.3,45.828l3.8,-6.6c0.2,-0.4 0.1,-0.9 -0.3,-1.1c-0.4,-0.2 -0.9,-0.1 -1.1,0.3l-3.9,6.7c-6.3,-2.8 -13.4,-2.8 -19.7,0l-3.9,-6.7c-0.2,-0.4 -0.7,-0.5 -1.1,-0.3C38.8,38.328 38.7,38.828 38.9,39.228l3.8,6.6C36.2,49.428 31.7,56.028 31,63.928h46C76.3,56.028 71.8,49.428 65.3,45.828zM43.4,57.328c-0.8,0 -1.5,-0.5 -1.8,-1.2c-0.3,-0.7 -0.1,-1.5 0.4,-2.1c0.5,-0.5 1.4,-0.7 2.1,-0.4c0.7,0.3 1.2,1 1.2,1.8C45.3,56.528 44.5,57.328 43.4,57.328L43.4,57.328zM64.6,57.328c-0.8,0 -1.5,-0.5 -1.8,-1.2s-0.1,-1.5 0.4,-2.1c0.5,-0.5 1.4,-0.7 2.1,-0.4c0.7,0.3 1.2,1 1.2,1.8C66.5,56.528 65.6,57.328 64.6,57.328L64.6,57.328z"
+        android:strokeWidth="1"
+        android:strokeColor="#00000000" />
+</vector>
+
+###############################################################################
+# FILE: app\src\main\res\layout\activity_main.xml
+###############################################################################
+
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/nav_host_fragment"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/nav_graph" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+###############################################################################
+# FILE: app\src\main\res\layout\fragment_add_item.xml
+###############################################################################
+
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.collection.AddItemFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/hello_blank_fragment" />
+
+</FrameLayout>
+
+###############################################################################
+# FILE: app\src\main\res\layout\fragment_collection_details.xml
+###############################################################################
+
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.collection.CollectionDetailsFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/hello_blank_fragment" />
+
+</FrameLayout>
+
+###############################################################################
+# FILE: app\src\main\res\layout\fragment_create_collection.xml
+###############################################################################
+
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.collection.EditCollectionFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/hello_blank_fragment" />
+
+</FrameLayout>
+
+###############################################################################
+# FILE: app\src\main\res\layout\fragment_edit_media_item.xml
+###############################################################################
+
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.mediaitem.EditMediaItemFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/hello_blank_fragment" />
+
+</FrameLayout>
+
+###############################################################################
+# FILE: app\src\main\res\layout\fragment_edit_profile.xml
+###############################################################################
+
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.user.EditProfileFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/hello_blank_fragment" />
+
+</FrameLayout>
+
+###############################################################################
+# FILE: app\src\main\res\layout\fragment_forgot_password.xml
+###############################################################################
+
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    tools:context=".fragments.user.ForgotPasswordFragment">
+
+    <TextView
+        android:id="@+id/titleTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Восстановление пароля"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="32dp"/>
+
+    <TextView
+        android:id="@+id/instructionTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Введите адрес электронной почты, связанный с вашим аккаунтом, и мы отправим вам инструкции по сбросу пароля."
+        android:textSize="16sp"
+        android:textAlignment="center"
+        app:layout_constraintTop_toBottomOf="@id/titleTextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/emailTextInputLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        app:layout_constraintTop_toBottomOf="@id/instructionTextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:hint="@string/hint_email">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/emailEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/sendButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Отправить"
+        app:layout_constraintTop_toBottomOf="@id/emailTextInputLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="24dp"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp"/>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:visibility="visible"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+###############################################################################
+# FILE: app\src\main\res\layout\fragment_home.xml
+###############################################################################
+
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.collection.HomeFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/hello_blank_fragment" />
+
+</FrameLayout>
+
+###############################################################################
+# FILE: app\src\main\res\layout\fragment_login.xml
+###############################################################################
+
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    tools:context=".fragments.user.LoginFragment">
+
+    <ImageView
+        android:id="@+id/login_logo"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="64dp"
+        android:contentDescription="@string/login_logo_description"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/ic_lock_lock" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/email_text_input_layout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/login_logo">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/email_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/hint_email"
+            android:inputType="textEmailAddress" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/password_text_input_layout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/email_text_input_layout"
+        app:passwordToggleEnabled="true">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/password_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/hint_password"
+            android:inputType="textPassword" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/login_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="@string/login_button_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/password_text_input_layout" />
+
+    <TextView
+        android:id="@+id/forgot_password_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/forgot_password_text"
+        android:textColor="?attr/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/login_button" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginBottom="32dp">
+
+        <TextView
+            android:id="@+id/no_account_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/no_account_text" />
+
+        <TextView
+            android:id="@+id/sign_up_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:text="@string/sign_up_text"
+            android:textColor="?attr/colorPrimary"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+###############################################################################
+# FILE: app\src\main\res\layout\fragment_media_item_details.xml
+###############################################################################
+
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.mediaitem.MediaItemDetailsFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/hello_blank_fragment" />
+
+</FrameLayout>
+
+###############################################################################
+# FILE: app\src\main\res\layout\fragment_my_collections.xml
+###############################################################################
+
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.collection.MyCollectionsFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/hello_blank_fragment" />
+
+</FrameLayout>
+
+###############################################################################
+# FILE: app\src\main\res\layout\fragment_registration.xml
+###############################################################################
+
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.user.RegistrationFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/hello_blank_fragment" />
+
+</FrameLayout>
+
+###############################################################################
+# FILE: app\src\main\res\layout\fragment_user_profile.xml
+###############################################################################
+
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.user.UserProfileFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/hello_blank_fragment" />
+
+</FrameLayout>
+
+###############################################################################
+# FILE: app\src\main\res\mipmap-anydpi\ic_launcher.xml
+###############################################################################
+
+<?xml version="1.0" encoding="utf-8"?>
+<adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
+    <background android:drawable="@drawable/ic_launcher_background" />
+    <foreground android:drawable="@drawable/ic_launcher_foreground" />
+    <monochrome android:drawable="@drawable/ic_launcher_foreground" />
+</adaptive-icon>
+
+###############################################################################
+# FILE: app\src\main\res\mipmap-anydpi\ic_launcher_round.xml
+###############################################################################
+
+<?xml version="1.0" encoding="utf-8"?>
+<adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
+    <background android:drawable="@drawable/ic_launcher_background" />
+    <foreground android:drawable="@drawable/ic_launcher_foreground" />
+    <monochrome android:drawable="@drawable/ic_launcher_foreground" />
+</adaptive-icon>
+
+###############################################################################
+# FILE: app\src\main\res\navigation\nav_graph.xml
+###############################################################################
+
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/login">
+
+    <fragment
+        android:id="@+id/login"
+        android:name="com.example.finalproject.fragments.user.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_login_to_registration"
+            app:destination="@id/registration" />
+        <action
+            android:id="@+id/action_login_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/login"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_login_to_forgotPasswordFragment"
+            app:destination="@id/forgetPasswordFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/registration"
+        android:name="com.example.finalproject.fragments.user.RegistrationFragment"
+        android:label="fragment_registration"
+        tools:layout="@layout/fragment_registration" />
+    <fragment
+        android:id="@+id/userProfile"
+        android:name="com.example.finalproject.fragments.user.UserProfileFragment"
+        android:label="fragment_user_profile"
+        tools:layout="@layout/fragment_user_profile" />
+    <fragment
+        android:id="@+id/editProfile"
+        android:name="com.example.finalproject.fragments.user.EditProfileFragment"
+        android:label="fragment_edit_profile"
+        tools:layout="@layout/fragment_edit_profile" />
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.finalproject.fragments.collection.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/myCollectionsFragment"
+        android:name="com.example.finalproject.fragments.collection.MyCollectionsFragment"
+        android:label="fragment_my_collections"
+        tools:layout="@layout/fragment_my_collections" />
+    <fragment
+        android:id="@+id/collectionDetailsFragment"
+        android:name="com.example.finalproject.fragments.collection.CollectionDetailsFragment"
+        android:label="fragment_collection_details"
+        tools:layout="@layout/fragment_collection_details" />
+    <fragment
+        android:id="@+id/createCollectionFragment"
+        android:name="com.example.finalproject.fragments.collection.EditCollectionFragment"
+        android:label="fragment_create_collection"
+        tools:layout="@layout/fragment_create_collection" />
+    <fragment
+        android:id="@+id/addItemFragment"
+        android:name="com.example.finalproject.fragments.collection.AddItemFragment"
+        android:label="fragment_add_item"
+        tools:layout="@layout/fragment_add_item" />
+    <fragment
+        android:id="@+id/mediaItemDetailsFragment"
+        android:name="com.example.finalproject.fragments.mediaitem.MediaItemDetailsFragment"
+        android:label="fragment_media_item_details"
+        tools:layout="@layout/fragment_media_item_details" />
+    <fragment
+        android:id="@+id/editMediaItemFragment"
+        android:name="com.example.finalproject.fragments.mediaitem.EditMediaItemFragment"
+        android:label="fragment_edit_media_item"
+        tools:layout="@layout/fragment_edit_media_item" />
+    <fragment
+        android:id="@+id/forgetPasswordFragment"
+        android:name="com.example.finalproject.fragments.user.ForgotPasswordFragment"
+        android:label="fragment_forget_password"
+        tools:layout="@layout/fragment_forgot_password" />
+</navigation>
+
+###############################################################################
+# FILE: app\src\main\res\values\colors.xml
+###############################################################################
+
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+</resources>
+
+###############################################################################
+# FILE: app\src\main\res\values\strings.xml
+###############################################################################
+
+<resources>
+    <string name="app_name">FinalProject</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="login_logo_description">Логотип приложения</string>
+    <string name="hint_email">Электронная почта</string>
+    <string name="hint_password">Пароль</string>
+    <string name="login_button_text">Войти</string>
+    <string name="forgot_password_text">Забыли пароль?</string>
+    <string name="no_account_text">Нет аккаунта?</string>
+    <string name="sign_up_text">Зарегистрироваться</string>
+    <string name="error_invalid_email">Неверный формат электронной почты</string>
+    <string name="error_empty_password">Пароль не может быть пустым</string>
+    <string name="action_loginFragment_to_registerFragment">action_loginFragment_to_registerFragment</string>
+</resources>
+
+###############################################################################
+# FILE: app\src\main\res\values\themes.xml
+###############################################################################
+
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.FinalProject" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    </style>
+
+    <style name="Theme.FinalProject" parent="Base.Theme.FinalProject" />
+</resources>
+
+###############################################################################
+# FILE: app\src\main\res\values-night\themes.xml
+###############################################################################
+
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.FinalProject" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your dark theme here. -->
+        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+    </style>
+</resources>
+
+###############################################################################
+# FILE: app\src\main\res\xml\backup_rules.xml
+###############################################################################
+
+<?xml version="1.0" encoding="utf-8"?><!--
+   Sample backup rules file; uncomment and customize as necessary.
+   See https://developer.android.com/guide/topics/data/autobackup
+   for details.
+   Note: This file is ignored for devices older than API 31
+   See https://developer.android.com/about/versions/12/backup-restore
+-->
+<full-backup-content>
+    <!--
+   <include domain="sharedpref" path="."/>
+   <exclude domain="sharedpref" path="device.xml"/>
+-->
+</full-backup-content>
+
+###############################################################################
+# FILE: app\src\main\res\xml\data_extraction_rules.xml
+###############################################################################
+
+<?xml version="1.0" encoding="utf-8"?><!--
+   Sample data extraction rules file; uncomment and customize as necessary.
+   See https://developer.android.com/about/versions/12/backup-restore#xml-changes
+   for details.
+-->
+<data-extraction-rules>
+    <cloud-backup>
+        <!-- TODO: Use <include> and <exclude> to control what is backed up.
+        <include .../>
+        <exclude .../>
+        -->
+    </cloud-backup>
+    <!--
+    <device-transfer>
+        <include .../>
+        <exclude .../>
+    </device-transfer>
+    -->
+</data-extraction-rules>
+
+###############################################################################
+# FILE: app\src\main\java\com\example\finalproject\MainActivity.kt
+###############################################################################
+
+package com.example.finalproject
+
+import android.os.Bundle
+import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.navigation.fragment.NavHostFragment // Добавьте этот импорт
+import androidx.navigation.ui.setupActionBarWithNavController // Добавьте этот импорт, если используете ActionBar
+
+class MainActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+        setContentView(R.layout.activity_main)
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
+
+        // Настройка NavController с NavHostFragment
+        // val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        // val navController = navHostFragment.navController
+        // Если вы используете ActionBar и хотите, чтобы он обновлялся с навигацией:
+        // setupActionBarWithNavController(navController)
+    }
+
+    // Если вы используете setupActionBarWithNavController, вам также нужно переопределить onSupportNavigateUp:
+    /*
+    override fun onSupportNavigateUp(): Boolean {
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        val navController = navHostFragment.navController
+        return navController.navigateUp() || super.onSupportNavigateUp()
+    }
+    */
+}
+
+###############################################################################
+# FILE: app\src\main\java\com\example\finalproject\api\ApiService.kt
+###############################################################################
+
+package com.example.finalproject.api
+
+import com.example.finalproject.models.Collection
+import com.example.finalproject.models.LoginRequest // Добавлен импорт
+import com.example.finalproject.models.AuthResponse // Добавлен импорт
+import com.example.finalproject.models.ForgotPasswordRequest
+import okhttp3.ResponseBody
+import retrofit2.Call
+import retrofit2.http.Body
+import retrofit2.http.GET
+import retrofit2.http.POST
+import retrofit2.http.Path
+
+interface ApiService {
+    @POST("collections")
+    fun createCollection(
+        @Body collection: Collection
+    ): Call<Collection>
+
+    @GET("collections/{id}")
+    fun getCollections(@Path("id") collectionId: Int): Call<Collection>
+
+    // Добавлен эндпоинт для входа
+    @POST("auth/login") // Убедитесь, что путь "auth/login" соответствует вашему API
+    fun loginUser(@Body loginRequest: LoginRequest): Call<AuthResponse>
+
+    @POST("auth/forgot-password")
+    fun forgotPassword(@Body forgotPasswordRequest: ForgotPasswordRequest): Call<ResponseBody>
+
+//    @GET("achievements/{id}")
+//    fun getAchievement(@Path("id") achievementId: Int): Call<AchievementType>
+}
+
+###############################################################################
+# FILE: app\src\main\java\com\example\finalproject\api\RetrofitClient.kt
+###############################################################################
+
+package com.example.finalproject.api
+
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+
+object RetrofitClient {
+    private const val BASE_URL = "http://10.0.2.2:8080/"
+
+    val instance: ApiService by lazy {
+        val retrofit = Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+        retrofit.create(ApiService::class.java)
+    }
+}
+
+###############################################################################
+# FILE: app\src\main\java\com\example\finalproject\models\AchievementType.kt
+###############################################################################
+
+package com.example.finalproject.models
+
+data class AchievementType(
+    val achievementId: Int,
+    val name: String,
+    val description: String?,
+    val iconUrl: String?,
+    val requirement: String?
+)
+
+###############################################################################
+# FILE: app\src\main\java\com\example\finalproject\models\AuthResponse.kt
+###############################################################################
+
+package com.example.finalproject.models
+
+data class AuthResponse(
+    val token: String,
+    val user: User
+)
+
+###############################################################################
+# FILE: app\src\main\java\com\example\finalproject\models\Collection.kt
+###############################################################################
+
+package com.example.finalproject.models
+
+data class Collection(
+    val collectionId: Int,
+    val title: String,
+    val description: String?,
+    val coverImageUrl: String?,
+    val userId: Int, // Может быть заменен на вложенный объект User (создателя)
+    val createdAt: String, // Или использовать тип Date/Timestamp
+    val updatedAt: String, // Или использовать тип Date/Timestamp
+    val isPublic: Boolean,
+    val viewCount: Int,
+    // Дополнительные поля, которые может вернуть API
+    val owner: User? = null, // Если API будет возвращать вложенный объект создателя
+    val items: List<CollectionItemEntry>? = null, // Список элементов в коллекции
+    val collaborators: List<User>? = null, // Список соавторов
+    val likeCount: Int? = null, // Количество лайков (может приходить отдельным запросом или в составе)
+    val commentCount: Int? = null // Количество комментариев
+)
+
+###############################################################################
+# FILE: app\src\main\java\com\example\finalproject\models\CollectionCollaborator.kt
+###############################################################################
+
+package com.example.finalproject.models
+
+data class CollectionCollaborator(
+    val collectionId: Int,
+    val userId: Int,
+    val role: String,
+    val joinedAt: String, // Или использовать тип Date/Timestamp
+    val user: User? = null // Если API будет возвращать детали соавтора
+)
+
+###############################################################################
+# FILE: app\src\main\java\com\example\finalproject\models\CollectionComment.kt
+###############################################################################
+
+package com.example.finalproject.models
+
+data class CollectionComment(
+    val commentId: Int,
+    val collectionId: Int,
+    val userId: Int?,
+    val commentText: String,
+    val createdAt: String, // Или использовать тип Date/Timestamp
+    val user: User? = null // Детали пользователя, оставившего комментарий
+)
+
+###############################################################################
+# FILE: app\src\main\java\com\example\finalproject\models\CollectionItemEntry.kt
+###############################################################################
+
+package com.example.finalproject.models
+
+data class CollectionItemEntry( // Переименовал, чтобы не путать с MediaItem
+    val collectionId: Int,
+    val itemId: Int,
+    val addedByUserId: Int?,
+    val addedAt: String, // Или использовать тип Date/Timestamp
+    val position: Int?,
+    val notes: String?,
+    val mediaItem: MediaItem, // Вложенный объект самого медиа-элемента
+    val addedByUser: User? = null // Пользователь, добавивший элемент
+)
+
+###############################################################################
+# FILE: app\src\main\java\com\example\finalproject\models\CollectionLike.kt
+###############################################################################
+
+package com.example.finalproject.models
+
+data class CollectionLike(
+    val userId: Int,
+    val collectionId: Int,
+    val likedAt: String, // Или использовать тип Date/Timestamp
+    val user: User? = null // Детали пользователя, который поставил лайк
+)
+
+###############################################################################
+# FILE: app\src\main\java\com\example\finalproject\models\ContentType.kt
+###############################################################################
+
+package com.example.finalproject.models
+
+data class ContentType(
+    val typeId: Int,
+    val typeName: String,
+    val typeIcon: String?
+)
+
+###############################################################################
+# FILE: app\src\main\java\com\example\finalproject\models\CreateCollectionRequest.kt
+###############################################################################
+
+package com.example.finalproject.models
+
+data class CreateCollectionRequest(
+    val title: String,
+    val description: String?,
+    val coverImageUrl: String?,
+    val isPublic: Boolean
+    // userId обычно берется из токена на сервере
+)
+
+###############################################################################
+# FILE: app\src\main\java\com\example\finalproject\models\ForgotPasswordRequest.kt
+###############################################################################
+
+package com.example.finalproject.models
+
+data class ForgotPasswordRequest(
+    val email: String
+)
+
+###############################################################################
+# FILE: app\src\main\java\com\example\finalproject\models\LoginRequest.kt
+###############################################################################
+
+package com.example.finalproject.models
+
+data class LoginRequest(
+    val usernameOrEmail: String,
+    val password: String
+)
+
+###############################################################################
+# FILE: app\src\main\java\com\example\finalproject\models\MediaItem.kt
+###############################################################################
+
+package com.example.finalproject.models
+
+data class MediaItem(
+    val itemId: Int,
+    val typeId: Int, // Может быть заменен на вложенный объект ContentType при получении
+    val title: String,
+    val creator: String?,
+    val description: String?,
+    val thumbnailUrl: String?,
+    val externalUrl: String?,
+    val releaseDate: String?, // Или использовать тип Date
+    val addedAt: String, // Или использовать тип Date/Timestamp
+    // Для удобства можно добавить поля, не являющиеся прямыми колонками,
+    // например, список тегов или тип контента как объект
+    val contentType: ContentType? = null, // Если API будет возвращать вложенный объект
+    val tags: List<Tag>? = null // Если API будет возвращать вложенный список тегов
+)
+
+###############################################################################
+# FILE: app\src\main\java\com\example\finalproject\models\Tag.kt
+###############################################################################
+
+package com.example.finalproject.models
+
+data class Tag(
+    val tagId: Int,
+    val tagName: String
+)
+
+###############################################################################
+# FILE: app\src\main\java\com\example\finalproject\models\User.kt
+###############################################################################
+
+package com.example.finalproject.models
+
+data class User(
+    val userId: Int,
+    val username: String,
+    val email: String,
+    // user_password обычно не передается клиенту
+    val displayName: String?,
+    val bio: String?,
+    val avatarUrl: String?,
+    val createdAt: String, // Или использовать тип Date/Timestamp
+    val lastLogin: String?, // Или использовать тип Date/Timestamp
+    val isActive: Boolean
+)
+
+###############################################################################
+# FILE: app\src\main\java\com\example\finalproject\models\UserAchievement.kt
+###############################################################################
+
+package com.example.finalproject.models
+
+data class UserAchievement(
+    val userId: Int,
+    val achievementId: Int,
+    val achievedAt: String, // Или использовать тип Date/Timestamp
+    val achievementDetails: AchievementType? = null // Детали самого достижения
+)
+
+###############################################################################
+# FILE: app\src\main\java\com\example\finalproject\models\UserFollow.kt
+###############################################################################
+
+package com.example.finalproject.models
+
+data class UserFollow(
+    val followerId: Int,
+    val followedId: Int,
+    val followedAt: String, // Или использовать тип Date/Timestamp
+    val followerDetails: User? = null, // Детали подписчика
+    val followedDetails: User? = null  // Детали того, на кого подписаны
+)
+
+###############################################################################
+# FILE: app\src\main\java\com\example\finalproject\fragments\collection\AddItemFragment.kt
+###############################################################################
+
+package com.example.finalproject.fragments.collection
+
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import com.example.finalproject.R
+
+// TODO: Rename parameter arguments, choose names that match
+// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+private const val ARG_PARAM1 = "param1"
+private const val ARG_PARAM2 = "param2"
+
+/**
+ * A simple [androidx.fragment.app.Fragment] subclass.
+ * Use the [AddItemFragment.newInstance] factory method to
+ * create an instance of this fragment.
+ */
+class AddItemFragment : Fragment() {
+    // TODO: Rename and change types of parameters
+    private var param1: String? = null
+    private var param2: String? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            param1 = it.getString(ARG_PARAM1)
+            param2 = it.getString(ARG_PARAM2)
+        }
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_add_item, container, false)
+    }
+
+    companion object {
+        /**
+         * Use this factory method to create a new instance of
+         * this fragment using the provided parameters.
+         *
+         * @param param1 Parameter 1.
+         * @param param2 Parameter 2.
+         * @return A new instance of fragment AddItemFragment.
+         */
+        // TODO: Rename and change types and number of parameters
+        @JvmStatic
+        fun newInstance(param1: String, param2: String) =
+            AddItemFragment().apply {
+                arguments = Bundle().apply {
+                    putString(ARG_PARAM1, param1)
+                    putString(ARG_PARAM2, param2)
+                }
+            }
+    }
+}
+
+###############################################################################
+# FILE: app\src\main\java\com\example\finalproject\fragments\collection\CollectionDetailsFragment.kt
+###############################################################################
+
+package com.example.finalproject.fragments.collection
+
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import com.example.finalproject.R
+
+// TODO: Rename parameter arguments, choose names that match
+// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+private const val ARG_PARAM1 = "param1"
+private const val ARG_PARAM2 = "param2"
+
+/**
+ * A simple [androidx.fragment.app.Fragment] subclass.
+ * Use the [CollectionDetailsFragment.newInstance] factory method to
+ * create an instance of this fragment.
+ */
+class CollectionDetailsFragment : Fragment() {
+    // TODO: Rename and change types of parameters
+    private var param1: String? = null
+    private var param2: String? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            param1 = it.getString(ARG_PARAM1)
+            param2 = it.getString(ARG_PARAM2)
+        }
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_collection_details, container, false)
+    }
+
+    companion object {
+        /**
+         * Use this factory method to create a new instance of
+         * this fragment using the provided parameters.
+         *
+         * @param param1 Parameter 1.
+         * @param param2 Parameter 2.
+         * @return A new instance of fragment CollectionDetailsFragment.
+         */
+        // TODO: Rename and change types and number of parameters
+        @JvmStatic
+        fun newInstance(param1: String, param2: String) =
+            CollectionDetailsFragment().apply {
+                arguments = Bundle().apply {
+                    putString(ARG_PARAM1, param1)
+                    putString(ARG_PARAM2, param2)
+                }
+            }
+    }
+}
+
+###############################################################################
+# FILE: app\src\main\java\com\example\finalproject\fragments\collection\EditCollectionFragment.kt
+###############################################################################
+
+package com.example.finalproject.fragments.collection
+
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import com.example.finalproject.R
+
+// TODO: Rename parameter arguments, choose names that match
+// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+private const val ARG_PARAM1 = "param1"
+private const val ARG_PARAM2 = "param2"
+
+/**
+ * A simple [androidx.fragment.app.Fragment] subclass.
+ * Use the [EditCollectionFragment.newInstance] factory method to
+ * create an instance of this fragment.
+ */
+class EditCollectionFragment : Fragment() {
+    // TODO: Rename and change types of parameters
+    private var param1: String? = null
+    private var param2: String? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            param1 = it.getString(ARG_PARAM1)
+            param2 = it.getString(ARG_PARAM2)
+        }
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_create_collection, container, false)
+    }
+
+    companion object {
+        /**
+         * Use this factory method to create a new instance of
+         * this fragment using the provided parameters.
+         *
+         * @param param1 Parameter 1.
+         * @param param2 Parameter 2.
+         * @return A new instance of fragment CreateCollectionFragment.
+         */
+        // TODO: Rename and change types and number of parameters
+        @JvmStatic
+        fun newInstance(param1: String, param2: String) =
+            EditCollectionFragment().apply {
+                arguments = Bundle().apply {
+                    putString(ARG_PARAM1, param1)
+                    putString(ARG_PARAM2, param2)
+                }
+            }
+    }
+}
+
+###############################################################################
+# FILE: app\src\main\java\com\example\finalproject\fragments\collection\HomeFragment.kt
+###############################################################################
+
+package com.example.finalproject.fragments.collection
+
+import android.os.Bundle
+import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import com.example.finalproject.R
+import com.example.finalproject.api.RetrofitClient // Добавьте этот импорт
+import com.example.finalproject.models.Collection // Добавьте этот импорт
+import retrofit2.Call // Добавьте этот импорт
+import retrofit2.Callback // Добавьте этот импорт
+import retrofit2.Response // Добавьте этот импорт
+
+// TODO: Rename parameter arguments, choose names that match
+// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+private const val ARG_PARAM1 = "param1"
+private const val ARG_PARAM2 = "param2"
+
+/**
+ * A simple [Fragment] subclass.
+ * Use the [HomeFragment.newInstance] factory method to
+ * create an instance of this fragment.
+ */
+class HomeFragment : Fragment() {
+    // TODO: Rename and change types of parameters
+    private var param1: String? = null
+    private var param2: String? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            param1 = it.getString(ARG_PARAM1)
+            param2 = it.getString(ARG_PARAM2)
+        }
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_home, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        // Вызовите вашу тестовую функцию здесь
+        testGetSpecificCollection()
+    }
+
+    // Ваша тестовая функция
+    fun testGetSpecificCollection() {
+        // 1. Получите токен аутентификации (если эндпоинт требует авторизации)
+        // ЗАМЕНИТЕ "your_actual_auth_token" НА РЕАЛЬНЫЙ ТОКЕН, если нужно
+        // ... (остальной код функции testGetSpecificCollection как в вашем примере)
+
+        Log.d("ApiService", "Запрос коллекции с ID 200...")
+
+        // 2. Выполните API-запрос
+        // Убедитесь, что BASE_URL в RetrofitClient.kt корректен для эмулятора:
+        // "http://10.0.2.2:8080/" если ваш сервер на localhost:8080
+        RetrofitClient.instance.getCollections(200)
+            .enqueue(object : Callback<Collection> {
+                override fun onResponse(call: Call<Collection>, response: Response<Collection>) {
+                    if (response.isSuccessful) {
+                        val collection = response.body()
+                        Log.d("ApiService", "Коллекция успешно получена: ${collection?.title}")
+                        Log.d("ApiService", "ID коллекции: ${collection?.collectionId}")
+                    } else {
+                        Log.e("ApiService", "Ошибка получения коллекции: ${response.code()}")
+                        Log.e("ApiService", "Тело ошибки: ${response.errorBody()?.string()}")
+                    }
+                }
+
+                override fun onFailure(call: Call<Collection>, t: Throwable) {
+                    Log.e("ApiService", "Сбой при получении коллекции", t)
+                }
+            })
+    }
+
+
+    companion object {
+        /**
+         * Use this factory method to create a new instance of
+         * this fragment using the provided parameters.
+         *
+         * @param param1 Parameter 1.
+         * @param param2 Parameter 2.
+         * @return A new instance of fragment HomeFragment.
+         */
+        // TODO: Rename and change types and number of parameters
+        @JvmStatic
+        fun newInstance(param1: String, param2: String) =
+            HomeFragment().apply {
+                arguments = Bundle().apply {
+                    putString(ARG_PARAM1, param1)
+                    putString(ARG_PARAM2, param2)
+                }
+            }
+    }
+}
+
+###############################################################################
+# FILE: app\src\main\java\com\example\finalproject\fragments\collection\MyCollectionsFragment.kt
+###############################################################################
+
+package com.example.finalproject.fragments.collection
+
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import com.example.finalproject.R
+
+// TODO: Rename parameter arguments, choose names that match
+// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+private const val ARG_PARAM1 = "param1"
+private const val ARG_PARAM2 = "param2"
+
+/**
+ * A simple [androidx.fragment.app.Fragment] subclass.
+ * Use the [MyCollectionsFragment.newInstance] factory method to
+ * create an instance of this fragment.
+ */
+class MyCollectionsFragment : Fragment() {
+    // TODO: Rename and change types of parameters
+    private var param1: String? = null
+    private var param2: String? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            param1 = it.getString(ARG_PARAM1)
+            param2 = it.getString(ARG_PARAM2)
+        }
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_my_collections, container, false)
+    }
+
+    companion object {
+        /**
+         * Use this factory method to create a new instance of
+         * this fragment using the provided parameters.
+         *
+         * @param param1 Parameter 1.
+         * @param param2 Parameter 2.
+         * @return A new instance of fragment MyCollectionsFragment.
+         */
+        // TODO: Rename and change types and number of parameters
+        @JvmStatic
+        fun newInstance(param1: String, param2: String) =
+            MyCollectionsFragment().apply {
+                arguments = Bundle().apply {
+                    putString(ARG_PARAM1, param1)
+                    putString(ARG_PARAM2, param2)
+                }
+            }
+    }
+}
+
+###############################################################################
+# FILE: app\src\main\java\com\example\finalproject\fragments\mediaitem\EditMediaItemFragment.kt
+###############################################################################
+
+package com.example.finalproject.fragments.mediaitem
+
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import com.example.finalproject.R
+
+// TODO: Rename parameter arguments, choose names that match
+// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+private const val ARG_PARAM1 = "param1"
+private const val ARG_PARAM2 = "param2"
+
+/**
+ * A simple [androidx.fragment.app.Fragment] subclass.
+ * Use the [EditMediaItemFragment.newInstance] factory method to
+ * create an instance of this fragment.
+ */
+class EditMediaItemFragment : Fragment() {
+    // TODO: Rename and change types of parameters
+    private var param1: String? = null
+    private var param2: String? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            param1 = it.getString(ARG_PARAM1)
+            param2 = it.getString(ARG_PARAM2)
+        }
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_edit_media_item, container, false)
+    }
+
+    companion object {
+        /**
+         * Use this factory method to create a new instance of
+         * this fragment using the provided parameters.
+         *
+         * @param param1 Parameter 1.
+         * @param param2 Parameter 2.
+         * @return A new instance of fragment EditMediaItemFragment.
+         */
+        // TODO: Rename and change types and number of parameters
+        @JvmStatic
+        fun newInstance(param1: String, param2: String) =
+            EditMediaItemFragment().apply {
+                arguments = Bundle().apply {
+                    putString(ARG_PARAM1, param1)
+                    putString(ARG_PARAM2, param2)
+                }
+            }
+    }
+}
+
+###############################################################################
+# FILE: app\src\main\java\com\example\finalproject\fragments\mediaitem\MediaItemDetailsFragment.kt
+###############################################################################
+
+package com.example.finalproject.fragments.mediaitem
+
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import com.example.finalproject.R
+
+// TODO: Rename parameter arguments, choose names that match
+// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+private const val ARG_PARAM1 = "param1"
+private const val ARG_PARAM2 = "param2"
+
+/**
+ * A simple [androidx.fragment.app.Fragment] subclass.
+ * Use the [MediaItemDetailsFragment.newInstance] factory method to
+ * create an instance of this fragment.
+ */
+class MediaItemDetailsFragment : Fragment() {
+    // TODO: Rename and change types of parameters
+    private var param1: String? = null
+    private var param2: String? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            param1 = it.getString(ARG_PARAM1)
+            param2 = it.getString(ARG_PARAM2)
+        }
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_media_item_details, container, false)
+    }
+
+    companion object {
+        /**
+         * Use this factory method to create a new instance of
+         * this fragment using the provided parameters.
+         *
+         * @param param1 Parameter 1.
+         * @param param2 Parameter 2.
+         * @return A new instance of fragment MediaItemDetailsFragment.
+         */
+        // TODO: Rename and change types and number of parameters
+        @JvmStatic
+        fun newInstance(param1: String, param2: String) =
+            MediaItemDetailsFragment().apply {
+                arguments = Bundle().apply {
+                    putString(ARG_PARAM1, param1)
+                    putString(ARG_PARAM2, param2)
+                }
+            }
+    }
+}
+
+###############################################################################
+# FILE: app\src\main\java\com\example\finalproject\fragments\user\EditProfileFragment.kt
+###############################################################################
+
+package com.example.finalproject.fragments.user
+
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import com.example.finalproject.R
+
+// TODO: Rename parameter arguments, choose names that match
+// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+private const val ARG_PARAM1 = "param1"
+private const val ARG_PARAM2 = "param2"
+
+/**
+ * A simple [androidx.fragment.app.Fragment] subclass.
+ * Use the [EditProfileFragment.newInstance] factory method to
+ * create an instance of this fragment.
+ */
+class EditProfileFragment : Fragment() {
+    // TODO: Rename and change types of parameters
+    private var param1: String? = null
+    private var param2: String? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            param1 = it.getString(ARG_PARAM1)
+            param2 = it.getString(ARG_PARAM2)
+        }
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_edit_profile, container, false)
+    }
+
+    companion object {
+        /**
+         * Use this factory method to create a new instance of
+         * this fragment using the provided parameters.
+         *
+         * @param param1 Parameter 1.
+         * @param param2 Parameter 2.
+         * @return A new instance of fragment EditProfile.
+         */
+        // TODO: Rename and change types and number of parameters
+        @JvmStatic
+        fun newInstance(param1: String, param2: String) =
+            EditProfileFragment().apply {
+                arguments = Bundle().apply {
+                    putString(ARG_PARAM1, param1)
+                    putString(ARG_PARAM2, param2)
+                }
+            }
+    }
+}
+
+###############################################################################
+# FILE: app\src\main\java\com\example\finalproject\fragments\user\ForgotPasswordFragment.kt
+###############################################################################
+
+package com.example.finalproject.fragments.user
+
+import android.os.Bundle
+import android.util.Log
+import android.util.Patterns
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import com.example.finalproject.R
+import com.example.finalproject.api.RetrofitClient
+import com.example.finalproject.databinding.FragmentForgotPasswordBinding
+import com.example.finalproject.models.ForgotPasswordRequest
+import okhttp3.ResponseBody
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+
+class ForgotPasswordFragment : Fragment() {
+
+    private var _binding: FragmentForgotPasswordBinding? = null
+    private val binding get() = _binding!!
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentForgotPasswordBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.sendButton.setOnClickListener {
+            handleForgotPasswordRequest()
+        }
+    }
+
+    private fun handleForgotPasswordRequest() {
+        val email = binding.emailEditText.text.toString().trim()
+
+        if (!isValidEmail(email)) {
+            binding.emailTextInputLayout.error = getString(R.string.error_invalid_email)
+            return
+        } else {
+            binding.emailTextInputLayout.error = null
+        }
+
+        setLoading(true)
+
+        val forgotPasswordRequest = ForgotPasswordRequest(email)
+        RetrofitClient.instance.forgotPassword(forgotPasswordRequest)
+            .enqueue(object : Callback<ResponseBody> {
+                override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                    setLoading(false)
+                    if (response.isSuccessful) {
+                        // Успешный ответ от сервера
+                        Toast.makeText(context, "Инструкции по сбросу пароля отправлены на вашу почту.", Toast.LENGTH_LONG).show()
+                        // Можно добавить навигацию обратно на экран входа или показать сообщение
+                        findNavController().popBackStack() // Вернуться на предыдущий экран (LoginFragment)
+                    } else {
+                        // Ошибка сервера
+                        val errorBody = response.errorBody()?.string() ?: "Неизвестная ошибка сервера"
+                        Toast.makeText(context, "Ошибка: ${response.code()} - $errorBody", Toast.LENGTH_LONG).show()
+                        Log.e("ForgetPassword", "API Error: ${response.code()} - $errorBody")
+                    }
+                }
+
+                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                    setLoading(false)
+                    Toast.makeText(context, "Ошибка сети: ${t.message}", Toast.LENGTH_LONG).show()
+                    Log.e("ForgetPassword", "Network failure", t)
+                }
+            })
+    }
+
+    private fun isValidEmail(email: String): Boolean {
+        return Patterns.EMAIL_ADDRESS.matcher(email).matches()
+    }
+
+    private fun setLoading(isLoading: Boolean) {
+        binding.progressBar.isVisible = isLoading
+        binding.sendButton.isEnabled = !isLoading
+        binding.emailEditText.isEnabled = !isLoading
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+}
+
+###############################################################################
+# FILE: app\src\main\java\com\example\finalproject\fragments\user\LoginFragment.kt
+###############################################################################
+
+package com.example.finalproject.fragments.user
+
+import android.os.Bundle
+import android.util.Log
+import android.util.Patterns
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import com.example.finalproject.R
+import com.example.finalproject.api.RetrofitClient
+import com.example.finalproject.databinding.FragmentLoginBinding
+import com.example.finalproject.models.AuthResponse
+import com.example.finalproject.models.LoginRequest
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+
+class LoginFragment : Fragment() {
+
+    private var _binding: FragmentLoginBinding? = null
+    private val binding get() = _binding!!
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentLoginBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.loginButton.setOnClickListener {
+            handleLogin()
+        }
+
+        binding.forgotPasswordTextView.setOnClickListener {
+             findNavController().navigate(R.id.action_login_to_forgotPasswordFragment)
+        }
+
+        binding.signUpTextView.setOnClickListener {
+            findNavController().navigate(R.id.action_login_to_registration)
+        }
+    }
+
+    private fun handleLogin() {
+        val email = binding.emailEditText.text.toString().trim()
+        val password = binding.passwordEditText.text.toString().trim()
+
+        if (!isValidEmail(email)) {
+            binding.emailTextInputLayout.error = getString(R.string.error_invalid_email)
+            return
+        } else {
+            binding.emailTextInputLayout.error = null
+        }
+
+        if (password.isEmpty()) {
+            binding.passwordTextInputLayout.error = getString(R.string.error_empty_password)
+            return
+        } else {
+            binding.passwordTextInputLayout.error = null
+        }
+
+        binding.loginButton.isEnabled = false
+
+        val loginRequest = LoginRequest(email, password)
+        RetrofitClient.instance.loginUser(loginRequest)
+            .enqueue(object : Callback<AuthResponse> {
+                override fun onResponse(call: Call<AuthResponse>, response: Response<AuthResponse>) {
+                    binding.loginButton.isEnabled = true
+
+                    if (response.isSuccessful) {
+                        val authResponse = response.body()
+                        if (authResponse != null) {
+                            Toast.makeText(context, "Вход успешен! Token: ${authResponse.token}", Toast.LENGTH_LONG).show()
+                            // TODO: Сохранить токен и данные пользователя (например, в SharedPreferences)
+                            try {
+                                findNavController().navigate(R.id.action_login_to_homeFragment)
+                            } catch (e: IllegalArgumentException) {
+                                Toast.makeText(context, "Ошибка навигации: ${e.localizedMessage}", Toast.LENGTH_LONG).show()
+                                Log.e("LoginFragment", "Navigation error", e)
+                            }
+                        } else {
+                            Toast.makeText(context, "Ошибка входа: Пустой ответ от сервера", Toast.LENGTH_LONG).show()
+                        }
+                    } else {
+                        val errorBody = response.errorBody()?.string() ?: "Неизвестная ошибка сервера"
+                        Toast.makeText(context, "Ошибка входа: ${response.code()} - $errorBody", Toast.LENGTH_LONG).show()
+                        Log.e("LoginFragment", "Login failed: ${response.code()} - $errorBody")
+                    }
+                }
+
+                override fun onFailure(call: Call<AuthResponse>, t: Throwable) {
+                    binding.loginButton.isEnabled = true
+                    Toast.makeText(context, "Ошибка сети: ${t.message}", Toast.LENGTH_LONG).show()
+                    Log.e("LoginFragment", "Network error", t)
+                }
+            })
+    }
+
+    private fun isValidEmail(email: String): Boolean {
+        return Patterns.EMAIL_ADDRESS.matcher(email).matches()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+}
+
+###############################################################################
+# FILE: app\src\main\java\com\example\finalproject\fragments\user\RegistrationFragment.kt
+###############################################################################
+
+package com.example.finalproject.fragments.user
+
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import com.example.finalproject.R
+
+// TODO: Rename parameter arguments, choose names that match
+// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+private const val ARG_PARAM1 = "param1"
+private const val ARG_PARAM2 = "param2"
+
+/**
+ * A simple [androidx.fragment.app.Fragment] subclass.
+ * Use the [RegistrationFragment.newInstance] factory method to
+ * create an instance of this fragment.
+ */
+class RegistrationFragment : Fragment() {
+    // TODO: Rename and change types of parameters
+    private var param1: String? = null
+    private var param2: String? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            param1 = it.getString(ARG_PARAM1)
+            param2 = it.getString(ARG_PARAM2)
+        }
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_registration, container, false)
+    }
+
+    companion object {
+        /**
+         * Use this factory method to create a new instance of
+         * this fragment using the provided parameters.
+         *
+         * @param param1 Parameter 1.
+         * @param param2 Parameter 2.
+         * @return A new instance of fragment Registration.
+         */
+        // TODO: Rename and change types and number of parameters
+        @JvmStatic
+        fun newInstance(param1: String, param2: String) =
+            RegistrationFragment().apply {
+                arguments = Bundle().apply {
+                    putString(ARG_PARAM1, param1)
+                    putString(ARG_PARAM2, param2)
+                }
+            }
+    }
+}
+
+###############################################################################
+# FILE: app\src\main\java\com\example\finalproject\fragments\user\UserProfileFragment.kt
+###############################################################################
+
+package com.example.finalproject.fragments.user
+
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import com.example.finalproject.R
+
+// TODO: Rename parameter arguments, choose names that match
+// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+private const val ARG_PARAM1 = "param1"
+private const val ARG_PARAM2 = "param2"
+
+/**
+ * A simple [androidx.fragment.app.Fragment] subclass.
+ * Use the [UserProfileFragment.newInstance] factory method to
+ * create an instance of this fragment.
+ */
+class UserProfileFragment : Fragment() {
+    // TODO: Rename and change types of parameters
+    private var param1: String? = null
+    private var param2: String? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            param1 = it.getString(ARG_PARAM1)
+            param2 = it.getString(ARG_PARAM2)
+        }
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_user_profile, container, false)
+    }
+
+    companion object {
+        /**
+         * Use this factory method to create a new instance of
+         * this fragment using the provided parameters.
+         *
+         * @param param1 Parameter 1.
+         * @param param2 Parameter 2.
+         * @return A new instance of fragment UserProfile.
+         */
+        // TODO: Rename and change types and number of parameters
+        @JvmStatic
+        fun newInstance(param1: String, param2: String) =
+            UserProfileFragment().apply {
+                arguments = Bundle().apply {
+                    putString(ARG_PARAM1, param1)
+                    putString(ARG_PARAM2, param2)
+                }
+            }
+    }
+}
+
+###############################################################################
+# SUMMARY
+# Total files: 61
+# Total size: 74.33 KB
+# Processing time: 1.41 seconds
+###############################################################################

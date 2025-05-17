@@ -4,6 +4,7 @@ import com.example.finalproject.models.Collection
 import com.example.finalproject.models.LoginRequest
 import com.example.finalproject.models.AuthResponse
 import com.example.finalproject.models.ForgotPasswordRequest
+import com.example.finalproject.models.RegistrationRequest
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.Body
@@ -20,12 +21,14 @@ interface ApiService {
     @GET("collections/{id}")
     fun getCollections(@Path("id") collectionId: Int): Call<Collection>
 
-    // Добавлен эндпоинт для входа
-    @POST("auth/login") // Убедитесь, что путь "auth/login" соответствует вашему API
+    @POST("auth/login")
     fun loginUser(@Body loginRequest: LoginRequest): Call<AuthResponse>
 
     @POST("auth/forgot-password")
     fun forgotPassword(@Body forgotPasswordRequest: ForgotPasswordRequest): Call<ResponseBody>
+
+    @POST("auth/register")
+    fun registerUser(@Body registrationRequest: RegistrationRequest): Call<AuthResponse>
 
 //    @GET("achievements/{id}")
 //    fun getAchievement(@Path("id") achievementId: Int): Call<AchievementType>

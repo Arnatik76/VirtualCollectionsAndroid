@@ -77,7 +77,6 @@ class LoginFragment : Fragment() {
                         val authResponse = response.body()
                         if (authResponse != null) {
                             Toast.makeText(context, "Вход успешен! Token: ${authResponse.token}", Toast.LENGTH_LONG).show()
-                            // TODO: Сохранить токен и данные пользователя (например, в SharedPreferences)
                             try {
                                 findNavController().navigate(R.id.action_login_to_homeFragment)
                             } catch (e: IllegalArgumentException) {

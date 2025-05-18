@@ -12,8 +12,8 @@ import androidx.navigation.fragment.findNavController
 import com.example.finalproject.R
 import com.example.finalproject.api.RetrofitClient
 import com.example.finalproject.databinding.FragmentLoginBinding
-import com.example.finalproject.models.AuthResponse
-import com.example.finalproject.models.LoginRequest
+import com.example.finalproject.models.responce.AuthResponse
+import com.example.finalproject.models.request.LoginRequest
 import com.example.finalproject.utils.AuthTokenProvider
 import retrofit2.Call
 import retrofit2.Callback

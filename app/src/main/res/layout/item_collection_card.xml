@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="16dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginEnd="16dp"
+    android:layout_marginBottom="8dp"
+    app:cardElevation="4dp"
+    app:cardCornerRadius="8dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/collection_cover_image_view"
+            android:layout_width="0dp"
+            android:layout_height="180dp"
+            android:scaleType="centerCrop"
+            android:contentDescription="@string/collection_cover_image_desc"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:srcCompat="@drawable/ic_launcher_background" /> <!-- Заглушка -->
+
+        <TextView
+            android:id="@+id/collection_title_text_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="16dp"
+            android:textAppearance="?attr/textAppearanceHeadline6"
+            android:maxLines="2"
+            android:ellipsize="end"
+            app:layout_constraintTop_toBottomOf="@id/collection_cover_image_view"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="Очень длинное название коллекции фильмов" />
+
+        <TextView
+            android:id="@+id/collection_author_text_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:textAppearance="?attr/textAppearanceBody2"
+            android:textColor="?android:attr/textColorSecondary"
+            app:layout_constraintTop_toBottomOf="@id/collection_title_text_view"
+            app:layout_constraintStart_toStartOf="@id/collection_title_text_view"
+            app:layout_constraintEnd_toEndOf="@id/collection_title_text_view"
+            tools:text="Автор: username123" />
+
+        <LinearLayout
+            android:id="@+id/stats_layout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="12dp"
+            android:gravity="start|center_vertical"
+            app:layout_constraintTop_toBottomOf="@id/collection_author_text_view"
+            app:layout_constraintStart_toStartOf="@id/collection_title_text_view"
+            app:layout_constraintEnd_toEndOf="@id/collection_title_text_view"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <ImageView
+                android:id="@+id/likes_icon"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:src="@drawable/ic_like_24"
+                app:tint="?attr/colorControlNormal"
+                android:contentDescription="@string/likes_icon_desc" />
+
+            <TextView
+                android:id="@+id/collection_likes_count_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="16dp"
+                android:textAppearance="?attr/textAppearanceCaption"
+                tools:text="1.2K" />
+
+            <ImageView
+                android:id="@+id/views_icon"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:src="@drawable/ic_views_24"
+                app:tint="?attr/colorControlNormal"
+                android:contentDescription="@string/views_icon_desc" />
+
+            <TextView
+                android:id="@+id/collection_view_count_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:textAppearance="?attr/textAppearanceCaption"
+                tools:text="10.5K" />
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

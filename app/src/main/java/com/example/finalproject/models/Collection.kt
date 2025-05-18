@@ -5,15 +5,14 @@ data class Collection(
     val title: String,
     val description: String?,
     val coverImageUrl: String?,
-    val userId: Int, // Может быть заменен на вложенный объект User (создателя)
-    val createdAt: String, // Или использовать тип Date/Timestamp
-    val updatedAt: String, // Или использовать тип Date/Timestamp
+    val userId: Int,
+    val createdAt: String?,
+    val updatedAt: String?,
     val isPublic: Boolean,
-    val viewCount: Int,
-    // Дополнительные поля, которые может вернуть API
-    val owner: User? = null, // Если API будет возвращать вложенный объект создателя
-    val items: List<CollectionItemEntry>? = null, // Список элементов в коллекции
-    val collaborators: List<User>? = null, // Список соавторов
-    val likeCount: Int? = null, // Количество лайков (может приходить отдельным запросом или в составе)
-    val commentCount: Int? = null // Количество комментариев
+    val viewCount: Int?,
+    val owner: User? = null,
+    val items: List<CollectionItemEntry>? = null,
+    val collaborators: List<User>? = null,
+    val likeCount: Int? = null,
+    val commentCount: Int? = null
 )

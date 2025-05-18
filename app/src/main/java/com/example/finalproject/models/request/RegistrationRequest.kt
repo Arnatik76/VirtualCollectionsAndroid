@@ -1,4 +1,4 @@
-package com.example.finalproject.models
+package com.example.finalproject.models.request
 
 data class RegistrationRequest(
     val username: String,

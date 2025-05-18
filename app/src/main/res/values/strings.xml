@@ -24,4 +24,27 @@
     <string name="already_have_account">Уже есть аккаунт?</string>
     <string name="login_now_text">Войти</string>
 
+    <string name="bottom_nav_home">Главная</string>
+    <string name="bottom_nav_my_collections">Мои коллекции</string>
+    <string name="bottom_nav_profile">Профиль</string>
+
+    <string name="collection_cover_image_desc">Обложка коллекции</string>
+    <string name="likes_icon_desc">Иконка лайков</string>
+    <string name="views_icon_desc">Иконка просмотров</string>
+    <string name="author_prefix">Автор: %1$s</string>
+    <string name="unknown_author">Неизвестный автор</string>
+
+    <string name="no_collections_found">Коллекций пока нет.</string>
+    <string name="error_loading_collections">Ошибка загрузки коллекций</string>
+    <string name="network_error">Сетевая ошибка</string>
+
+    <string name="like_button_desc">Кнопка Лайк</string>
+    <string name="collection_items_title">Элементы коллекции</string>
+    <string name="collaborators_title">Соавторы</string>
+    <string name="comments_title">Комментарии</string>
+    <string name="add_comment_hint">Добавить комментарий...</string>
+    <string name="post_comment_button">Опубликовать</string>
+    <string name="error_loading_collection_details">Ошибка загрузки деталей коллекции</string>
+    <string name="comment_posted_successfully">Комментарий опубликован</string>
+    <string name="error_posting_comment">Ошибка публикации комментария</string>
 </resources>

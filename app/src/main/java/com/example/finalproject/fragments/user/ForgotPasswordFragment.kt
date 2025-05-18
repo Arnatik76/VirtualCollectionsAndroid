@@ -13,7 +13,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.finalproject.R
 import com.example.finalproject.api.RetrofitClient
 import com.example.finalproject.databinding.FragmentForgotPasswordBinding
-import com.example.finalproject.models.ForgotPasswordRequest
+import com.example.finalproject.models.request.ForgotPasswordRequest
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback

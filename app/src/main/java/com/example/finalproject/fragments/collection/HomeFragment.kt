@@ -5,99 +5,115 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.finalproject.R
-import com.example.finalproject.api.RetrofitClient // Добавьте этот импорт
-import com.example.finalproject.models.Collection // Добавьте этот импорт
-import retrofit2.Call // Добавьте этот импорт
-import retrofit2.Callback // Добавьте этот импорт
-import retrofit2.Response // Добавьте этот импорт
+import com.example.finalproject.adapters.CollectionAdapter
+import com.example.finalproject.api.RetrofitClient
+import com.example.finalproject.databinding.FragmentHomeBinding
+import com.example.finalproject.models.Collection
+import com.example.finalproject.models.responce.PagedResponse
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [HomeFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class HomeFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private var _binding: FragmentHomeBinding? = null
+    private val binding get() = _binding!!
+
+    private lateinit var collectionAdapter: CollectionAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false)
+    ): View {
+        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        // Вызовите вашу тестовую функцию здесь
-        testGetSpecificCollection()
+        setupRecyclerView()
+        fetchPublicCollections()
     }
 
-    // Ваша тестовая функция
-    fun testGetSpecificCollection() {
-        // 1. Получите токен аутентификации (если эндпоинт требует авторизации)
-        // ЗАМЕНИТЕ "your_actual_auth_token" НА РЕАЛЬНЫЙ ТОКЕН, если нужно
-        // ... (остальной код функции testGetSpecificCollection как в вашем примере)
+    private fun setupRecyclerView() {
+        collectionAdapter = CollectionAdapter { collection ->
+            // Обработка клика на коллекцию -> переход на CollectionDetailsFragment
+            // Для этого нужно будет создать action в nav_graph.xml
+            // и передать, например, collection.collectionId
+            Toast.makeText(context, "Переход к коллекции: ${collection.title}", Toast.LENGTH_SHORT).show()
+            Log.d("HomeFragment", "Clicked collection ID: ${collection.collectionId}")
+            // Пример навигации (раскомментировать и настроить action в nav_graph.xml):
+            // val action = HomeFragmentDirections.actionHomeFragmentToCollectionDetailsFragment(collection.collectionId)
+            // findNavController().navigate(action)
+        }
+        binding.collectionsRecyclerView.apply {
+            adapter = collectionAdapter
+            layoutManager = LinearLayoutManager(context)
+        }
+    }
 
-        Log.d("ApiService", "Запрос коллекции с ID 200...")
+    private fun fetchPublicCollections() {
+        setLoading(true)
+        binding.emptyViewText.isVisible = false
 
-        // 2. Выполните API-запрос
-        // Убедитесь, что BASE_URL в RetrofitClient.kt корректен для эмулятора:
-        // "http://10.0.2.2:8080/" если ваш сервер на localhost:8080
-        RetrofitClient.instance.getCollections(200)
-            .enqueue(object : Callback<Collection> {
-                override fun onResponse(call: Call<Collection>, response: Response<Collection>) {
+        RetrofitClient.instance.getPublicCollections(size = 10)
+            .enqueue(object : Callback<PagedResponse<Collection>> {
+                override fun onResponse(call: Call<PagedResponse<Collection>>, response: Response<PagedResponse<Collection>>) {
+                    setLoading(false)
                     if (response.isSuccessful) {
-                        val collection = response.body()
-                        Log.d("ApiService", "Коллекция успешно получена: ${collection?.title}")
-                        Log.d("ApiService", "ID коллекции: ${collection?.collectionId}")
+                        val pagedResponse = response.body()
+                        if (pagedResponse != null) {
+                            val collections = pagedResponse.content
+                            if (collections.isNotEmpty()) {
+                                collectionAdapter.submitList(collections)
+                                binding.collectionsRecyclerView.isVisible = true
+                                Log.d("HomeFragment", "Loaded page ${pagedResponse.number + 1} of ${pagedResponse.totalPages}")
+                            } else {
+                                binding.collectionsRecyclerView.isVisible = false
+                                binding.emptyViewText.text = getString(R.string.no_collections_found)
+                                binding.emptyViewText.isVisible = true
+                            }
+                        } else {
+                            handleApiError(getString(R.string.error_loading_collections) + " (пустой ответ)")
+                        }
                     } else {
-                        Log.e("ApiService", "Ошибка получения коллекции: ${response.code()}")
-                        Log.e("ApiService", "Тело ошибки: ${response.errorBody()?.string()}")
+                        handleApiError("Ошибка ${response.code()}: ${response.message()}")
                     }
                 }
 
-                override fun onFailure(call: Call<Collection>, t: Throwable) {
-                    Log.e("ApiService", "Сбой при получении коллекции", t)
+                override fun onFailure(call: Call<PagedResponse<Collection>>, t: Throwable) {
+                    setLoading(false)
+                    handleApiError(getString(R.string.network_error) + ": ${t.localizedMessage}")
+                    Log.e("HomeFragment", "API Failure", t)
                 }
             })
     }
 
+    private fun handleApiError(errorMessage: String) {
+        Toast.makeText(context, errorMessage, Toast.LENGTH_LONG).show()
+        binding.collectionsRecyclerView.isVisible = false
+        binding.emptyViewText.text = errorMessage
+        binding.emptyViewText.isVisible = true
+    }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment HomeFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            HomeFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+
+    private fun setLoading(isLoading: Boolean) {
+        binding.homeProgressBar.isVisible = isLoading
+        // Можно задизейблить RecyclerView или SwipeRefreshLayout если он есть
+        binding.collectionsRecyclerView.isVisible = !isLoading && binding.collectionsRecyclerView.adapter?.itemCount ?: 0 > 0
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        // Важно очищать ссылку на binding в onDestroyView для фрагментов
+        // чтобы избежать утечек памяти
+        binding.collectionsRecyclerView.adapter = null // Очистка адаптера
+        _binding = null
     }
 }

@@ -13,8 +13,8 @@ import androidx.navigation.fragment.findNavController
 import com.example.finalproject.R
 import com.example.finalproject.api.RetrofitClient
 import com.example.finalproject.databinding.FragmentRegistrationBinding
-import com.example.finalproject.models.AuthResponse
-import com.example.finalproject.models.RegistrationRequest
+import com.example.finalproject.models.responce.AuthResponse
+import com.example.finalproject.models.request.RegistrationRequest
 // import com.example.finalproject.utils.AuthTokenProvider // Не нужен здесь, т.к. после регистрации обычно перенаправляем на логин
 import retrofit2.Call
 import retrofit2.Callback

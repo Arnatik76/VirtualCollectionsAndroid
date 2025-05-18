@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">FinalProject</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="login_logo_description">Логотип приложения</string>
     <string name="hint_email">Электронная почта</string>
@@ -12,4 +11,17 @@
     <string name="error_invalid_email">Неверный формат электронной почты</string>
     <string name="error_empty_password">Пароль не может быть пустым</string>
     <string name="action_loginFragment_to_registerFragment">action_loginFragment_to_registerFragment</string>
+
+    <string name="register_button_text">Зарегистрироваться</string>
+    <string name="hint_username">Имя пользователя</string>
+    <string name="hint_display_name">Отображаемое имя (необязательно)</string>
+    <string name="hint_confirm_password">Подтвердите пароль</string>
+    <string name="error_empty_username">Имя пользователя не может быть пустым</string>
+    <string name="error_password_too_short">Пароль должен содержать не менее 6 символов</string>
+    <string name="error_passwords_do_not_match">Пароли не совпадают</string>
+    <string name="registration_successful">Регистрация прошла успешно! Пожалуйста, войдите.</string>
+    <string name="registration_failed">Ошибка регистрации</string>
+    <string name="already_have_account">Уже есть аккаунт?</string>
+    <string name="login_now_text">Войти</string>
+
 </resources>

@@ -18,15 +18,23 @@
             app:destination="@id/homeFragment"
             app:popUpTo="@id/login"
             app:popUpToInclusive="true" />
+        <!-- Добавьте это действие, если хотите переход на "Забыли пароль?" -->
         <action
-            android:id="@+id/action_login_to_forgotPasswordFragment"
+            android:id="@+id/action_login_to_forgetPasswordFragment"
             app:destination="@id/forgetPasswordFragment" />
     </fragment>
     <fragment
         android:id="@+id/registration"
         android:name="com.example.finalproject.fragments.user.RegistrationFragment"
         android:label="fragment_registration"
-        tools:layout="@layout/fragment_registration" />
+        tools:layout="@layout/fragment_registration" >
+        <!-- Действие для перехода на экран входа после успешной регистрации -->
+        <action
+            android:id="@+id/action_registration_to_login"
+            app:destination="@id/login"
+            app:popUpTo="@id/login"
+            app:popUpToInclusive="true" />
+    </fragment>
     <fragment
         android:id="@+id/userProfile"
         android:name="com.example.finalproject.fragments.user.UserProfileFragment"
@@ -76,5 +84,11 @@
         android:id="@+id/forgetPasswordFragment"
         android:name="com.example.finalproject.fragments.user.ForgotPasswordFragment"
         android:label="fragment_forget_password"
-        tools:layout="@layout/fragment_forgot_password" />
+        tools:layout="@layout/fragment_forgot_password" >
+        <action
+            android:id="@+id/action_forgetPasswordFragment_to_loginFragment"
+            app:destination="@id/login"
+            app:popUpTo="@id/login"
+            app:popUpToInclusive="true" />
+    </fragment>
 </navigation>

@@ -14,6 +14,7 @@ import com.example.finalproject.api.RetrofitClient
 import com.example.finalproject.databinding.FragmentLoginBinding
 import com.example.finalproject.models.AuthResponse
 import com.example.finalproject.models.LoginRequest
+import com.example.finalproject.utils.AuthTokenProvider
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -36,10 +37,6 @@ class LoginFragment : Fragment() {
 
         binding.loginButton.setOnClickListener {
             handleLogin()
-        }
-
-        binding.forgotPasswordTextView.setOnClickListener {
-             findNavController().navigate(R.id.action_login_to_forgotPasswordFragment)
         }
 
         binding.signUpTextView.setOnClickListener {
@@ -76,7 +73,11 @@ class LoginFragment : Fragment() {
                     if (response.isSuccessful) {
                         val authResponse = response.body()
                         if (authResponse != null) {
-                            Toast.makeText(context, "Вход успешен! Token: ${authResponse.token}", Toast.LENGTH_LONG).show()
+                            AuthTokenProvider.saveToken(authResponse.token)
+                            AuthTokenProvider.saveUser(authResponse.user)
+
+                            Toast.makeText(context, "Вход успешен! Добро пожаловать, ${authResponse.user.displayName ?: authResponse.user.username}", Toast.LENGTH_LONG).show()
+
                             try {
                                 findNavController().navigate(R.id.action_login_to_homeFragment)
                             } catch (e: IllegalArgumentException) {

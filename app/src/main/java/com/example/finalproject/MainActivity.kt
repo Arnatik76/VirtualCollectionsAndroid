@@ -5,12 +5,16 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.navigation.fragment.NavHostFragment // Добавьте этот импорт
-import androidx.navigation.ui.setupActionBarWithNavController // Добавьте этот импорт, если используете ActionBar
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupActionBarWithNavController
+import com.example.finalproject.utils.AuthTokenProvider // Добавьте этот импорт
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        AuthTokenProvider.initialize(applicationContext)
+
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
@@ -19,14 +23,19 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        // Настройка NavController с NavHostFragment
-        // val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
-        // val navController = navHostFragment.navController
-        // Если вы используете ActionBar и хотите, чтобы он обновлялся с навигацией:
-        // setupActionBarWithNavController(navController)
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        val navController = navHostFragment.navController
+        val navGraph = navController.navInflater.inflate(R.navigation.nav_graph)
+
+        if (AuthTokenProvider.isAuthenticated()) {
+            navGraph.setStartDestination(R.id.homeFragment)
+        } else {
+            navGraph.setStartDestination(R.id.login)
+        }
+
+        navController.graph = navGraph
     }
 
-    // Если вы используете setupActionBarWithNavController, вам также нужно переопределить onSupportNavigateUp:
     /*
     override fun onSupportNavigateUp(): Boolean {
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment

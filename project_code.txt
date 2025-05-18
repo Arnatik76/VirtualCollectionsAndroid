@@ -1,5 +1,5 @@
 ﻿# PROJECT CODE COMPILATION
-# Generated on 05/17/2025 13:56:20
+# Generated on 05/18/2025 16:27:32
 # Source: C:\Users\Arnat\AndroidStudioProjects\FinalProject
 
 
@@ -698,15 +698,15 @@ zipStorePath=wrapper/dists
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/password_text_input_layout" />
 
-    <TextView
-        android:id="@+id/forgot_password_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/forgot_password_text"
-        android:textColor="?attr/colorPrimary"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login_button" />
+<!--    <TextView-->
+<!--        android:id="@+id/forgot_password_text_view"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="16dp"-->
+<!--        android:text="@string/forgot_password_text"-->
+<!--        android:textColor="?attr/colorPrimary"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/login_button" />-->
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -857,9 +857,6 @@ zipStorePath=wrapper/dists
             app:destination="@id/homeFragment"
             app:popUpTo="@id/login"
             app:popUpToInclusive="true" />
-        <action
-            android:id="@+id/action_login_to_forgotPasswordFragment"
-            app:destination="@id/forgetPasswordFragment" />
     </fragment>
     <fragment
         android:id="@+id/registration"
@@ -1027,12 +1024,16 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.navigation.fragment.NavHostFragment // Добавьте этот импорт
-import androidx.navigation.ui.setupActionBarWithNavController // Добавьте этот импорт, если используете ActionBar
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupActionBarWithNavController
+import com.example.finalproject.utils.AuthTokenProvider // Добавьте этот импорт
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        AuthTokenProvider.initialize(applicationContext)
+
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
@@ -1041,14 +1042,19 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        // Настройка NavController с NavHostFragment
-        // val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
-        // val navController = navHostFragment.navController
-        // Если вы используете ActionBar и хотите, чтобы он обновлялся с навигацией:
-        // setupActionBarWithNavController(navController)
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        val navController = navHostFragment.navController
+        val navGraph = navController.navInflater.inflate(R.navigation.nav_graph)
+
+        if (AuthTokenProvider.isAuthenticated()) {
+            navGraph.setStartDestination(R.id.homeFragment)
+        } else {
+            navGraph.setStartDestination(R.id.login)
+        }
+
+        navController.graph = navGraph
     }
 
-    // Если вы используете setupActionBarWithNavController, вам также нужно переопределить onSupportNavigateUp:
     /*
     override fun onSupportNavigateUp(): Boolean {
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
@@ -1085,7 +1091,7 @@ interface ApiService {
     @GET("collections/{id}")
     fun getCollections(@Path("id") collectionId: Int): Call<Collection>
 
-    @POST("auth/login")
+    @POST("vc-users/auth/login")
     fun loginUser(@Body loginRequest: LoginRequest): Call<AuthResponse>
 
     @POST("auth/forgot-password")
@@ -1099,20 +1105,58 @@ interface ApiService {
 }
 
 ###############################################################################
+# FILE: app\src\main\java\com\example\finalproject\api\AuthInterceptor.kt
+###############################################################################
+
+package com.example.finalproject.api
+
+import com.example.finalproject.utils.AuthTokenProvider
+import okhttp3.Interceptor
+import okhttp3.Response
+
+class AuthInterceptor : Interceptor {
+    override fun intercept(chain: Interceptor.Chain): Response {
+        val originalRequest = chain.request()
+        val token = AuthTokenProvider.getToken()
+
+        val requestBuilder = originalRequest.newBuilder()
+            .header("Accept", "application/json")
+            .method(originalRequest.method, originalRequest.body)
+
+        if (token != null) {
+            requestBuilder.header("Authorization", "Bearer $token")
+        }
+
+        val request = requestBuilder.build()
+        return chain.proceed(request)
+    }
+}
+
+###############################################################################
 # FILE: app\src\main\java\com\example\finalproject\api\RetrofitClient.kt
 ###############################################################################
 
 package com.example.finalproject.api
 
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitClient {
-    private const val BASE_URL = "http://10.0.2.2:8080/"
+    private const val BASE_URL = "http://10.0.2.2:8765/"
+
+    private val okHttpClient = OkHttpClient.Builder()
+        .addInterceptor(AuthInterceptor())
+         .addInterceptor(HttpLoggingInterceptor().apply {
+             level = HttpLoggingInterceptor.Level.BODY
+         })
+        .build()
 
     val instance: ApiService by lazy {
         val retrofit = Retrofit.Builder()
             .baseUrl(BASE_URL)
+            .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
         retrofit.create(ApiService::class.java)
@@ -1270,7 +1314,7 @@ data class ForgotPasswordRequest(
 package com.example.finalproject.models
 
 data class LoginRequest(
-    val usernameOrEmail: String,
+    val email: String,
     val password: String
 )
 
@@ -1365,6 +1409,70 @@ data class UserFollow(
     val followerDetails: User? = null, // Детали подписчика
     val followedDetails: User? = null  // Детали того, на кого подписаны
 )
+
+###############################################################################
+# FILE: app\src\main\java\com\example\finalproject\utils\AuthTokenProvider.kt
+###############################################################################
+
+package com.example.finalproject.utils
+
+import android.content.Context
+import android.content.SharedPreferences
+import com.example.finalproject.models.User
+import com.google.gson.Gson
+import com.google.gson.JsonSyntaxException
+
+object AuthTokenProvider {
+
+    private const val PREFS_NAME = "auth_prefs"
+    private const val KEY_AUTH_TOKEN = "auth_token"
+    private const val KEY_CURRENT_USER = "current_user"
+
+    private lateinit var sharedPreferences: SharedPreferences
+    private val gson = Gson()
+
+    fun initialize(context: Context) {
+        sharedPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+    }
+
+    fun saveToken(token: String?) {
+        sharedPreferences.edit().putString(KEY_AUTH_TOKEN, token).apply()
+    }
+
+    fun getToken(): String? {
+        return sharedPreferences.getString(KEY_AUTH_TOKEN, null)
+    }
+
+    fun saveUser(user: User?) {
+        val userJson = if (user != null) gson.toJson(user) else null
+        sharedPreferences.edit().putString(KEY_CURRENT_USER, userJson).apply()
+    }
+
+    fun getCurrentUser(): User? {
+        val userJson = sharedPreferences.getString(KEY_CURRENT_USER, null)
+        return if (userJson != null) {
+            try {
+                gson.fromJson(userJson, User::class.java)
+            } catch (e: JsonSyntaxException) {
+                clearAuthData()
+                null
+            }
+        } else {
+            null
+        }
+    }
+
+    fun clearAuthData() {
+        sharedPreferences.edit()
+            .remove(KEY_AUTH_TOKEN)
+            .remove(KEY_CURRENT_USER)
+            .apply()
+    }
+
+    fun isAuthenticated(): Boolean {
+        return getToken() != null && getCurrentUser() != null
+    }
+}
 
 ###############################################################################
 # FILE: app\src\main\java\com\example\finalproject\fragments\collection\AddItemFragment.kt
@@ -2049,6 +2157,7 @@ import com.example.finalproject.api.RetrofitClient
 import com.example.finalproject.databinding.FragmentLoginBinding
 import com.example.finalproject.models.AuthResponse
 import com.example.finalproject.models.LoginRequest
+import com.example.finalproject.utils.AuthTokenProvider
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -2071,10 +2180,6 @@ class LoginFragment : Fragment() {
 
         binding.loginButton.setOnClickListener {
             handleLogin()
-        }
-
-        binding.forgotPasswordTextView.setOnClickListener {
-             findNavController().navigate(R.id.action_login_to_forgotPasswordFragment)
         }
 
         binding.signUpTextView.setOnClickListener {
@@ -2111,7 +2216,11 @@ class LoginFragment : Fragment() {
                     if (response.isSuccessful) {
                         val authResponse = response.body()
                         if (authResponse != null) {
-                            Toast.makeText(context, "Вход успешен! Token: ${authResponse.token}", Toast.LENGTH_LONG).show()
+                            AuthTokenProvider.saveToken(authResponse.token)
+                            AuthTokenProvider.saveUser(authResponse.user)
+
+                            Toast.makeText(context, "Вход успешен! Добро пожаловать, ${authResponse.user.displayName ?: authResponse.user.username}", Toast.LENGTH_LONG).show()
+
                             try {
                                 findNavController().navigate(R.id.action_login_to_homeFragment)
                             } catch (e: IllegalArgumentException) {
@@ -2278,7 +2387,7 @@ class UserProfileFragment : Fragment() {
 
 ###############################################################################
 # SUMMARY
-# Total files: 62
-# Total size: 74.32 KB
-# Processing time: 0.49 seconds
+# Total files: 64
+# Total size: 77.07 KB
+# Processing time: 0.54 seconds
 ###############################################################################

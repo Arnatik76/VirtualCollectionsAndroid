@@ -21,13 +21,13 @@ interface ApiService {
     @GET("collections/{id}")
     fun getCollections(@Path("id") collectionId: Int): Call<Collection>
 
-    @POST("auth/login")
+    @POST("vc-users/auth/login")
     fun loginUser(@Body loginRequest: LoginRequest): Call<AuthResponse>
 
     @POST("auth/forgot-password")
     fun forgotPassword(@Body forgotPasswordRequest: ForgotPasswordRequest): Call<ResponseBody>
 
-    @POST("auth/register")
+    @POST("vc-users/auth/register")
     fun registerUser(@Body registrationRequest: RegistrationRequest): Call<AuthResponse>
 
 //    @GET("achievements/{id}")

@@ -89,9 +89,9 @@ interface ApiService {
     @POST("vc-users/auth/login")
     fun loginUser(@Body loginRequest: LoginRequest): Call<AuthResponse>
 
-    @POST("auth/forgot-password")
+    @POST("vc-users/auth/forgot-password")
     fun forgotPassword(@Body forgotPasswordRequest: ForgotPasswordRequest): Call<ResponseBody>
 
-    @POST("auth/register")
+    @POST("vc-users/auth/register")
     fun registerUser(@Body registrationRequest: RegistrationRequest): Call<AuthResponse>
 }

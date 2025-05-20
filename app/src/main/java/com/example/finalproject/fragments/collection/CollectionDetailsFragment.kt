@@ -64,11 +64,16 @@ class CollectionDetailsFragment : Fragment() {
         binding.postCommentButton.setOnClickListener {
             postComment()
         }
+        binding.fabAddItemToCollection.setOnClickListener {
+            currentCollection?.collectionId?.let { collId ->
+                val action = CollectionDetailsFragmentDirections.actionCollectionDetailsFragmentToAddItemFragment(collId)
+                findNavController().navigate(action)
+            }
+        }
     }
 
     private fun setupAdapters() {
         itemsAdapter = CollectionItemAdapter { itemEntry ->
-            // TODO: Navigate to MediaItemDetailsFragment
             Toast.makeText(context, "Открыть элемент: ${itemEntry.mediaItem.title}", Toast.LENGTH_SHORT).show()
             // val action = CollectionDetailsFragmentDirections.actionCollectionDetailsFragmentToMediaItemDetailsFragment(itemEntry.mediaItem.itemId)
             // findNavController().navigate(action)

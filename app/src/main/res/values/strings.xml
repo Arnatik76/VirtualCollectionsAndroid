@@ -78,4 +78,25 @@
     <string name="item_added_successfully">Элемент успешно добавлен</string>
     <string name="error_adding_item">Ошибка при добавлении элемента</string>
     <string name="collection_id_missing">ID коллекции отсутствует</string>
+
+    <string name="user_profile_title">Профиль пользователя</string>
+    <string name="label_username">Имя пользователя:</string>
+    <string name="label_display_name">Отображаемое имя:</string>
+    <string name="label_email">Email:</string>
+    <string name="label_bio">О себе:</string>
+    <string name="label_joined_on">Присоединился:</string>
+    <string name="label_last_login">Последний вход:</string>
+    <string name="button_edit_profile">Редактировать профиль</string>
+    <string name="button_logout">Выйти из аккаунта</string>
+    <string name="confirm_logout_title">Подтверждение</string>
+    <string name="confirm_logout_message">Вы уверены, что хотите выйти из аккаунта?</string>
+    <string name="action_yes">Да</string>
+    <string name="action_no">Нет</string>
+    <string name="logged_out_successfully">Вы успешно вышли из аккаунта.</string>
+    <string name="error_loading_profile">Ошибка загрузки профиля</string>
+    <string name="user_not_found">Пользователь не найден</string>
+    <string name="user_not_logged_in">Пользователь не авторизован</string>
+    <string name="default_bio">Информация отсутствует.</string>
+    <string name="default_display_name">Не указано</string>
+    <string name="placeholder_date">дд.мм.гггг</string>
 </resources>

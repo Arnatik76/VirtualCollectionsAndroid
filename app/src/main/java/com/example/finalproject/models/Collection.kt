@@ -5,7 +5,6 @@ data class Collection(
     val title: String,
     val description: String?,
     val coverImageUrl: String?,
-    val userId: Int,
     val createdAt: String?,
     val updatedAt: String?,
     val isPublic: Boolean,

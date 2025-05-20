@@ -61,6 +61,9 @@ class HomeFragment : Fragment() {
         RetrofitClient.instance.getPublicCollections(size = 10)
             .enqueue(object : Callback<PagedResponse<Collection>> {
                 override fun onResponse(call: Call<PagedResponse<Collection>>, response: Response<PagedResponse<Collection>>) {
+                    if (!isAdded || _binding == null) {
+                        return
+                    }
                     setLoading(false)
                     if (response.isSuccessful) {
                         val pagedResponse = response.body()
@@ -84,6 +87,9 @@ class HomeFragment : Fragment() {
                 }
 
                 override fun onFailure(call: Call<PagedResponse<Collection>>, t: Throwable) {
+                    if (!isAdded || _binding == null) {
+                        return
+                    }
                     setLoading(false)
                     handleApiError(getString(R.string.network_error) + ": ${t.localizedMessage}")
                     Log.e("HomeFragment", "API Failure", t)
@@ -92,24 +98,28 @@ class HomeFragment : Fragment() {
     }
 
     private fun handleApiError(errorMessage: String) {
-        Toast.makeText(context, errorMessage, Toast.LENGTH_LONG).show()
-        binding.collectionsRecyclerView.isVisible = false
-        binding.emptyViewText.text = errorMessage
-        binding.emptyViewText.isVisible = true
+        _binding?.let { b ->
+            b.collectionsRecyclerView.isVisible = false
+            b.emptyViewText.text = errorMessage
+            b.emptyViewText.isVisible = true
+        }
+        if (isAdded) {
+            Toast.makeText(context, errorMessage, Toast.LENGTH_LONG).show()
+        }
     }
 
 
     private fun setLoading(isLoading: Boolean) {
-        binding.homeProgressBar.isVisible = isLoading
-        // Можно задизейблить RecyclerView или SwipeRefreshLayout если он есть
-        binding.collectionsRecyclerView.isVisible = !isLoading && binding.collectionsRecyclerView.adapter?.itemCount ?: 0 > 0
+        _binding?.let { b ->
+            b.homeProgressBar.isVisible = isLoading
+            val adapterItemCount = b.collectionsRecyclerView.adapter?.itemCount ?: 0
+            b.collectionsRecyclerView.isVisible = !isLoading && adapterItemCount > 0
+        }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        // Важно очищать ссылку на binding в onDestroyView для фрагментов
-        // чтобы избежать утечек памяти
-        binding.collectionsRecyclerView.adapter = null // Очистка адаптера
+        _binding?.collectionsRecyclerView?.adapter = null
         _binding = null
     }
 }

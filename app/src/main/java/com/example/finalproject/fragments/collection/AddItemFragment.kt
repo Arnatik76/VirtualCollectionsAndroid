@@ -1,60 +1,120 @@
 package com.example.finalproject.fragments.collection
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.finalproject.R
+import com.example.finalproject.api.RetrofitClient
+import com.example.finalproject.databinding.FragmentAddItemBinding
+import com.example.finalproject.models.CollectionItemEntry
+import com.example.finalproject.models.request.AddItemToCollectionRequest
+import com.example.finalproject.utils.AuthTokenProvider
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [androidx.fragment.app.Fragment] subclass.
- * Use the [AddItemFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class AddItemFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+
+    private var _binding: FragmentAddItemBinding? = null
+    private val binding get() = _binding!!
+
+    private val args: AddItemFragmentArgs by navArgs()
+    private var collectionId: Int = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+        collectionId = args.collectionId
+        if (collectionId == -1) {
+            Toast.makeText(context, getString(R.string.collection_id_missing), Toast.LENGTH_LONG).show()
+            Log.e("AddItemFragment", "Collection ID is missing.")
+            findNavController().popBackStack()
         }
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_add_item, container, false)
+    ): View {
+        _binding = FragmentAddItemBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment AddItemFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            AddItemFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.addItemButton.setOnClickListener {
+            if (!AuthTokenProvider.isAuthenticated()) {
+                Toast.makeText(context, R.string.please_login_to_see_collections, Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
             }
+            if (collectionId != -1) {
+                handleAddItemToCollection()
+            } else {
+                Toast.makeText(context, getString(R.string.collection_id_missing), Toast.LENGTH_LONG).show()
+            }
+        }
+    }
+
+    private fun handleAddItemToCollection() {
+        val mediaItemIdString = binding.mediaItemIdEditText.text.toString().trim()
+        val notes = binding.itemNotesEditText.text.toString().trim().ifEmpty { null }
+
+        if (mediaItemIdString.isEmpty()) {
+            binding.mediaItemIdTextInputLayout.error = getString(R.string.error_media_item_id_required)
+            return
+        } else {
+            binding.mediaItemIdTextInputLayout.error = null
+        }
+
+        val mediaItemId = mediaItemIdString.toIntOrNull()
+        if (mediaItemId == null) {
+            binding.mediaItemIdTextInputLayout.error = "ID должен быть числом"
+            return
+        }
+
+        setLoading(true)
+
+        val addItemRequest = AddItemToCollectionRequest(mediaItemId = mediaItemId, notes = notes)
+        RetrofitClient.instance.addItemToCollection(collectionId, addItemRequest)
+            .enqueue(object : Callback<CollectionItemEntry> {
+                override fun onResponse(call: Call<CollectionItemEntry>, response: Response<CollectionItemEntry>) {
+                    setLoading(false)
+                    if (response.isSuccessful) {
+                        val newItemEntry = response.body()
+                        Toast.makeText(context, getString(R.string.item_added_successfully), Toast.LENGTH_SHORT).show()
+                        Log.d("AddItemFragment", "Item added: ${newItemEntry?.mediaItem?.title} to collection $collectionId")
+                        findNavController().popBackStack()
+                    } else {
+                        val errorMsg = response.errorBody()?.string() ?: getString(R.string.error_adding_item)
+                        Toast.makeText(context, "${getString(R.string.error_adding_item)}: ${response.code()} $errorMsg", Toast.LENGTH_LONG).show()
+                        Log.e("AddItemFragment", "API Error ${response.code()}: $errorMsg")
+                    }
+                }
+
+                override fun onFailure(call: Call<CollectionItemEntry>, t: Throwable) {
+                    setLoading(false)
+                    Toast.makeText(context, "${getString(R.string.network_error)}: ${t.message}", Toast.LENGTH_LONG).show()
+                    Log.e("AddItemFragment", "Network Failure", t)
+                }
+            })
+    }
+
+    private fun setLoading(isLoading: Boolean) {
+        binding.addItemProgressBar.isVisible = isLoading
+        binding.mediaItemIdEditText.isEnabled = !isLoading
+        binding.itemNotesEditText.isEnabled = !isLoading
+        binding.addItemButton.isEnabled = !isLoading
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

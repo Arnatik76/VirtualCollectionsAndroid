@@ -35,6 +35,20 @@
             app:tint="@color/white"
             android:contentDescription="@string/like_button_desc"/>
 
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_add_item_to_collection"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/comment_input_layout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/ic_add_24"
+            android:contentDescription="Add item to collection"
+            app:backgroundTint="?attr/colorSecondary"
+            app:tint="@color/white"
+            tools:visibility="visible"/>
+
         <TextView
             android:id="@+id/collection_detail_title"
             android:layout_width="0dp"
@@ -131,7 +145,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
 
-        <!-- Элементы коллекции -->
         <TextView
             android:id="@+id/items_title"
             android:layout_width="wrap_content"
@@ -165,7 +178,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
 
-        <!-- Коллабораторы (если есть) -->
         <TextView
             android:id="@+id/collaborators_title"
             android:layout_width="wrap_content"
@@ -193,7 +205,6 @@
             tools:listitem="@layout/item_collaborator"
             tools:itemCount="2"
             tools:visibility="visible"/>
-        <!-- item_collaborator.xml нужно будет создать (аватар + имя) -->
 
         <View
             android:id="@+id/divider3"
@@ -207,8 +218,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             tools:visibility="visible"/>
 
-
-        <!-- Комментарии -->
         <TextView
             android:id="@+id/comments_title"
             android:layout_width="wrap_content"
@@ -231,7 +240,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             tools:listitem="@layout/item_comment"
             tools:itemCount="2"/>
-        <!-- item_comment.xml нужно будет создать (аватар, имя, текст, дата) -->
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/comment_input_layout"

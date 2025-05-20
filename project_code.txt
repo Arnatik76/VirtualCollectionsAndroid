@@ -1,5 +1,5 @@
 ﻿# PROJECT CODE COMPILATION
-# Generated on 05/20/2025 16:58:28
+# Generated on 05/20/2025 20:59:22
 # Source: C:\Users\Arnat\AndroidStudioProjects\FinalProject
 
 
@@ -203,6 +203,39 @@ zipStorePath=wrapper/dists
     <corners android:radius="12dp"/>
     <stroke android:width="1dp" android:color="?attr/colorPrimary"/>
 </shape>
+
+###############################################################################
+# FILE: app\src\main\res\drawable\ic_add_24.xml
+###############################################################################
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android" android:height="24dp" android:tint="#000000" android:viewportHeight="24" android:viewportWidth="24" android:width="24dp">
+      
+    <path android:fillColor="@android:color/white" android:pathData="M19,13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+    
+</vector>
+
+
+###############################################################################
+# FILE: app\src\main\res\drawable\ic_edit_24.xml
+###############################################################################
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android" android:height="24dp" android:tint="#000000" android:viewportHeight="24" android:viewportWidth="24" android:width="24dp">
+      
+    <path android:fillColor="@android:color/white" android:pathData="M3,17.25V21h3.75L17.81,9.94l-3.75,-3.75L3,17.25zM20.71,7.04c0.39,-0.39 0.39,-1.02 0,-1.41l-2.34,-2.34c-0.39,-0.39 -1.02,-0.39 -1.41,0l-1.83,1.83 3.75,3.75 1.83,-1.83z"/>
+    
+</vector>
+
+
+###############################################################################
+# FILE: app\src\main\res\drawable\ic_image_placeholder_24.xml
+###############################################################################
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android" android:height="24dp" android:tint="#000000" android:viewportHeight="24" android:viewportWidth="24" android:width="24dp">
+      
+    <path android:fillColor="@android:color/white" android:pathData="M21,19V5c0,-1.1 -0.9,-2 -2,-2H5c-1.1,0 -2,0.9 -2,2v14c0,1.1 0.9,2 2,2h14c1.1,0 2,-0.9 2,-2zM8.5,13.5l2.5,3.01L14.5,12l4.5,6H5l3.5,-4.5z"/>
+    
+</vector>
+
 
 ###############################################################################
 # FILE: app\src\main\res\drawable\ic_launcher_background.xml
@@ -416,6 +449,17 @@ zipStorePath=wrapper/dists
 </vector>
 
 ###############################################################################
+# FILE: app\src\main\res\drawable\ic_logout_24.xml
+###############################################################################
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android" android:autoMirrored="true" android:height="24dp" android:tint="#000000" android:viewportHeight="24" android:viewportWidth="24" android:width="24dp">
+      
+    <path android:fillColor="@android:color/white" android:pathData="M17,7l-1.41,1.41L18.17,11H8v2h10.17l-2.58,2.58L17,17l5,-5zM4,5h8V3H4c-1.1,0 -2,0.9 -2,2v14c0,1.1 0.9,2 2,2h8v-2H4V5z"/>
+    
+</vector>
+
+
+###############################################################################
 # FILE: app\src\main\res\layout\activity_main.xml
 ###############################################################################
 
@@ -457,19 +501,93 @@ zipStorePath=wrapper/dists
 ###############################################################################
 
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.collection.AddItemFragment">
+    android:fillViewport="true">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        tools:context=".fragments.collection.AddItemFragment">
 
-</FrameLayout>
+        <TextView
+            android:id="@+id/add_item_header_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/add_item_to_collection_toolbar"
+            android:textAppearance="?attr/textAppearanceHeadline5"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="16dp"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/media_item_id_text_input_layout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            app:layout_constraintTop_toBottomOf="@id/add_item_header_title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:hint="@string/hint_media_item_id">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/media_item_id_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/item_notes_text_input_layout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@id/media_item_id_text_input_layout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:hint="@string/hint_item_notes">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/item_notes_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textMultiLine|textCapSentences"
+                android:minLines="2"
+                android:gravity="top"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/add_item_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="@string/button_add_item"
+            app:layout_constraintTop_toBottomOf="@id/item_notes_text_input_layout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:paddingVertical="12dp"/>
+
+        <ProgressBar
+            android:id="@+id/add_item_progress_bar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:visibility="visible"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
 
 ###############################################################################
 # FILE: app\src\main\res\layout\fragment_collection_details.xml
@@ -511,6 +629,20 @@ zipStorePath=wrapper/dists
             app:layout_constraintEnd_toEndOf="parent"
             app:tint="@color/white"
             android:contentDescription="@string/like_button_desc"/>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_add_item_to_collection"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/comment_input_layout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/ic_add_24"
+            android:contentDescription="Add item to collection"
+            app:backgroundTint="?attr/colorSecondary"
+            app:tint="@color/white"
+            tools:visibility="visible"/>
 
         <TextView
             android:id="@+id/collection_detail_title"
@@ -608,7 +740,6 @@ zipStorePath=wrapper/dists
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
 
-        <!-- Элементы коллекции -->
         <TextView
             android:id="@+id/items_title"
             android:layout_width="wrap_content"
@@ -642,7 +773,6 @@ zipStorePath=wrapper/dists
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
 
-        <!-- Коллабораторы (если есть) -->
         <TextView
             android:id="@+id/collaborators_title"
             android:layout_width="wrap_content"
@@ -670,7 +800,6 @@ zipStorePath=wrapper/dists
             tools:listitem="@layout/item_collaborator"
             tools:itemCount="2"
             tools:visibility="visible"/>
-        <!-- item_collaborator.xml нужно будет создать (аватар + имя) -->
 
         <View
             android:id="@+id/divider3"
@@ -684,8 +813,6 @@ zipStorePath=wrapper/dists
             app:layout_constraintEnd_toEndOf="parent"
             tools:visibility="visible"/>
 
-
-        <!-- Комментарии -->
         <TextView
             android:id="@+id/comments_title"
             android:layout_width="wrap_content"
@@ -708,7 +835,6 @@ zipStorePath=wrapper/dists
             app:layout_constraintEnd_toEndOf="parent"
             tools:listitem="@layout/item_comment"
             tools:itemCount="2"/>
-        <!-- item_comment.xml нужно будет создать (аватар, имя, текст, дата) -->
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/comment_input_layout"
@@ -760,19 +886,122 @@ zipStorePath=wrapper/dists
 ###############################################################################
 
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.collection.EditCollectionFragment">
+    android:fillViewport="true">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        tools:context=".fragments.collection.EditCollectionFragment">
 
-</FrameLayout>
+        <TextView
+            android:id="@+id/create_collection_header_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/create_collection_title_toolbar"
+            android:textAppearance="?attr/textAppearanceHeadline5"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="16dp"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/title_text_input_layout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            app:layout_constraintTop_toBottomOf="@id/create_collection_header_title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:hint="@string/hint_collection_title">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/title_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textCapSentences"
+                android:maxLines="1"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/description_text_input_layout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@id/title_text_input_layout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:hint="@string/hint_collection_description">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/description_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textMultiLine|textCapSentences"
+                android:minLines="3"
+                android:gravity="top"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/cover_url_text_input_layout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@id/description_text_input_layout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:hint="@string/hint_collection_cover_url">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/cover_url_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textUri"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/is_public_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/label_is_public"
+            android:checked="true"
+            app:layout_constraintTop_toBottomOf="@id/cover_url_text_input_layout"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <Button
+            android:id="@+id/create_collection_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="@string/button_create_collection"
+            app:layout_constraintTop_toBottomOf="@id/is_public_switch"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:paddingVertical="12dp"/>
+
+        <ProgressBar
+            android:id="@+id/create_collection_progress_bar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:visibility="visible"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
 
 ###############################################################################
 # FILE: app\src\main\res\layout\fragment_edit_media_item.xml
@@ -798,19 +1027,123 @@ zipStorePath=wrapper/dists
 ###############################################################################
 
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.user.EditProfileFragment">
+    android:fillViewport="true">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        tools:context=".fragments.user.EditProfileFragment">
 
-</FrameLayout>
+        <TextView
+            android:id="@+id/edit_profile_header_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/edit_profile_toolbar_title"
+            android:textAppearance="?attr/textAppearanceHeadline5"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="16dp"/>
+
+        <ImageView
+            android:id="@+id/edit_profile_avatar_preview"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="16dp"
+            tools:srcCompat="@drawable/ic_profile_24"
+            android:scaleType="centerCrop"
+            android:contentDescription="@string/user_avatar_desc"
+            app:layout_constraintTop_toBottomOf="@id/edit_profile_header_title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/display_name_edit_layout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@id/edit_profile_avatar_preview"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:hint="@string/hint_display_name_edit">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/display_name_edit_text_field"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName|textCapWords"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/bio_edit_layout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@id/display_name_edit_layout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:hint="@string/hint_bio_edit">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/bio_edit_text_field"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textMultiLine|textCapSentences"
+                android:minLines="3"
+                android:gravity="top"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/avatar_url_edit_layout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@id/bio_edit_layout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:hint="@string/hint_avatar_url_edit">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/avatar_url_edit_text_field"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textUri"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/save_profile_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="@string/button_save_profile_changes"
+            app:layout_constraintTop_toBottomOf="@id/avatar_url_edit_layout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:paddingVertical="12dp"/>
+
+        <ProgressBar
+            android:id="@+id/edit_profile_progress_bar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:visibility="visible"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
 
 ###############################################################################
 # FILE: app\src\main\res\layout\fragment_forgot_password.xml
@@ -1077,19 +1410,69 @@ zipStorePath=wrapper/dists
 ###############################################################################
 
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragments.collection.MyCollectionsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="match_parent">
 
-</FrameLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/my_collections_recycler_view"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:listitem="@layout/item_collection_card"
+            android:clipToPadding="false"
+            android:paddingBottom="80dp"/>
+
+        <ProgressBar
+            android:id="@+id/my_collections_progress_bar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:visibility="visible"/>
+
+        <TextView
+            android:id="@+id/my_collections_empty_view_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/no_my_collections_found"
+            android:textSize="18sp"
+            android:visibility="gone"
+            android:gravity="center"
+            android:padding="16dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:visibility="visible"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_create_collection"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:contentDescription="@string/create_new_collection_desc"
+        app:srcCompat="@drawable/ic_add_24" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 ###############################################################################
 # FILE: app\src\main\res\layout\fragment_registration.xml
@@ -1276,19 +1659,226 @@ zipStorePath=wrapper/dists
 ###############################################################################
 
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fillViewport="true"
     tools:context=".fragments.user.UserProfileFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:padding="16dp">
 
-</FrameLayout>
+        <ProgressBar
+            android:id="@+id/profile_progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:visibility="visible"/>
+
+        <TextView
+            android:id="@+id/profile_error_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="16dp"
+            android:text="@string/error_loading_profile"
+            android:textAppearance="?attr/textAppearanceSubtitle1"
+            android:textColor="?attr/colorError"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="visible" />
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/profile_content_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:constraint_referenced_ids="profile_avatar_image_view, username_label, username_text_view, display_name_label, display_name_text_view, email_label, email_text_view, bio_label, bio_text_view, joined_label, joined_date_text_view, last_login_label, last_login_date_text_view, edit_profile_button, logout_button"
+            android:visibility="visible" />
+
+
+        <ImageView
+            android:id="@+id/profile_avatar_image_view"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_marginTop="16dp"
+            android:contentDescription="@string/user_avatar_desc"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:srcCompat="@drawable/ic_profile_24" /> <!-- Заглушка -->
+
+        <TextView
+            android:id="@+id/username_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/label_username"
+            android:textAppearance="?attr/textAppearanceSubtitle2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/profile_avatar_image_view" />
+
+        <TextView
+            android:id="@+id/username_text_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:textAppearance="?attr/textAppearanceBody1"
+            app:layout_constraintBaseline_toBaselineOf="@id/username_label"
+            app:layout_constraintStart_toEndOf="@id/username_label"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="arnat_user" />
+
+        <TextView
+            android:id="@+id/display_name_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="@string/label_display_name"
+            android:textAppearance="?attr/textAppearanceSubtitle2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/username_label" />
+
+        <TextView
+            android:id="@+id/display_name_text_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:textAppearance="?attr/textAppearanceBody1"
+            app:layout_constraintBaseline_toBaselineOf="@id/display_name_label"
+            app:layout_constraintStart_toEndOf="@id/display_name_label"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="Arnat Developer" />
+
+        <TextView
+            android:id="@+id/email_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="@string/label_email"
+            android:textAppearance="?attr/textAppearanceSubtitle2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/display_name_label" />
+
+        <TextView
+            android:id="@+id/email_text_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:textAppearance="?attr/textAppearanceBody1"
+            app:layout_constraintBaseline_toBaselineOf="@id/email_label"
+            app:layout_constraintStart_toEndOf="@id/email_label"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="arnat.dev@example.com" />
+
+        <TextView
+            android:id="@+id/bio_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/label_bio"
+            android:textAppearance="?attr/textAppearanceSubtitle2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/email_label" />
+
+        <TextView
+            android:id="@+id/bio_text_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:textAppearance="?attr/textAppearanceBody2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/bio_label"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="Android developer passionate about creating amazing apps. Loves Kotlin and Jetpack Compose." />
+
+        <TextView
+            android:id="@+id/joined_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/label_joined_on"
+            android:textAppearance="?attr/textAppearanceCaption"
+            android:textColor="?android:attr/textColorSecondary"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/bio_text_view" />
+
+        <TextView
+            android:id="@+id/joined_date_text_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:textAppearance="?attr/textAppearanceCaption"
+            android:textColor="?android:attr/textColorSecondary"
+            app:layout_constraintBaseline_toBaselineOf="@id/joined_label"
+            app:layout_constraintStart_toEndOf="@id/joined_label"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="01.01.2024" />
+
+        <TextView
+            android:id="@+id/last_login_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/label_last_login"
+            android:textAppearance="?attr/textAppearanceCaption"
+            android:textColor="?android:attr/textColorSecondary"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/joined_label" />
+
+        <TextView
+            android:id="@+id/last_login_date_text_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:textAppearance="?attr/textAppearanceCaption"
+            android:textColor="?android:attr/textColorSecondary"
+            app:layout_constraintBaseline_toBaselineOf="@id/last_login_label"
+            app:layout_constraintStart_toEndOf="@id/last_login_label"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="20.05.2025 16:58" />
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/edit_profile_button"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/button_edit_profile"
+            app:layout_constraintTop_toBottomOf="@id/last_login_label"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/logout_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="16dp"
+            android:text="@string/button_logout"
+            app:backgroundTint="?attr/colorError"
+            app:icon="@drawable/ic_logout_24"
+            app:iconTint="@color/white"
+            app:layout_constraintTop_toBottomOf="@id/edit_profile_button"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="0.0"/> <!-- Чтобы кнопка не уезжала слишком вниз если контента мало -->
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>
 
 ###############################################################################
 # FILE: app\src\main\res\layout\item_collaborator.xml
@@ -1649,6 +2239,7 @@ zipStorePath=wrapper/dists
             android:id="@+id/action_login_to_forgetPasswordFragment"
             app:destination="@id/forgetPasswordFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/registration"
         android:name="com.example.finalproject.fragments.user.RegistrationFragment"
@@ -1660,16 +2251,31 @@ zipStorePath=wrapper/dists
             app:popUpTo="@id/login"
             app:popUpToInclusive="true" />
     </fragment>
+
     <fragment
         android:id="@+id/userProfileFragment"
         android:name="com.example.finalproject.fragments.user.UserProfileFragment"
         android:label="fragment_user_profile"
-        tools:layout="@layout/fragment_user_profile" />
+        tools:layout="@layout/fragment_user_profile" >
+        <action
+            android:id="@+id/action_userProfileFragment_to_editProfile"
+            app:destination="@id/editProfile" />
+        <argument
+            android:name="userId"
+            app:argType="long"
+            android:defaultValue="-1" />
+    </fragment>
+
     <fragment
         android:id="@+id/editProfile"
         android:name="com.example.finalproject.fragments.user.EditProfileFragment"
         android:label="fragment_edit_profile"
-        tools:layout="@layout/fragment_edit_profile" />
+        tools:layout="@layout/fragment_edit_profile" >
+        <argument
+            android:name="userId"
+            app:argType="long" />
+    </fragment>
+
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.example.finalproject.fragments.collection.HomeFragment"
@@ -1679,36 +2285,64 @@ zipStorePath=wrapper/dists
             android:id="@+id/action_homeFragment_to_collectionDetailsFragment"
             app:destination="@id/collectionDetailsFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/myCollectionsFragment"
         android:name="com.example.finalproject.fragments.collection.MyCollectionsFragment"
         android:label="fragment_my_collections"
-        tools:layout="@layout/fragment_my_collections" />
+        tools:layout="@layout/fragment_my_collections" >
+        <action
+            android:id="@+id/action_myCollectionsFragment_to_createCollectionFragment"
+            app:destination="@id/createCollectionFragment" />
+        <action
+            android:id="@+id/action_myCollectionsFragment_to_collectionDetailsFragment"
+            app:destination="@id/collectionDetailsFragment" />
+    </fragment>
+
     <fragment
         android:id="@+id/collectionDetailsFragment"
         android:name="com.example.finalproject.fragments.collection.CollectionDetailsFragment"
         android:label="fragment_collection_details"
         tools:layout="@layout/fragment_collection_details" >
-    <argument
-        android:name="collectionId"
-        app:argType="integer" />
-    <action
-        android:id="@+id/action_collectionDetailsFragment_to_userProfileFragment"
-        app:destination="@id/userProfileFragment" />
-    <action
-        android:id="@+id/action_collectionDetailsFragment_to_mediaItemDetailsFragment"
-        app:destination="@id/mediaItemDetailsFragment" />
+        <argument
+            android:name="collectionId"
+            app:argType="long" />
+        <action
+            android:id="@+id/action_collectionDetailsFragment_to_userProfileFragment"
+            app:destination="@id/userProfileFragment" />
+        <action
+            android:id="@+id/action_collectionDetailsFragment_to_mediaItemDetailsFragment"
+            app:destination="@id/mediaItemDetailsFragment" />
+        <action
+            android:id="@+id/action_collectionDetailsFragment_to_addItemFragment"
+            app:destination="@id/addItemFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/createCollectionFragment"
         android:name="com.example.finalproject.fragments.collection.EditCollectionFragment"
         android:label="fragment_create_collection"
-        tools:layout="@layout/fragment_create_collection" />
+        tools:layout="@layout/fragment_create_collection" >
+        <argument
+            android:name="collectionId"
+            app:argType="long"
+            android:defaultValue="-1" />
+        <action
+            android:id="@+id/action_createCollectionFragment_to_collectionDetailsFragment"
+            app:destination="@id/collectionDetailsFragment"
+            app:popUpTo="@id/myCollectionsFragment" />
+    </fragment>
+
     <fragment
         android:id="@+id/addItemFragment"
         android:name="com.example.finalproject.fragments.collection.AddItemFragment"
         android:label="fragment_add_item"
-        tools:layout="@layout/fragment_add_item" />
+        tools:layout="@layout/fragment_add_item" >
+        <argument
+            android:name="collectionId"
+            app:argType="long" />
+    </fragment>
+
     <fragment
         android:id="@+id/mediaItemDetailsFragment"
         android:name="com.example.finalproject.fragments.mediaitem.MediaItemDetailsFragment"
@@ -1719,6 +2353,7 @@ zipStorePath=wrapper/dists
         android:name="com.example.finalproject.fragments.mediaitem.EditMediaItemFragment"
         android:label="fragment_edit_media_item"
         tools:layout="@layout/fragment_edit_media_item" />
+
     <fragment
         android:id="@+id/forgetPasswordFragment"
         android:name="com.example.finalproject.fragments.user.ForgotPasswordFragment"
@@ -1798,7 +2433,65 @@ zipStorePath=wrapper/dists
     <string name="error_posting_comment">Ошибка публикации комментария</string>
 
     <string name="media_item_thumbnail_desc">Миниатюра элемента</string>
-    <string name="user_avatar_desc">user_avatar\n</string>
+    <string name="user_avatar_desc">User Avatar\n</string>
+
+    <string name="no_my_collections_found">У вас пока нет коллекций. Создайте первую!</string>
+    <string name="create_new_collection_desc">Создать новую коллекцию</string>
+    <string name="error_loading_my_collections">Ошибка загрузки ваших коллекций</string>
+    <string name="please_login_to_see_collections">Пожалуйста, войдите, чтобы увидеть свои коллекции.</string>
+    <string name="error_cannot_create_collection">Не удалось перейти к созданию коллекции</string>
+    <string name="error_cannot_open_collection_details">Не удалось открыть детали коллекции</string>
+
+    <string name="create_collection_title_toolbar">Создать коллекцию</string>
+    <string name="hint_collection_title">Название коллекции*</string>
+    <string name="hint_collection_description">Описание (необязательно)</string>
+    <string name="hint_collection_cover_url">URL обложки (необязательно)</string>
+    <string name="label_is_public">Сделать публичной</string>
+    <string name="button_create_collection">Создать</string>
+    <string name="error_collection_title_required">Название коллекции обязательно</string>
+    <string name="collection_created_successfully">Коллекция успешно создана</string>
+    <string name="error_creating_collection">Ошибка при создании коллекции</string>
+    <string name="edit_collection_title_toolbar">Редактировать коллекцию</string>
+    <string name="button_save_changes">Сохранить изменения</string>
+
+    <string name="add_item_to_collection_toolbar">Добавить элемент в коллекцию</string>
+    <string name="hint_media_item_id">ID медиа-элемента*</string>
+    <string name="hint_item_notes">Заметки к элементу (необязательно)</string>
+    <string name="button_add_item">Добавить элемент</string>
+    <string name="error_media_item_id_required">ID медиа-элемента обязателен</string>
+    <string name="item_added_successfully">Элемент успешно добавлен</string>
+    <string name="error_adding_item">Ошибка при добавлении элемента</string>
+    <string name="collection_id_missing">ID коллекции отсутствует</string>
+
+    <string name="user_profile_title">Профиль пользователя</string>
+    <string name="label_username">Имя пользователя:</string>
+    <string name="label_display_name">Отображаемое имя:</string>
+    <string name="label_email">Email:</string>
+    <string name="label_bio">О себе:</string>
+    <string name="label_joined_on">Присоединился:</string>
+    <string name="label_last_login">Последний вход:</string>
+    <string name="button_edit_profile">Редактировать профиль</string>
+    <string name="button_logout">Выйти из аккаунта</string>
+    <string name="confirm_logout_title">Подтверждение</string>
+    <string name="confirm_logout_message">Вы уверены, что хотите выйти из аккаунта?</string>
+    <string name="action_yes">Да</string>
+    <string name="action_no">Нет</string>
+    <string name="logged_out_successfully">Вы успешно вышли из аккаунта.</string>
+    <string name="error_loading_profile">Ошибка загрузки профиля</string>
+    <string name="user_not_found">Пользователь не найден</string>
+    <string name="user_not_logged_in">Пользователь не авторизован</string>
+    <string name="default_bio">Информация отсутствует.</string>
+    <string name="default_display_name">Не указано</string>
+    <string name="placeholder_date">дд.мм.гггг</string>
+
+    <string name="edit_profile_toolbar_title">Редактирование профиля</string>
+    <string name="hint_display_name_edit">Отображаемое имя</string>
+    <string name="hint_bio_edit">О себе</string>
+    <string name="hint_avatar_url_edit">URL аватара</string>
+    <string name="button_save_profile_changes">Сохранить изменения</string>
+    <string name="profile_updated_successfully">Профиль успешно обновлен</string>
+    <string name="error_updating_profile">Ошибка при обновлении профиля</string>
+    <string name="error_loading_data_for_edit">Ошибка загрузки данных для редактирования</string>
 </resources>
 
 ###############################################################################
@@ -2134,8 +2827,7 @@ class CollectionItemAdapter(private val onItemClicked: (CollectionItemEntry) -> 
 
     class ItemDiffCallback : DiffUtil.ItemCallback<CollectionItemEntry>() {
         override fun areItemsTheSame(oldItem: CollectionItemEntry, newItem: CollectionItemEntry): Boolean {
-            // Предполагаем, что у CollectionItemEntry есть уникальный ID, если нет, используй itemId из mediaItem
-            return oldItem.itemId == newItem.itemId && oldItem.collectionId == newItem.collectionId
+            return oldItem.mediaItem.itemId == newItem.mediaItem.itemId && oldItem.collectionId == newItem.collectionId
         }
 
         override fun areContentsTheSame(oldItem: CollectionItemEntry, newItem: CollectionItemEntry): Boolean {
@@ -2224,24 +2916,35 @@ import com.example.finalproject.models.request.ForgotPasswordRequest
 import com.example.finalproject.models.responce.PagedResponse
 import com.example.finalproject.models.request.RegistrationRequest
 import com.example.finalproject.models.CollectionCollaborator
+import com.example.finalproject.models.User
+import com.example.finalproject.models.request.CreateCollectionRequest
 import com.example.finalproject.models.request.CreateCommentRequest
+import com.example.finalproject.models.request.AddItemToCollectionRequest
+import com.example.finalproject.models.request.UpdateProfileRequest
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface ApiService {
-    @POST("collections")
+    @POST("vc-collections/collections")
     fun createCollection(
-        @Body collection: Collection
+        @Body createCollectionRequest: CreateCollectionRequest
     ): Call<Collection>
 
+    // @PUT("vc-collections/collections/{id}")
+    // fun updateCollection(
+    //     @Path("id") collectionId: Int,
+    //     @Body updateCollectionRequest: CreateCollectionRequest
+    // ): Call<Collection>
+
     @GET("vc-collections/collections/{id}")
-    fun getCollectionById(@Path("id") collectionId: Int): Call<Collection>
+    fun getCollectionById(@Path("id") collectionId: Long): Call<Collection>
 
     @GET("vc-collections/collections/public-feed")
     fun getPublicCollections(
@@ -2250,45 +2953,62 @@ interface ApiService {
         @Query("sort") sort: String = "viewCount,desc"
     ): Call<PagedResponse<Collection>>
 
-    @GET("collections/{collectionId}/items")
+    @GET("vc-collections/collections/my")
+    fun getMyCollections(
+        @Query("page") page: Int = 0,
+        @Query("size") size: Int = 10,
+        @Query("sort") sort: String = "updatedAt,desc"
+    ): Call<PagedResponse<Collection>>
+
+    @GET("vc-collections/collections/{collectionId}/items")
     fun getCollectionItems(
-        @Path("collectionId") collectionId: Int,
+        @Path("collectionId") collectionId: Long,
         @Query("page") page: Int = 0,
         @Query("size") size: Int = 20
     ): Call<PagedResponse<CollectionItemEntry>>
 
-    @GET("collections/{collectionId}/comments")
+    @POST("vc-collections/collections/{collectionId}/items")
+    fun addItemToCollection(
+        @Path("collectionId") collectionId: Long,
+        @Body addItemRequest: AddItemToCollectionRequest
+    ): Call<CollectionItemEntry>
+
+    @GET("vc-collections/collections/{collectionId}/comments")
     fun getCollectionComments(
-        @Path("collectionId") collectionId: Int,
+        @Path("collectionId") collectionId: Long,
         @Query("page") page: Int = 0,
         @Query("size") size: Int = 10
     ): Call<PagedResponse<CollectionComment>>
 
-    @GET("collections/{collectionId}/collaborators")
-    fun getCollectionCollaborators(@Path("collectionId") collectionId: Int): Call<List<CollectionCollaborator>>
+    @GET("vc-collections/collections/{collectionId}/collaborators")
+    fun getCollectionCollaborators(@Path("collectionId") collectionId: Long): Call<List<CollectionCollaborator>>
 
-    @POST("collections/{collectionId}/like")
-    fun likeCollection(@Path("collectionId") collectionId: Int): Call<ResponseBody>
+    @POST("vc-collections/collections/{collectionId}/like")
+    fun likeCollection(@Path("collectionId") collectionId: Long): Call<ResponseBody>
 
-    @DELETE("collections/{collectionId}/like")
-    fun unlikeCollection(@Path("collectionId") collectionId: Int): Call<ResponseBody>
+    @DELETE("vc-collections/collections/{collectionId}/like")
+    fun unlikeCollection(@Path("collectionId") collectionId: Long): Call<ResponseBody>
 
-    @POST("collections/{collectionId}/comments")
+    @POST("vc-collections/collections/{collectionId}/comments")
     fun addCollectionComment(
-        @Path("collectionId") collectionId: Int,
+        @Path("collectionId") collectionId: Long,
         @Body commentRequest: CreateCommentRequest
     ): Call<CollectionComment>
 
     @POST("vc-users/auth/login")
     fun loginUser(@Body loginRequest: LoginRequest): Call<AuthResponse>
 
-    @POST("auth/forgot-password")
+    @POST("vc-users/auth/forgot-password")
     fun forgotPassword(@Body forgotPasswordRequest: ForgotPasswordRequest): Call<ResponseBody>
 
-    @POST("auth/register")
+    @POST("vc-users/auth/register")
     fun registerUser(@Body registrationRequest: RegistrationRequest): Call<AuthResponse>
 
+    @GET("vc-users/users/{userId}")
+    fun getUserProfileById(@Path("userId") userId: Long): Call<User>
 
+    @PUT("vc-users/users/me")
+    fun updateMyProfile(@Body updateProfileRequest: UpdateProfileRequest): Call<User>
 }
 
 ###############################################################################
@@ -2371,11 +3091,10 @@ data class AchievementType(
 package com.example.finalproject.models
 
 data class Collection(
-    val collectionId: Int,
+    val collectionId: Long,
     val title: String,
     val description: String?,
     val coverImageUrl: String?,
-    val userId: Int,
     val createdAt: String?,
     val updatedAt: String?,
     val isPublic: Boolean,
@@ -2422,15 +3141,15 @@ data class CollectionComment(
 
 package com.example.finalproject.models
 
-data class CollectionItemEntry( // Переименовал, чтобы не путать с MediaItem
-    val collectionId: Int,
-    val itemId: Int,
+data class CollectionItemEntry(
+    val collectionId: Long,
+    val itemId: Long,
     val addedByUserId: Int?,
-    val addedAt: String, // Или использовать тип Date/Timestamp
+    val addedAt: String,
     val position: Int?,
     val notes: String?,
-    val mediaItem: MediaItem, // Вложенный объект самого медиа-элемента
-    val addedByUser: User? = null // Пользователь, добавивший элемент
+    val mediaItem: MediaItem,
+    val addedByUser: User? = null
 )
 
 ###############################################################################
@@ -2453,7 +3172,7 @@ data class CollectionLike(
 package com.example.finalproject.models
 
 data class ContentType(
-    val typeId: Int,
+    val typeId: Long,
     val typeName: String,
     val typeIcon: String?
 )
@@ -2465,8 +3184,8 @@ data class ContentType(
 package com.example.finalproject.models
 
 data class MediaItem(
-    val itemId: Int,
-    val typeId: Int,
+    val itemId: Long,
+    val typeId: Long,
     val title: String,
     val creator: String?,
     val description: String?,
@@ -2514,7 +3233,7 @@ data class PageableDetails(
 package com.example.finalproject.models
 
 data class Tag(
-    val tagId: Int,
+    val tagId: Long,
     val tagName: String
 )
 
@@ -2525,7 +3244,7 @@ data class Tag(
 package com.example.finalproject.models
 
 data class User(
-    val userId: Int?,
+    val userId: Long?,
     val username: String,
     val email: String,
     val displayName: String?,
@@ -2634,61 +3353,123 @@ object AuthTokenProvider {
 package com.example.finalproject.fragments.collection
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.finalproject.R
+import com.example.finalproject.api.RetrofitClient
+import com.example.finalproject.databinding.FragmentAddItemBinding
+import com.example.finalproject.models.CollectionItemEntry
+import com.example.finalproject.models.request.AddItemToCollectionRequest
+import com.example.finalproject.utils.AuthTokenProvider
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [androidx.fragment.app.Fragment] subclass.
- * Use the [AddItemFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class AddItemFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+
+    private var _binding: FragmentAddItemBinding? = null
+    private val binding get() = _binding!!
+
+    private val args: AddItemFragmentArgs by navArgs()
+    private var collectionId: Long = -1L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+        collectionId = args.collectionId
+        if (collectionId == -1L) {
+            Toast.makeText(context, getString(R.string.collection_id_missing), Toast.LENGTH_LONG).show()
+            Log.e("AddItemFragment", "Collection ID is missing.")
+            findNavController().popBackStack()
         }
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_add_item, container, false)
+    ): View {
+        _binding = FragmentAddItemBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment AddItemFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            AddItemFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.addItemButton.setOnClickListener {
+            if (!AuthTokenProvider.isAuthenticated()) {
+                Toast.makeText(context, R.string.please_login_to_see_collections, Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
             }
+            if (collectionId != -1L) {
+                handleAddItemToCollection()
+            } else {
+                Toast.makeText(context, getString(R.string.collection_id_missing), Toast.LENGTH_LONG).show()
+            }
+        }
+    }
+
+    private fun handleAddItemToCollection() {
+        val mediaItemIdString = binding.mediaItemIdEditText.text.toString().trim()
+        val notes = binding.itemNotesEditText.text.toString().trim().ifEmpty { null }
+
+        if (mediaItemIdString.isEmpty()) {
+            binding.mediaItemIdTextInputLayout.error = getString(R.string.error_media_item_id_required)
+            return
+        } else {
+            binding.mediaItemIdTextInputLayout.error = null
+        }
+
+        val mediaItemId = mediaItemIdString.toLongOrNull()
+        if (mediaItemId == null) {
+            binding.mediaItemIdTextInputLayout.error = "ID должен быть числом"
+            return
+        }
+
+        setLoading(true)
+
+        val addItemRequest = AddItemToCollectionRequest(mediaItemId = mediaItemId, notes = notes)
+        RetrofitClient.instance.addItemToCollection(collectionId, addItemRequest)
+            .enqueue(object : Callback<CollectionItemEntry> {
+                override fun onResponse(call: Call<CollectionItemEntry>, response: Response<CollectionItemEntry>) {
+                    setLoading(false)
+                    if (response.isSuccessful && response.code() == 201) {
+                        val newItemEntry = response.body()
+                        Toast.makeText(context, getString(R.string.item_added_successfully), Toast.LENGTH_SHORT).show()
+                        Log.d("AddItemFragment", "Item added: ${newItemEntry?.mediaItem?.title} to collection $collectionId")
+                        // TODO: Опционально: передать результат обратно в CollectionDetailsFragment, чтобы он обновил список
+                        findNavController().popBackStack()
+                    } else {
+                        val errorMsg = response.errorBody()?.string() ?: getString(R.string.error_adding_item)
+                        val displayError = "${getString(R.string.error_adding_item)}: ${response.code()} $errorMsg"
+                        Toast.makeText(context, displayError, Toast.LENGTH_LONG).show()
+                        Log.e("AddItemFragment", "API Error ${response.code()}: $errorMsg")
+                    }
+                }
+
+                override fun onFailure(call: Call<CollectionItemEntry>, t: Throwable) {
+                    setLoading(false)
+                    Toast.makeText(context, "${getString(R.string.network_error)}: ${t.message}", Toast.LENGTH_LONG).show()
+                    Log.e("AddItemFragment", "Network Failure", t)
+                }
+            })
+    }
+
+    private fun setLoading(isLoading: Boolean) {
+        binding.addItemProgressBar.isVisible = isLoading
+        binding.mediaItemIdEditText.isEnabled = !isLoading
+        binding.itemNotesEditText.isEnabled = !isLoading
+        binding.addItemButton.isEnabled = !isLoading
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
 
@@ -2733,7 +3514,7 @@ class CollectionDetailsFragment : Fragment() {
     private var _binding: FragmentCollectionDetailsBinding? = null
     private val binding get() = _binding!!
 
-    private val args: CollectionDetailsFragmentArgs by navArgs() // Для получения collectionId
+    private val args: CollectionDetailsFragmentArgs by navArgs()
 
     private lateinit var itemsAdapter: CollectionItemAdapter
     private lateinit var commentsAdapter: CommentAdapter
@@ -2762,11 +3543,16 @@ class CollectionDetailsFragment : Fragment() {
         binding.postCommentButton.setOnClickListener {
             postComment()
         }
+        binding.fabAddItemToCollection.setOnClickListener {
+            currentCollection?.collectionId?.let { collId ->
+                val action = CollectionDetailsFragmentDirections.actionCollectionDetailsFragmentToAddItemFragment(collId)
+                findNavController().navigate(action)
+            }
+        }
     }
 
     private fun setupAdapters() {
         itemsAdapter = CollectionItemAdapter { itemEntry ->
-            // TODO: Navigate to MediaItemDetailsFragment
             Toast.makeText(context, "Открыть элемент: ${itemEntry.mediaItem.title}", Toast.LENGTH_SHORT).show()
             // val action = CollectionDetailsFragmentDirections.actionCollectionDetailsFragmentToMediaItemDetailsFragment(itemEntry.mediaItem.itemId)
             // findNavController().navigate(action)
@@ -2899,10 +3685,9 @@ class CollectionDetailsFragment : Fragment() {
         binding.collectionDetailAuthor.text = getString(R.string.author_prefix, authorName)
         binding.collectionDetailAuthor.setOnClickListener {
             collection.owner?.userId?.let { userId ->
-                // TODO: Navigate to UserProfileFragment
                 Toast.makeText(context, "Открыть профиль автора ID: $userId", Toast.LENGTH_SHORT).show()
-                // val action = CollectionDetailsFragmentDirections.actionCollectionDetailsFragmentToUserProfileFragment(userId)
-                // findNavController().navigate(action)
+                val action = CollectionDetailsFragmentDirections.actionCollectionDetailsFragmentToUserProfileFragment(userId)
+                findNavController().navigate(action)
             }
         }
 
@@ -3053,61 +3838,140 @@ class CollectionDetailsFragment : Fragment() {
 package com.example.finalproject.fragments.collection
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.example.finalproject.R
+import com.example.finalproject.api.RetrofitClient
+import com.example.finalproject.databinding.FragmentCreateCollectionBinding
+import com.example.finalproject.models.Collection
+import com.example.finalproject.models.request.CreateCollectionRequest
+import com.example.finalproject.utils.AuthTokenProvider
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [androidx.fragment.app.Fragment] subclass.
- * Use the [EditCollectionFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class EditCollectionFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private var _binding: FragmentCreateCollectionBinding? = null
+    private val binding get() = _binding!!
+
+    // TODO: Add argument for collectionId if implementing edit mode
+    // private val args: EditCollectionFragmentArgs by navArgs()
+    // private var isEditMode = false
+    // private var existingCollectionId: Int? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_create_collection, container, false)
+    ): View {
+        _binding = FragmentCreateCollectionBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment CreateCollectionFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            EditCollectionFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        // TODO: Check for edit mode arguments
+        // arguments?.let {
+        //     existingCollectionId = EditCollectionFragmentArgs.fromBundle(it).collectionId (if -1, then create mode)
+        //     if (existingCollectionId != -1 && existingCollectionId != 0) { // Assuming -1 or 0 means not provided for edit
+        //         isEditMode = true
+        //         setupEditMode()
+        //         fetchCollectionDetails(existingCollectionId!!)
+        //     } else {
+        //         setupCreateMode()
+        //     }
+        // } ?: setupCreateMode()
+        setupCreateMode()
+
+        binding.createCollectionButton.setOnClickListener {
+            if (AuthTokenProvider.isAuthenticated()) {
+                handleCreateCollection()
+            } else {
+                Toast.makeText(context, R.string.please_login_to_see_collections, Toast.LENGTH_SHORT).show()
+                // Optionally navigate to login
+                // findNavController().navigate(R.id.login)
             }
+        }
+    }
+
+    private fun setupCreateMode() {
+        binding.createCollectionHeaderTitle.text = getString(R.string.create_collection_title_toolbar)
+        binding.createCollectionButton.text = getString(R.string.button_create_collection)
+    }
+
+    // private fun setupEditMode() {
+    //     binding.createCollectionHeaderTitle.text = getString(R.string.edit_collection_title_toolbar)
+    //     binding.createCollectionButton.text = getString(R.string.button_save_changes)
+    // }
+
+    // private fun fetchCollectionDetails(collectionId: Int) {
+    //     setLoading(true)
+    //
+    // }
+
+    private fun handleCreateCollection() {
+        val title = binding.titleEditText.text.toString().trim()
+        val description = binding.descriptionEditText.text.toString().trim().ifEmpty { null }
+        val coverImageUrl = binding.coverUrlEditText.text.toString().trim().ifEmpty { null }
+        val isPublic = binding.isPublicSwitch.isChecked
+
+        if (title.isEmpty()) {
+            binding.titleTextInputLayout.error = getString(R.string.error_collection_title_required)
+            return
+        } else {
+            binding.titleTextInputLayout.error = null
+        }
+
+        setLoading(true)
+
+        val createRequest = CreateCollectionRequest(title, description, coverImageUrl, isPublic)
+        RetrofitClient.instance.createCollection(createRequest)
+            .enqueue(object : Callback<Collection> {
+                override fun onResponse(call: Call<Collection>, response: Response<Collection>) {
+                    setLoading(false)
+                    if (response.isSuccessful) {
+                        val newCollection = response.body()
+                        Toast.makeText(context, getString(R.string.collection_created_successfully), Toast.LENGTH_SHORT).show()
+                        Log.d("EditCollectionFragment", "Collection created: ${newCollection?.title}")
+                        findNavController().popBackStack()
+                        // newCollection?.collectionId?.let {
+                        //     val action = EditCollectionFragmentDirections.actionCreateCollectionFragmentToCollectionDetailsFragment(it)
+                        //     findNavController().navigate(action)
+                        // }
+                    } else {
+                        val errorMsg = response.errorBody()?.string() ?: getString(R.string.error_creating_collection)
+                        Toast.makeText(context, "${getString(R.string.error_creating_collection)}: ${response.code()} $errorMsg", Toast.LENGTH_LONG).show()
+                        Log.e("EditCollectionFragment", "API Error ${response.code()}: $errorMsg")
+                    }
+                }
+
+                override fun onFailure(call: Call<Collection>, t: Throwable) {
+                    setLoading(false)
+                    Toast.makeText(context, "${getString(R.string.network_error)}: ${t.message}", Toast.LENGTH_LONG).show()
+                    Log.e("EditCollectionFragment", "Network Failure", t)
+                }
+            })
+    }
+
+    private fun setLoading(isLoading: Boolean) {
+        binding.createCollectionProgressBar.isVisible = isLoading
+        binding.titleEditText.isEnabled = !isLoading
+        binding.descriptionEditText.isEnabled = !isLoading
+        binding.coverUrlEditText.isEnabled = !isLoading
+        binding.isPublicSwitch.isEnabled = !isLoading
+        binding.createCollectionButton.isEnabled = !isLoading
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
 
@@ -3160,14 +4024,10 @@ class HomeFragment : Fragment() {
 
     private fun setupRecyclerView() {
         collectionAdapter = CollectionAdapter { collection ->
-            // Обработка клика на коллекцию -> переход на CollectionDetailsFragment
-            // Для этого нужно будет создать action в nav_graph.xml
-            // и передать, например, collection.collectionId
             Toast.makeText(context, "Переход к коллекции: ${collection.title}", Toast.LENGTH_SHORT).show()
             Log.d("HomeFragment", "Clicked collection ID: ${collection.collectionId}")
-            // Пример навигации (раскомментировать и настроить action в nav_graph.xml):
-            // val action = HomeFragmentDirections.actionHomeFragmentToCollectionDetailsFragment(collection.collectionId)
-            // findNavController().navigate(action)
+            val action = HomeFragmentDirections.actionHomeFragmentToCollectionDetailsFragment(collection.collectionId)
+            findNavController().navigate(action)
         }
         binding.collectionsRecyclerView.apply {
             adapter = collectionAdapter
@@ -3182,6 +4042,9 @@ class HomeFragment : Fragment() {
         RetrofitClient.instance.getPublicCollections(size = 10)
             .enqueue(object : Callback<PagedResponse<Collection>> {
                 override fun onResponse(call: Call<PagedResponse<Collection>>, response: Response<PagedResponse<Collection>>) {
+                    if (!isAdded || _binding == null) {
+                        return
+                    }
                     setLoading(false)
                     if (response.isSuccessful) {
                         val pagedResponse = response.body()
@@ -3205,6 +4068,9 @@ class HomeFragment : Fragment() {
                 }
 
                 override fun onFailure(call: Call<PagedResponse<Collection>>, t: Throwable) {
+                    if (!isAdded || _binding == null) {
+                        return
+                    }
                     setLoading(false)
                     handleApiError(getString(R.string.network_error) + ": ${t.localizedMessage}")
                     Log.e("HomeFragment", "API Failure", t)
@@ -3213,24 +4079,28 @@ class HomeFragment : Fragment() {
     }
 
     private fun handleApiError(errorMessage: String) {
-        Toast.makeText(context, errorMessage, Toast.LENGTH_LONG).show()
-        binding.collectionsRecyclerView.isVisible = false
-        binding.emptyViewText.text = errorMessage
-        binding.emptyViewText.isVisible = true
+        _binding?.let { b ->
+            b.collectionsRecyclerView.isVisible = false
+            b.emptyViewText.text = errorMessage
+            b.emptyViewText.isVisible = true
+        }
+        if (isAdded) {
+            Toast.makeText(context, errorMessage, Toast.LENGTH_LONG).show()
+        }
     }
 
 
     private fun setLoading(isLoading: Boolean) {
-        binding.homeProgressBar.isVisible = isLoading
-        // Можно задизейблить RecyclerView или SwipeRefreshLayout если он есть
-        binding.collectionsRecyclerView.isVisible = !isLoading && binding.collectionsRecyclerView.adapter?.itemCount ?: 0 > 0
+        _binding?.let { b ->
+            b.homeProgressBar.isVisible = isLoading
+            val adapterItemCount = b.collectionsRecyclerView.adapter?.itemCount ?: 0
+            b.collectionsRecyclerView.isVisible = !isLoading && adapterItemCount > 0
+        }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        // Важно очищать ссылку на binding в onDestroyView для фрагментов
-        // чтобы избежать утечек памяти
-        binding.collectionsRecyclerView.adapter = null // Очистка адаптера
+        _binding?.collectionsRecyclerView?.adapter = null
         _binding = null
     }
 }
@@ -3242,61 +4112,176 @@ class HomeFragment : Fragment() {
 package com.example.finalproject.fragments.collection
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.finalproject.R
+import com.example.finalproject.adapters.CollectionAdapter
+import com.example.finalproject.api.RetrofitClient
+import com.example.finalproject.databinding.FragmentMyCollectionsBinding
+import com.example.finalproject.models.Collection
+import com.example.finalproject.models.responce.PagedResponse
+import com.example.finalproject.utils.AuthTokenProvider
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [androidx.fragment.app.Fragment] subclass.
- * Use the [MyCollectionsFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class MyCollectionsFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private var _binding: FragmentMyCollectionsBinding? = null
+    private val binding get() = _binding!!
+
+    private lateinit var collectionAdapter: CollectionAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_my_collections, container, false)
+    ): View {
+        _binding = FragmentMyCollectionsBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment MyCollectionsFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            MyCollectionsFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        if (!AuthTokenProvider.isAuthenticated()) {
+            showNotAuthenticatedState()
+            return
+        }
+
+        setupRecyclerView()
+        fetchMyCollections()
+
+        binding.fabCreateCollection.setOnClickListener {
+            try {
+                // Используем ID из nav_graph, так как CreateCollectionFragment не принимает аргументов
+                // и у него может не быть сгенерированного action в MyCollectionsFragmentDirections
+                // Если action есть, то лучше:
+                // findNavController().navigate(MyCollectionsFragmentDirections.actionMyCollectionsFragmentToCreateCollectionFragment())
+                findNavController().navigate(R.id.createCollectionFragment)
+            } catch (e: Exception) {
+                Toast.makeText(context, getString(R.string.error_cannot_create_collection) + ": ${e.localizedMessage}", Toast.LENGTH_SHORT).show()
+                Log.e("MyCollectionsFragment", "Navigation to createCollectionFragment failed", e)
             }
+        }
+    }
+
+    private fun showNotAuthenticatedState() {
+        Log.w("MyCollectionsFragment", "User not authenticated. Cannot load collections.")
+        binding.myCollectionsEmptyViewText.text = getString(R.string.please_login_to_see_collections)
+        binding.myCollectionsEmptyViewText.isVisible = true
+        binding.myCollectionsRecyclerView.isVisible = false
+        binding.myCollectionsProgressBar.isVisible = false
+        binding.fabCreateCollection.isEnabled = false // Деактивируем кнопку создания
+        Toast.makeText(context, getString(R.string.please_login_to_see_collections), Toast.LENGTH_LONG).show()
+    }
+
+    private fun setupRecyclerView() {
+        collectionAdapter = CollectionAdapter { collection ->
+            Log.d("MyCollectionsFragment", "Clicked collection ID: ${collection.collectionId}")
+            try {
+                val action = MyCollectionsFragmentDirections.actionMyCollectionsFragmentToCollectionDetailsFragment(collection.collectionId)
+                findNavController().navigate(action)
+            } catch (e: Exception) {
+                Toast.makeText(context, getString(R.string.error_cannot_open_collection_details) + ": ${e.localizedMessage}", Toast.LENGTH_SHORT).show()
+                Log.e("MyCollectionsFragment", "Navigation to CollectionDetailsFragment failed", e)
+            }
+        }
+        binding.myCollectionsRecyclerView.apply {
+            adapter = collectionAdapter
+            layoutManager = LinearLayoutManager(context)
+        }
+    }
+
+    private fun fetchMyCollections() {
+        setLoading(true)
+        binding.myCollectionsEmptyViewText.isVisible = false
+
+        RetrofitClient.instance.getMyCollections(size = 20) // Загружаем до 20 коллекций на страницу
+            .enqueue(object : Callback<PagedResponse<Collection>> {
+                override fun onResponse(call: Call<PagedResponse<Collection>>, response: Response<PagedResponse<Collection>>) {
+                    setLoading(false)
+                    if (response.isSuccessful) {
+                        val pagedResponse = response.body()
+                        if (pagedResponse != null) {
+                            val collections = pagedResponse.content
+                            if (collections.isNotEmpty()) {
+                                collectionAdapter.submitList(collections)
+                                binding.myCollectionsRecyclerView.isVisible = true
+                            } else {
+                                binding.myCollectionsRecyclerView.isVisible = false
+                                binding.myCollectionsEmptyViewText.text = getString(R.string.no_my_collections_found)
+                                binding.myCollectionsEmptyViewText.isVisible = true
+                            }
+                        } else {
+                            handleApiError(getString(R.string.error_loading_my_collections) + " (пустой ответ)")
+                        }
+                    } else {
+                        if (response.code() == 401) { // Unauthorized
+                            Toast.makeText(context, "Сессия истекла. Пожалуйста, войдите снова.", Toast.LENGTH_LONG).show()
+                            AuthTokenProvider.clearAuthData()
+                            // Можно добавить автоматический переход на экран логина
+                            // (activity as? MainActivity)?.navController?.navigate(R.id.login)
+                            showNotAuthenticatedState() // Показать состояние "не авторизован"
+                        } else {
+                            handleApiError("Ошибка ${response.code()}: ${response.message()}")
+                        }
+                    }
+                }
+
+                override fun onFailure(call: Call<PagedResponse<Collection>>, t: Throwable) {
+                    setLoading(false)
+                    handleApiError(getString(R.string.network_error) + ": ${t.localizedMessage}")
+                    Log.e("MyCollectionsFragment", "API Failure", t)
+                }
+            })
+    }
+
+    private fun handleApiError(errorMessage: String) {
+        Toast.makeText(context, errorMessage, Toast.LENGTH_LONG).show()
+        binding.myCollectionsRecyclerView.isVisible = false
+        if (binding.myCollectionsEmptyViewText.text.toString() == getString(R.string.no_my_collections_found) ||
+            binding.myCollectionsEmptyViewText.text.toString() == getString(R.string.please_login_to_see_collections)) {
+            // Не перезаписываем сообщение о пустом списке или необходимости логина, если это была API ошибка
+        } else {
+            binding.myCollectionsEmptyViewText.text = errorMessage
+        }
+        binding.myCollectionsEmptyViewText.isVisible = true
+    }
+
+    private fun setLoading(isLoading: Boolean) {
+        binding.myCollectionsProgressBar.isVisible = isLoading
+        if (!isLoading) {
+            // Показываем RecyclerView только если есть элементы и загрузка завершена
+            binding.myCollectionsRecyclerView.isVisible = collectionAdapter.itemCount > 0
+        } else {
+            binding.myCollectionsRecyclerView.isVisible = false
+        }
+        binding.fabCreateCollection.isEnabled = !isLoading
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // Если пользователь мог разлогиниться или залогиниться на другом экране,
+        // и мы возвращаемся сюда, стоит проверить аутентификацию и перезагрузить данные.
+        if (AuthTokenProvider.isAuthenticated() && collectionAdapter.itemCount == 0) {
+            // Если авторизован, но список пуст (например, после возврата с экрана логина)
+            fetchMyCollections()
+        } else if (!AuthTokenProvider.isAuthenticated()) {
+            showNotAuthenticatedState()
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding.myCollectionsRecyclerView.adapter = null // Очистка адаптера
+        _binding = null
     }
 }
 
@@ -3437,61 +4422,159 @@ class MediaItemDetailsFragment : Fragment() {
 package com.example.finalproject.fragments.user
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.view.isVisible
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
+import com.bumptech.glide.Glide
 import com.example.finalproject.R
+import com.example.finalproject.api.RetrofitClient
+import com.example.finalproject.databinding.FragmentEditProfileBinding
+import com.example.finalproject.models.User
+import com.example.finalproject.models.request.UpdateProfileRequest
+import com.example.finalproject.utils.AuthTokenProvider
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [androidx.fragment.app.Fragment] subclass.
- * Use the [EditProfileFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class EditProfileFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private var _binding: FragmentEditProfileBinding? = null
+    private val binding get() = _binding!!
+
+    private val args: EditProfileFragmentArgs by navArgs()
+    private var userIdToEdit: Int = -1
+    private var currentUserData: User? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_edit_profile, container, false)
+    ): View {
+        _binding = FragmentEditProfileBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment EditProfile.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            EditProfileFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        userIdToEdit = args.userId
+
+        if (userIdToEdit == -1 || userIdToEdit != AuthTokenProvider.getCurrentUser()?.userId) {
+            Toast.makeText(context, "Ошибка: Невозможно редактировать этот профиль.", Toast.LENGTH_LONG).show()
+            Log.e("EditProfileFragment", "Attempted to edit profile with invalid userId: $userIdToEdit")
+            findNavController().popBackStack()
+            return
+        }
+
+        loadCurrentProfileData()
+
+        binding.saveProfileButton.setOnClickListener {
+            handleUpdateProfile()
+        }
+
+        binding.avatarUrlEditTextField.doOnTextChanged { text, _, _, _ ->
+            Glide.with(this)
+                .load(text.toString())
+                .placeholder(R.drawable.ic_profile_24)
+                .error(R.drawable.ic_profile_24)
+                .circleCrop()
+                .into(binding.editProfileAvatarPreview)
+        }
+    }
+
+    private fun loadCurrentProfileData() {
+        setLoading(true)
+        currentUserData = AuthTokenProvider.getCurrentUser()
+
+        if (currentUserData == null) {
+            setLoading(false)
+            Toast.makeText(context, getString(R.string.error_loading_data_for_edit), Toast.LENGTH_LONG).show()
+            Log.e("EditProfileFragment", "Could not load current user data from AuthTokenProvider.")
+            findNavController().popBackStack()
+            return
+        }
+
+        populateFields(currentUserData!!)
+        setLoading(false)
+    }
+
+    private fun populateFields(user: User) {
+        binding.displayNameEditTextField.setText(user.displayName ?: "")
+        binding.bioEditTextField.setText(user.bio ?: "")
+        binding.avatarUrlEditTextField.setText(user.avatarUrl ?: "")
+
+        Glide.with(this)
+            .load(user.avatarUrl)
+            .placeholder(R.drawable.ic_profile_24)
+            .error(R.drawable.ic_profile_24)
+            .circleCrop()
+            .into(binding.editProfileAvatarPreview)
+    }
+
+    private fun handleUpdateProfile() {
+        val displayName = binding.displayNameEditTextField.text.toString().trim().ifEmpty { null }
+        val bio = binding.bioEditTextField.text.toString().trim().ifEmpty { null }
+        val avatarUrl = binding.avatarUrlEditTextField.text.toString().trim().ifEmpty { null }
+
+        if (displayName == currentUserData?.displayName &&
+            bio == currentUserData?.bio &&
+            avatarUrl == currentUserData?.avatarUrl) {
+            Toast.makeText(context, "Нет изменений для сохранения.", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        setLoading(true)
+
+        val updateRequest = UpdateProfileRequest(displayName, bio, avatarUrl)
+
+        RetrofitClient.instance.updateMyProfile(updateRequest)
+            .enqueue(object : Callback<User> {
+                override fun onResponse(call: Call<User>, response: Response<User>) {
+                    setLoading(false)
+                    if (response.isSuccessful) {
+                        response.body()?.let { updatedUser ->
+                            // Обновляем данные пользователя в AuthTokenProvider
+                            AuthTokenProvider.saveUser(updatedUser)
+                            Toast.makeText(context, getString(R.string.profile_updated_successfully), Toast.LENGTH_SHORT).show()
+                            Log.d("EditProfileFragment", "Profile updated for user: ${updatedUser.username}")
+                            findNavController().popBackStack() // Возвращаемся на UserProfileFragment
+                        } ?: run {
+                            Toast.makeText(context, getString(R.string.error_updating_profile) + " (пустой ответ)", Toast.LENGTH_LONG).show()
+                        }
+                    } else {
+                        val errorMsg = response.errorBody()?.string() ?: getString(R.string.error_updating_profile)
+                        Toast.makeText(context, "${getString(R.string.error_updating_profile)}: ${response.code()} $errorMsg", Toast.LENGTH_LONG).show()
+                        Log.e("EditProfileFragment", "API Error ${response.code()}: $errorMsg")
+                    }
                 }
-            }
+
+                override fun onFailure(call: Call<User>, t: Throwable) {
+                    setLoading(false)
+                    Toast.makeText(context, "${getString(R.string.network_error)}: ${t.message}", Toast.LENGTH_LONG).show()
+                    Log.e("EditProfileFragment", "Network Failure", t)
+                }
+            })
+    }
+
+
+    private fun setLoading(isLoading: Boolean) {
+        binding.editProfileProgressBar.isVisible = isLoading
+        binding.displayNameEditTextField.isEnabled = !isLoading
+        binding.bioEditTextField.isEnabled = !isLoading
+        binding.avatarUrlEditTextField.isEnabled = !isLoading
+        binding.saveProfileButton.isEnabled = !isLoading
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+        currentUserData = null
     }
 }
 
@@ -3874,63 +4957,274 @@ class RegistrationFragment : Fragment() {
 package com.example.finalproject.fragments.user
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
+import com.bumptech.glide.Glide
 import com.example.finalproject.R
+import com.example.finalproject.api.RetrofitClient // Убедитесь, что импортирован
+import com.example.finalproject.databinding.FragmentUserProfileBinding
+import com.example.finalproject.models.User
+import com.example.finalproject.utils.AuthTokenProvider
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.text.ParseException
+import java.text.SimpleDateFormat
+import java.util.Locale
+import java.util.TimeZone
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [androidx.fragment.app.Fragment] subclass.
- * Use the [UserProfileFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class UserProfileFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private var _binding: FragmentUserProfileBinding? = null
+    private val binding get() = _binding!!
+
+    private val args: UserProfileFragmentArgs by navArgs()
+    private var profileUserIdToLoad: Int? = null // ID пользователя, чей профиль нужно загрузить
+    private var currentlyDisplayedUser: User? = null // Пользователь, чей профиль отображается
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_user_profile, container, false)
+    ): View {
+        _binding = FragmentUserProfileBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment UserProfile.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            UserProfileFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        profileUserIdToLoad = if (args.userId == -1) {
+            AuthTokenProvider.getCurrentUser()?.userId // Если -1, берем ID текущего пользователя
+        } else {
+            args.userId
+        }
+
+        loadUserProfileData()
+
+        binding.editProfileButton.setOnClickListener {
+            // Кнопка активна только если это наш профиль
+            if (isCurrentUserProfileOwner()) {
+                currentlyDisplayedUser?.userId?.let {
+                    // Передаем userId в EditProfileFragment, если он нужен для API (например, для PUT /users/{id})
+                    // Либо EditProfileFragment сам берет ID текущего пользователя
+                    val action = UserProfileFragmentDirections.actionUserProfileFragmentToEditProfile(it)
+                    findNavController().navigate(action)
+                } ?: Toast.makeText(context, "Ошибка: ID пользователя не найден", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        binding.logoutButton.setOnClickListener {
+            // Кнопка активна только если это наш профиль
+            if (isCurrentUserProfileOwner()) {
+                showLogoutConfirmationDialog()
+            }
+        }
+    }
+
+    private fun isCurrentUserProfileOwner(): Boolean {
+        val loggedInUserId = AuthTokenProvider.getCurrentUser()?.userId
+        return loggedInUserId != null && currentlyDisplayedUser?.userId == loggedInUserId
+    }
+
+    private fun loadUserProfileData() {
+        setLoading(true)
+        binding.profileErrorText.isVisible = false
+        binding.profileContentGroup.isVisible = false
+
+        if (profileUserIdToLoad == null && args.userId == -1) {
+            // Это случай, когда мы хотим показать профиль текущего юзера, но он не залогинен
+            val currentUser = AuthTokenProvider.getCurrentUser()
+            if (currentUser != null) {
+                profileUserIdToLoad = currentUser.userId // Устанавливаем ID для ясности
+                displayProfileData(currentUser)
+                setLoading(false)
+            } else {
+                showError(getString(R.string.user_not_logged_in))
+                setLoading(false)
+                updateButtonVisibility() // Обновить видимость кнопок
+            }
+            return
+        }
+
+        if (profileUserIdToLoad == null) {
+            showError(getString(R.string.user_not_found) + " (ID не указан)")
+            setLoading(false)
+            updateButtonVisibility()
+            return
+        }
+
+        // Загрузка профиля по ID с сервера
+        RetrofitClient.instance.getUserProfileById(profileUserIdToLoad!!)
+            .enqueue(object : Callback<User> {
+                override fun onResponse(call: Call<User>, response: Response<User>) {
+                    setLoading(false)
+                    if (response.isSuccessful) {
+                        response.body()?.let { user ->
+                            displayProfileData(user)
+                        } ?: showError(getString(R.string.user_not_found))
+                    } else {
+                        showError("${getString(R.string.error_loading_profile)}: ${response.code()} ${response.message()}")
+                    }
+                }
+
+                override fun onFailure(call: Call<User>, t: Throwable) {
+                    setLoading(false)
+                    showError("${getString(R.string.network_error)}: ${t.localizedMessage}")
+                    Log.e("UserProfileFragment", "Failed to load profile", t)
+                }
+            })
+    }
+
+    private fun displayProfileData(user: User) {
+        currentlyDisplayedUser = user // Сохраняем текущего отображаемого пользователя
+
+        binding.usernameTextView.text = user.username
+        binding.displayNameTextView.text = user.displayName ?: getString(R.string.default_display_name)
+        binding.emailTextView.text = user.email // Email может быть скрыт для чужих профилей на уровне API
+        binding.bioTextView.text = user.bio ?: getString(R.string.default_bio)
+
+        binding.joinedDateTextView.text = formatDate(user.createdAt)
+        binding.lastLoginDateTextView.text = user.lastLogin?.let { formatDate(it) } ?: getString(R.string.placeholder_date)
+
+        Glide.with(this)
+            .load(user.avatarUrl)
+            .placeholder(R.drawable.ic_profile_24)
+            .error(R.drawable.ic_profile_24)
+            .circleCrop()
+            .into(binding.profileAvatarImageView)
+
+        binding.profileContentGroup.isVisible = true
+        updateButtonVisibility()
+    }
+
+    private fun updateButtonVisibility() {
+        val isOwner = isCurrentUserProfileOwner()
+        binding.editProfileButton.isVisible = isOwner
+        binding.logoutButton.isVisible = isOwner
+    }
+
+
+    private fun showLogoutConfirmationDialog() {
+        AlertDialog.Builder(requireContext())
+            .setTitle(getString(R.string.confirm_logout_title))
+            .setMessage(getString(R.string.confirm_logout_message))
+            .setPositiveButton(getString(R.string.action_yes)) { dialog, _ ->
+                performLogout()
+                dialog.dismiss()
+            }
+            .setNegativeButton(getString(R.string.action_no)) { dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
+    }
+
+    private fun performLogout() {
+        AuthTokenProvider.clearAuthData()
+        Toast.makeText(context, getString(R.string.logged_out_successfully), Toast.LENGTH_SHORT).show()
+        try {
+            findNavController().navigate(R.id.login, null, androidx.navigation.NavOptions.Builder()
+                .setPopUpTo(R.id.nav_graph, true)
+                .build())
+        } catch (e: Exception) {
+            Log.e("UserProfileFragment", "Navigation to login after logout failed", e)
+        }
+    }
+
+    private fun setLoading(isLoading: Boolean) {
+        binding.profileProgressBar.isVisible = isLoading
+        if (!isLoading) { // Только скрываем контент, если не было ошибки
+            if (!binding.profileErrorText.isVisible) binding.profileContentGroup.isVisible = true
+        } else {
+            binding.profileContentGroup.isVisible = false
+        }
+    }
+
+    private fun showError(message: String) {
+        binding.profileErrorText.text = message
+        binding.profileErrorText.isVisible = true
+        binding.profileContentGroup.isVisible = false
+        updateButtonVisibility() // Скрыть кнопки при ошибке
+    }
+
+
+    private fun formatDate(dateString: String?): String {
+        if (dateString.isNullOrEmpty()) return getString(R.string.placeholder_date)
+        val inputFormats = listOf(
+            SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSSS", Locale.getDefault()),
+            SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSSSZ", Locale.getDefault()), // с Z в конце для смещения
+            SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault()),
+            SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault())
+        )
+        val outputFormat = SimpleDateFormat("dd MMMM yyyy, HH:mm", Locale.getDefault())
+
+        for (format in inputFormats) {
+            if (!dateString.contains("Z") && format.toPattern().endsWith("'Z'")) {
+                // Пропускаем форматы с Z, если в строке нет Z
+            } else {
+                format.timeZone = TimeZone.getTimeZone("UTC") // Предполагаем, что даты с сервера в UTC
+            }
+
+            try {
+                val date = format.parse(dateString)
+                if (date != null) {
+                    outputFormat.timeZone = TimeZone.getDefault()
+                    return outputFormat.format(date)
+                }
+            } catch (e: ParseException) {
+                // Log.v("UserProfileFragment", "Date parse failed for $dateString with pattern ${format.toPattern()}", e)
+            }
+        }
+        Log.w("UserProfileFragment", "Could not parse date: $dateString, returning as is.")
+        return dateString
+    }
+
+
+    override fun onResume() {
+        super.onResume()
+        // Перезагружаем данные, если ID пользователя изменился (маловероятно без пересоздания фрагмента)
+        // или если мы вернулись с экрана редактирования
+        val newProfileUserIdToLoad = if (args.userId == -1) AuthTokenProvider.getCurrentUser()?.userId else args.userId
+        if (profileUserIdToLoad != newProfileUserIdToLoad || currentlyDisplayedUser == null) {
+            profileUserIdToLoad = newProfileUserIdToLoad
+            loadUserProfileData()
+        } else {
+            // Если вернулись с EditProfile, а данные могли измениться у currentlyDisplayedUser
+            // Если EditProfile меняет данные в AuthTokenProvider, можно просто перезагрузить
+            if (isCurrentUserProfileOwner()) {
+                AuthTokenProvider.getCurrentUser()?.let {
+                    if (it != currentlyDisplayedUser) { // Простая проверка, если User - data class
+                        displayProfileData(it)
+                    }
                 }
             }
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+        currentlyDisplayedUser = null
     }
 }
+
+###############################################################################
+# FILE: app\src\main\java\com\example\finalproject\models\request\AddItemToCollectionRequest.kt
+###############################################################################
+
+package com.example.finalproject.models.request
+
+data class AddItemToCollectionRequest(
+    val mediaItemId: Long,
+    val notes: String?
+)
 
 ###############################################################################
 # FILE: app\src\main\java\com\example\finalproject\models\request\CreateCollectionRequest.kt
@@ -3987,6 +5281,18 @@ data class RegistrationRequest(
     val email: String,
     val password: String,
     val displayName: String?
+)
+
+###############################################################################
+# FILE: app\src\main\java\com\example\finalproject\models\request\UpdateProfileRequest.kt
+###############################################################################
+
+package com.example.finalproject.models.request
+
+data class UpdateProfileRequest(
+    val displayName: String?,
+    val bio: String?,
+    val avatarUrl: String?
 )
 
 ###############################################################################
@@ -4082,7 +5388,7 @@ data class SortProperty(
 
 ###############################################################################
 # SUMMARY
-# Total files: 79
-# Total size: 151.51 KB
-# Processing time: 0.95 seconds
+# Total files: 85
+# Total size: 214.82 KB
+# Processing time: 1.53 seconds
 ###############################################################################

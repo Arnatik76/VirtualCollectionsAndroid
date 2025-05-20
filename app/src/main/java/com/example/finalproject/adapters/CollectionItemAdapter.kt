@@ -61,8 +61,7 @@ class CollectionItemAdapter(private val onItemClicked: (CollectionItemEntry) -> 
 
     class ItemDiffCallback : DiffUtil.ItemCallback<CollectionItemEntry>() {
         override fun areItemsTheSame(oldItem: CollectionItemEntry, newItem: CollectionItemEntry): Boolean {
-            // Предполагаем, что у CollectionItemEntry есть уникальный ID, если нет, используй itemId из mediaItem
-            return oldItem.itemId == newItem.itemId && oldItem.collectionId == newItem.collectionId
+            return oldItem.mediaItem.itemId == newItem.mediaItem.itemId && oldItem.collectionId == newItem.collectionId
         }
 
         override fun areContentsTheSame(oldItem: CollectionItemEntry, newItem: CollectionItemEntry): Boolean {

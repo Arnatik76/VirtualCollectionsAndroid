@@ -1,7 +1,7 @@
 package com.example.finalproject.models
 
 data class Collection(
-    val collectionId: Int,
+    val collectionId: Long,
     val title: String,
     val description: String?,
     val coverImageUrl: String?,

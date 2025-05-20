@@ -28,7 +28,7 @@ class EditProfileFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val args: EditProfileFragmentArgs by navArgs()
-    private var userIdToEdit: Int = -1
+    private var userIdToEdit: Long = -1L
     private var currentUserData: User? = null
 
     override fun onCreateView(
@@ -44,7 +44,7 @@ class EditProfileFragment : Fragment() {
 
         userIdToEdit = args.userId
 
-        if (userIdToEdit == -1 || userIdToEdit != AuthTokenProvider.getCurrentUser()?.userId) {
+        if (userIdToEdit == -1L || userIdToEdit != AuthTokenProvider.getCurrentUser()?.userId) {
             Toast.makeText(context, "Ошибка: Невозможно редактировать этот профиль.", Toast.LENGTH_LONG).show()
             Log.e("EditProfileFragment", "Attempted to edit profile with invalid userId: $userIdToEdit")
             findNavController().popBackStack()
@@ -118,11 +118,10 @@ class EditProfileFragment : Fragment() {
                     setLoading(false)
                     if (response.isSuccessful) {
                         response.body()?.let { updatedUser ->
-                            // Обновляем данные пользователя в AuthTokenProvider
                             AuthTokenProvider.saveUser(updatedUser)
                             Toast.makeText(context, getString(R.string.profile_updated_successfully), Toast.LENGTH_SHORT).show()
                             Log.d("EditProfileFragment", "Profile updated for user: ${updatedUser.username}")
-                            findNavController().popBackStack() // Возвращаемся на UserProfileFragment
+                            findNavController().popBackStack()
                         } ?: run {
                             Toast.makeText(context, getString(R.string.error_updating_profile) + " (пустой ответ)", Toast.LENGTH_LONG).show()
                         }
@@ -140,7 +139,6 @@ class EditProfileFragment : Fragment() {
                 }
             })
     }
-
 
     private fun setLoading(isLoading: Boolean) {
         binding.editProfileProgressBar.isVisible = isLoading

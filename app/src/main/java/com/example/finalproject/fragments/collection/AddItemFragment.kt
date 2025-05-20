@@ -26,12 +26,12 @@ class AddItemFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val args: AddItemFragmentArgs by navArgs()
-    private var collectionId: Int = -1
+    private var collectionId: Long = -1L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         collectionId = args.collectionId
-        if (collectionId == -1) {
+        if (collectionId == -1L) {
             Toast.makeText(context, getString(R.string.collection_id_missing), Toast.LENGTH_LONG).show()
             Log.e("AddItemFragment", "Collection ID is missing.")
             findNavController().popBackStack()
@@ -54,7 +54,7 @@ class AddItemFragment : Fragment() {
                 Toast.makeText(context, R.string.please_login_to_see_collections, Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-            if (collectionId != -1) {
+            if (collectionId != -1L) {
                 handleAddItemToCollection()
             } else {
                 Toast.makeText(context, getString(R.string.collection_id_missing), Toast.LENGTH_LONG).show()
@@ -73,7 +73,7 @@ class AddItemFragment : Fragment() {
             binding.mediaItemIdTextInputLayout.error = null
         }
 
-        val mediaItemId = mediaItemIdString.toIntOrNull()
+        val mediaItemId = mediaItemIdString.toLongOrNull()
         if (mediaItemId == null) {
             binding.mediaItemIdTextInputLayout.error = "ID должен быть числом"
             return
@@ -86,14 +86,16 @@ class AddItemFragment : Fragment() {
             .enqueue(object : Callback<CollectionItemEntry> {
                 override fun onResponse(call: Call<CollectionItemEntry>, response: Response<CollectionItemEntry>) {
                     setLoading(false)
-                    if (response.isSuccessful) {
+                    if (response.isSuccessful && response.code() == 201) {
                         val newItemEntry = response.body()
                         Toast.makeText(context, getString(R.string.item_added_successfully), Toast.LENGTH_SHORT).show()
                         Log.d("AddItemFragment", "Item added: ${newItemEntry?.mediaItem?.title} to collection $collectionId")
+                        // TODO: Опционально: передать результат обратно в CollectionDetailsFragment, чтобы он обновил список
                         findNavController().popBackStack()
                     } else {
                         val errorMsg = response.errorBody()?.string() ?: getString(R.string.error_adding_item)
-                        Toast.makeText(context, "${getString(R.string.error_adding_item)}: ${response.code()} $errorMsg", Toast.LENGTH_LONG).show()
+                        val displayError = "${getString(R.string.error_adding_item)}: ${response.code()} $errorMsg"
+                        Toast.makeText(context, displayError, Toast.LENGTH_LONG).show()
                         Log.e("AddItemFragment", "API Error ${response.code()}: $errorMsg")
                     }
                 }

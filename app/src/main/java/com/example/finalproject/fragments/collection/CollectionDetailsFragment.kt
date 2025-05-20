@@ -42,7 +42,7 @@ class CollectionDetailsFragment : Fragment() {
     private lateinit var collaboratorAdapter: CollaboratorAdapter
 
     private var currentCollection: Collection? = null
-    private var isLikedByCurrentUser: Boolean = false // TODO: Получать эту информацию с сервера или определять локально
+    private var isLikedByCurrentUser: Boolean = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -86,10 +86,8 @@ class CollectionDetailsFragment : Fragment() {
 
         commentsAdapter = CommentAdapter { userId ->
             userId?.let {
-                // TODO: Navigate to UserProfileFragment
-                Toast.makeText(context, "Открыть профиль автора комментария ID: $it", Toast.LENGTH_SHORT).show()
-                // val action = CollectionDetailsFragmentDirections.actionCollectionDetailsFragmentToUserProfileFragment(it)
-                // findNavController().navigate(action)
+                val action = CollectionDetailsFragmentDirections.actionCollectionDetailsFragmentToUserProfileFragment(it.toLong())
+                findNavController().navigate(action)
             }
         }
         binding.commentsRecyclerView.apply {
@@ -99,10 +97,10 @@ class CollectionDetailsFragment : Fragment() {
         }
 
         collaboratorAdapter = CollaboratorAdapter { user ->
-            // TODO: Navigate to UserProfileFragment
-            Toast.makeText(context, "Открыть профиль соавтора: ${user.username}", Toast.LENGTH_SHORT).show()
-            // val action = CollectionDetailsFragmentDirections.actionCollectionDetailsFragmentToUserProfileFragment(user.userId ?: -1) // Проверка на null
-            // findNavController().navigate(action)
+            user.userId?.let { collaboratorUserId ->
+                val action = CollectionDetailsFragmentDirections.actionCollectionDetailsFragmentToUserProfileFragment(collaboratorUserId)
+                findNavController().navigate(action)
+            }
         }
         binding.collaboratorsRecyclerView.apply {
             adapter = collaboratorAdapter
@@ -111,7 +109,7 @@ class CollectionDetailsFragment : Fragment() {
         }
     }
 
-    private fun fetchCollectionDetails(collectionId: Int) {
+    private fun fetchCollectionDetails(collectionId: Long) {
         setLoading(true)
         RetrofitClient.instance.getCollectionById(collectionId)
             .enqueue(object : Callback<Collection> {
@@ -121,9 +119,8 @@ class CollectionDetailsFragment : Fragment() {
                         response.body()?.let { collection ->
                             currentCollection = collection
                             displayCollectionDetails(collection)
-                            // TODO: Определить isLikedByCurrentUser (например, если API возвращает флаг или список лайкнувших)
                             updateLikeButtonState()
-                            fetchAdditionalData(collection) // Загрузка комментов/элементов если они не пришли сразу
+                            fetchAdditionalData(collection)
                         } ?: handleApiError(getString(R.string.error_loading_collection_details) + " (пустой ответ)")
                     } else {
                         handleApiError("Ошибка ${response.code()}: ${response.message()}")
@@ -139,19 +136,13 @@ class CollectionDetailsFragment : Fragment() {
     }
 
     private fun fetchAdditionalData(collection: Collection) {
-        // Если элементы не пришли с коллекцией, загружаем их отдельно
         if (collection.items.isNullOrEmpty()) {
             fetchItems(collection.collectionId)
         } else {
             itemsAdapter.submitList(collection.items)
         }
-
-        // Аналогично для комментариев, если они не приходят с основной коллекцией.
-        // Здесь для примера загрузим комментарии отдельно
         fetchComments(collection.collectionId)
 
-
-        // Коллабораторы
         if (!collection.collaborators.isNullOrEmpty()) {
             binding.collaboratorsTitle.isVisible = true
             binding.collaboratorsRecyclerView.isVisible = true
@@ -165,9 +156,8 @@ class CollectionDetailsFragment : Fragment() {
     }
 
 
-    private fun fetchItems(collectionId: Int) {
-        // Показываем какой-то ProgressBar для элементов, если нужно
-        RetrofitClient.instance.getCollectionItems(collectionId) // Предполагаем, что PagedResponse
+    private fun fetchItems(collectionId: Long) {
+        RetrofitClient.instance.getCollectionItems(collectionId)
             .enqueue(object : Callback<PagedResponse<CollectionItemEntry>> {
                 override fun onResponse(call: Call<PagedResponse<CollectionItemEntry>>, response: Response<PagedResponse<CollectionItemEntry>>) {
                     if (response.isSuccessful) {
@@ -182,8 +172,7 @@ class CollectionDetailsFragment : Fragment() {
             })
     }
 
-    private fun fetchComments(collectionId: Int) {
-        // Показываем ProgressBar для комментов
+    private fun fetchComments(collectionId: Long) {
         RetrofitClient.instance.getCollectionComments(collectionId)
             .enqueue(object : Callback<PagedResponse<CollectionComment>> {
                 override fun onResponse(call: Call<PagedResponse<CollectionComment>>, response: Response<PagedResponse<CollectionComment>>) {
@@ -217,7 +206,7 @@ class CollectionDetailsFragment : Fragment() {
 
         binding.collectionDetailLikesCount.text = formatCount(collection.likeCount ?: 0)
         binding.collectionDetailViewsCount.text = formatCount(collection.viewCount ?: 0)
-        binding.collectionDetailCommentsCount.text = (collection.commentCount ?: 0).toString() // Или formatCount
+        binding.collectionDetailCommentsCount.text = (collection.commentCount ?: 0).toString()
 
         Glide.with(this)
             .load(collection.coverImageUrl)
@@ -225,11 +214,7 @@ class CollectionDetailsFragment : Fragment() {
             .error(R.drawable.ic_image_placeholder_24)
             .into(binding.collectionDetailCoverImage)
 
-        // Элементы, если они пришли сразу с коллекцией
         collection.items?.let { itemsAdapter.submitList(it) }
-
-        // Комментарии, если они пришли сразу с коллекцией (маловероятно для большого числа)
-        // collection.comments?.let { commentsAdapter.submitList(it) }
     }
 
     private fun handleLikeClicked() {
@@ -242,13 +227,12 @@ class CollectionDetailsFragment : Fragment() {
             RetrofitClient.instance.likeCollection(collectionId)
         }
 
-        call.enqueue(object : Callback<ResponseBody> { // Или Call<Collection> если сервер возвращает обновленную коллекцию
+        call.enqueue(object : Callback<ResponseBody> {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                 setLikeButtonLoading(false)
                 if (response.isSuccessful) {
                     isLikedByCurrentUser = !isLikedByCurrentUser
                     updateLikeButtonState()
-                    // Обновить счетчик лайков (либо из ответа, либо инкремент/декремент локально)
                     val currentLikes = currentCollection?.likeCount ?: 0
                     val newLikes = if (isLikedByCurrentUser) currentLikes + 1 else maxOf(0, currentLikes - 1)
                     binding.collectionDetailLikesCount.text = formatCount(newLikes)
@@ -281,14 +265,12 @@ class CollectionDetailsFragment : Fragment() {
                     setCommentButtonLoading(false)
                     if (response.isSuccessful) {
                         response.body()?.let { newComment ->
-                            // Добавить новый комментарий в начало списка и обновить адаптер
                             val currentComments = commentsAdapter.currentList.toMutableList()
                             currentComments.add(0, newComment)
                             commentsAdapter.submitList(currentComments)
                             binding.commentsRecyclerView.scrollToPosition(0)
-                            binding.commentEditText.text = null // Очистить поле ввода
+                            binding.commentEditText.text = null
                             Toast.makeText(context, getString(R.string.comment_posted_successfully), Toast.LENGTH_SHORT).show()
-                            // Обновить счетчик комментариев
                             val currentCommentCount = currentCollection?.commentCount ?: 0
                             binding.collectionDetailCommentsCount.text = (currentCommentCount + 1).toString()
                             currentCollection = currentCollection?.copy(commentCount = currentCommentCount + 1)
@@ -304,38 +286,32 @@ class CollectionDetailsFragment : Fragment() {
             })
     }
 
-
     private fun updateLikeButtonState() {
         if (isLikedByCurrentUser) {
-            binding.fabLikeCollection.setImageResource(R.drawable.ic_like_filled_24) // Заполненная иконка
-            binding.fabLikeCollection.imageTintList = ContextCompat.getColorStateList(requireContext(), R.color.color_liked) // Красный цвет для лайка
+            binding.fabLikeCollection.setImageResource(R.drawable.ic_like_filled_24)
+            binding.fabLikeCollection.imageTintList = ContextCompat.getColorStateList(requireContext(), R.color.color_liked)
         } else {
-            binding.fabLikeCollection.setImageResource(R.drawable.ic_like_outline_24) // Контурная иконка
-            binding.fabLikeCollection.imageTintList = ContextCompat.getColorStateList(requireContext(), R.color.white) // Или ваш цвет по умолчанию
+            binding.fabLikeCollection.setImageResource(R.drawable.ic_like_outline_24)
+            binding.fabLikeCollection.imageTintList = ContextCompat.getColorStateList(requireContext(), R.color.white)
         }
     }
     private fun setLikeButtonLoading(isLoading: Boolean) {
         binding.fabLikeCollection.isEnabled = !isLoading
-        // Можно добавить ProgressBar рядом с FAB
     }
     private fun setCommentButtonLoading(isLoading: Boolean) {
         binding.postCommentButton.isEnabled = !isLoading
         binding.commentEditText.isEnabled = !isLoading
     }
 
-
     private fun setLoading(isLoading: Boolean) {
         binding.collectionDetailProgressBar.isVisible = isLoading
-        // Скрываем основной контент при загрузке
-        // binding.contentGroup.isVisible = !isLoading // Создать группу в ConstraintLayout для основного контента
     }
 
     private fun handleApiError(errorMessage: String) {
         Toast.makeText(context, errorMessage, Toast.LENGTH_LONG).show()
-        // Можно показать сообщение об ошибке на весь экран
     }
 
-    private fun formatCount(count: Int): String { // Дублируется из CollectionAdapter, можно вынести в Utils
+    private fun formatCount(count: Int): String {
         return when {
             count >= 1_000_000 -> String.format("%.1fM", count / 1_000_000.0)
             count >= 1_000 -> String.format("%.1fK", count / 1_000.0)

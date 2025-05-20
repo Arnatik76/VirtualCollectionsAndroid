@@ -13,7 +13,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.example.finalproject.R
-import com.example.finalproject.api.RetrofitClient // Убедитесь, что импортирован
+import com.example.finalproject.api.RetrofitClient
 import com.example.finalproject.databinding.FragmentUserProfileBinding
 import com.example.finalproject.models.User
 import com.example.finalproject.utils.AuthTokenProvider
@@ -31,8 +31,8 @@ class UserProfileFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val args: UserProfileFragmentArgs by navArgs()
-    private var profileUserIdToLoad: Int? = null // ID пользователя, чей профиль нужно загрузить
-    private var currentlyDisplayedUser: User? = null // Пользователь, чей профиль отображается
+    private var profileUserIdToLoad: Long? = null
+    private var currentlyDisplayedUser: User? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,8 +45,8 @@ class UserProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        profileUserIdToLoad = if (args.userId == -1) {
-            AuthTokenProvider.getCurrentUser()?.userId // Если -1, берем ID текущего пользователя
+        profileUserIdToLoad = if (args.userId == -1L) {
+            AuthTokenProvider.getCurrentUser()?.userId
         } else {
             args.userId
         }
@@ -54,19 +54,15 @@ class UserProfileFragment : Fragment() {
         loadUserProfileData()
 
         binding.editProfileButton.setOnClickListener {
-            // Кнопка активна только если это наш профиль
             if (isCurrentUserProfileOwner()) {
-                currentlyDisplayedUser?.userId?.let {
-                    // Передаем userId в EditProfileFragment, если он нужен для API (например, для PUT /users/{id})
-                    // Либо EditProfileFragment сам берет ID текущего пользователя
-                    val action = UserProfileFragmentDirections.actionUserProfileFragmentToEditProfile(it)
+                currentlyDisplayedUser?.userId?.let { userId ->
+                    val action = UserProfileFragmentDirections.actionUserProfileFragmentToEditProfile(userId)
                     findNavController().navigate(action)
                 } ?: Toast.makeText(context, "Ошибка: ID пользователя не найден", Toast.LENGTH_SHORT).show()
             }
         }
 
         binding.logoutButton.setOnClickListener {
-            // Кнопка активна только если это наш профиль
             if (isCurrentUserProfileOwner()) {
                 showLogoutConfirmationDialog()
             }
@@ -83,17 +79,16 @@ class UserProfileFragment : Fragment() {
         binding.profileErrorText.isVisible = false
         binding.profileContentGroup.isVisible = false
 
-        if (profileUserIdToLoad == null && args.userId == -1) {
-            // Это случай, когда мы хотим показать профиль текущего юзера, но он не залогинен
+        if (profileUserIdToLoad == null && args.userId == -1L) {
             val currentUser = AuthTokenProvider.getCurrentUser()
             if (currentUser != null) {
-                profileUserIdToLoad = currentUser.userId // Устанавливаем ID для ясности
+                profileUserIdToLoad = currentUser.userId
                 displayProfileData(currentUser)
                 setLoading(false)
             } else {
                 showError(getString(R.string.user_not_logged_in))
                 setLoading(false)
-                updateButtonVisibility() // Обновить видимость кнопок
+                updateButtonVisibility()
             }
             return
         }
@@ -105,7 +100,6 @@ class UserProfileFragment : Fragment() {
             return
         }
 
-        // Загрузка профиля по ID с сервера
         RetrofitClient.instance.getUserProfileById(profileUserIdToLoad!!)
             .enqueue(object : Callback<User> {
                 override fun onResponse(call: Call<User>, response: Response<User>) {
@@ -128,11 +122,11 @@ class UserProfileFragment : Fragment() {
     }
 
     private fun displayProfileData(user: User) {
-        currentlyDisplayedUser = user // Сохраняем текущего отображаемого пользователя
+        currentlyDisplayedUser = user
 
         binding.usernameTextView.text = user.username
         binding.displayNameTextView.text = user.displayName ?: getString(R.string.default_display_name)
-        binding.emailTextView.text = user.email // Email может быть скрыт для чужих профилей на уровне API
+        binding.emailTextView.text = user.email
         binding.bioTextView.text = user.bio ?: getString(R.string.default_bio)
 
         binding.joinedDateTextView.text = formatDate(user.createdAt)
@@ -184,7 +178,7 @@ class UserProfileFragment : Fragment() {
 
     private fun setLoading(isLoading: Boolean) {
         binding.profileProgressBar.isVisible = isLoading
-        if (!isLoading) { // Только скрываем контент, если не было ошибки
+        if (!isLoading) {
             if (!binding.profileErrorText.isVisible) binding.profileContentGroup.isVisible = true
         } else {
             binding.profileContentGroup.isVisible = false
@@ -195,15 +189,14 @@ class UserProfileFragment : Fragment() {
         binding.profileErrorText.text = message
         binding.profileErrorText.isVisible = true
         binding.profileContentGroup.isVisible = false
-        updateButtonVisibility() // Скрыть кнопки при ошибке
+        updateButtonVisibility()
     }
-
 
     private fun formatDate(dateString: String?): String {
         if (dateString.isNullOrEmpty()) return getString(R.string.placeholder_date)
         val inputFormats = listOf(
             SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSSS", Locale.getDefault()),
-            SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSSSZ", Locale.getDefault()), // с Z в конце для смещения
+            SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSSSZ", Locale.getDefault()),
             SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault()),
             SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault())
         )
@@ -211,11 +204,9 @@ class UserProfileFragment : Fragment() {
 
         for (format in inputFormats) {
             if (!dateString.contains("Z") && format.toPattern().endsWith("'Z'")) {
-                // Пропускаем форматы с Z, если в строке нет Z
             } else {
-                format.timeZone = TimeZone.getTimeZone("UTC") // Предполагаем, что даты с сервера в UTC
+                format.timeZone = TimeZone.getTimeZone("UTC")
             }
-
             try {
                 val date = format.parse(dateString)
                 if (date != null) {
@@ -223,28 +214,24 @@ class UserProfileFragment : Fragment() {
                     return outputFormat.format(date)
                 }
             } catch (e: ParseException) {
-                // Log.v("UserProfileFragment", "Date parse failed for $dateString with pattern ${format.toPattern()}", e)
             }
         }
         Log.w("UserProfileFragment", "Could not parse date: $dateString, returning as is.")
         return dateString
     }
 
-
     override fun onResume() {
         super.onResume()
-        // Перезагружаем данные, если ID пользователя изменился (маловероятно без пересоздания фрагмента)
-        // или если мы вернулись с экрана редактирования
-        val newProfileUserIdToLoad = if (args.userId == -1) AuthTokenProvider.getCurrentUser()?.userId else args.userId
-        if (profileUserIdToLoad != newProfileUserIdToLoad || currentlyDisplayedUser == null) {
-            profileUserIdToLoad = newProfileUserIdToLoad
+        val currentLoggedInUserId = AuthTokenProvider.getCurrentUser()?.userId
+        val targetUserIdForDisplay = if (args.userId == -1L) currentLoggedInUserId else args.userId
+
+        if (profileUserIdToLoad != targetUserIdForDisplay || currentlyDisplayedUser == null) {
+            profileUserIdToLoad = targetUserIdForDisplay
             loadUserProfileData()
         } else {
-            // Если вернулись с EditProfile, а данные могли измениться у currentlyDisplayedUser
-            // Если EditProfile меняет данные в AuthTokenProvider, можно просто перезагрузить
             if (isCurrentUserProfileOwner()) {
                 AuthTokenProvider.getCurrentUser()?.let {
-                    if (it != currentlyDisplayedUser) { // Простая проверка, если User - data class
+                    if (it != currentlyDisplayedUser) {
                         displayProfileData(it)
                     }
                 }

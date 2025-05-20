@@ -45,8 +45,8 @@
             app:destination="@id/editProfile" />
         <argument
             android:name="userId"
-            app:argType="integer"
-            android:defaultValue="-1" />
+            app:argType="long"
+            android:defaultValue="-1L" />
     </fragment>
 
     <fragment
@@ -56,7 +56,7 @@
         tools:layout="@layout/fragment_edit_profile" >
         <argument
             android:name="userId"
-            app:argType="integer" />
+            app:argType="long" />
     </fragment>
 
     <fragment
@@ -89,7 +89,7 @@
         tools:layout="@layout/fragment_collection_details" >
         <argument
             android:name="collectionId"
-            app:argType="integer" />
+            app:argType="long" />
         <action
             android:id="@+id/action_collectionDetailsFragment_to_userProfileFragment"
             app:destination="@id/userProfileFragment" />
@@ -108,8 +108,8 @@
         tools:layout="@layout/fragment_create_collection" >
         <argument
             android:name="collectionId"
-            app:argType="integer"
-            android:defaultValue="-1" />
+            app:argType="long"
+            android:defaultValue="-1L" />
         <action
             android:id="@+id/action_createCollectionFragment_to_collectionDetailsFragment"
             app:destination="@id/collectionDetailsFragment"
@@ -123,7 +123,7 @@
         tools:layout="@layout/fragment_add_item" >
         <argument
             android:name="collectionId"
-            app:argType="integer" />
+            app:argType="long" />
     </fragment>
 
     <fragment

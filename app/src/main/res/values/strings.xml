@@ -68,7 +68,7 @@
     <string name="collection_created_successfully">Коллекция успешно создана</string>
     <string name="error_creating_collection">Ошибка при создании коллекции</string>
     <string name="edit_collection_title_toolbar">Редактировать коллекцию</string>
-    <string name="button_save_changes">Сохранить изменения
+    <string name="button_save_changes">Сохранить изменения</string>
 
     <string name="add_item_to_collection_toolbar">Добавить элемент в коллекцию</string>
     <string name="hint_media_item_id">ID медиа-элемента*</string>

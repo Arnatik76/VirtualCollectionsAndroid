@@ -47,4 +47,7 @@
     <string name="error_loading_collection_details">Ошибка загрузки деталей коллекции</string>
     <string name="comment_posted_successfully">Комментарий опубликован</string>
     <string name="error_posting_comment">Ошибка публикации комментария</string>
+
+    <string name="media_item_thumbnail_desc">Миниатюра элемента</string>
+    <string name="user_avatar_desc">user_avatar\n</string>
 </resources>

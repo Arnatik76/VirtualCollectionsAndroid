@@ -47,7 +47,11 @@
         android:id="@+id/homeFragment"
         android:name="com.example.finalproject.fragments.collection.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_collectionDetailsFragment"
+            app:destination="@id/collectionDetailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/myCollectionsFragment"
         android:name="com.example.finalproject.fragments.collection.MyCollectionsFragment"
@@ -57,7 +61,17 @@
         android:id="@+id/collectionDetailsFragment"
         android:name="com.example.finalproject.fragments.collection.CollectionDetailsFragment"
         android:label="fragment_collection_details"
-        tools:layout="@layout/fragment_collection_details" />
+        tools:layout="@layout/fragment_collection_details" >
+    <argument
+        android:name="collectionId"
+        app:argType="integer" />
+    <action
+        android:id="@+id/action_collectionDetailsFragment_to_userProfileFragment"
+        app:destination="@id/userProfileFragment" />
+    <action
+        android:id="@+id/action_collectionDetailsFragment_to_mediaItemDetailsFragment"
+        app:destination="@id/mediaItemDetailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/createCollectionFragment"
         android:name="com.example.finalproject.fragments.collection.EditCollectionFragment"

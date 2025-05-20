@@ -85,7 +85,7 @@
             <ImageView
                 android:layout_width="18dp"
                 android:layout_height="18dp"
-                android:src="@drawable/ic_like_24"
+                android:src="@drawable/ic_like_filled_24"
                 app:tint="?attr/colorControlNormal"
                 android:layout_marginEnd="4dp"/>
             <TextView

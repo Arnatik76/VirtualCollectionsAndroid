@@ -130,12 +130,24 @@
         android:id="@+id/mediaItemDetailsFragment"
         android:name="com.example.finalproject.fragments.mediaitem.MediaItemDetailsFragment"
         android:label="fragment_media_item_details"
-        tools:layout="@layout/fragment_media_item_details" />
+        tools:layout="@layout/fragment_media_item_details" >
+        <argument
+            android:name="mediaItemId"
+            app:argType="long" />
+        <action
+            android:id="@+id/action_mediaItemDetailsFragment_to_editMediaItemFragment"
+            app:destination="@id/editMediaItemFragment" />
+    </fragment>
+
     <fragment
         android:id="@+id/editMediaItemFragment"
         android:name="com.example.finalproject.fragments.mediaitem.EditMediaItemFragment"
         android:label="fragment_edit_media_item"
-        tools:layout="@layout/fragment_edit_media_item" />
+        tools:layout="@layout/fragment_edit_media_item" >
+        <argument
+            android:name="mediaItemId"
+            app:argType="long" />
+    </fragment>
 
     <fragment
         android:id="@+id/forgetPasswordFragment"
@@ -148,4 +160,12 @@
             app:popUpTo="@id/login"
             app:popUpToInclusive="true" />
     </fragment>
+
+
+
+    <fragment
+        android:id="@+id/mediaItemSearchFragment"
+        android:name="com.example.finalproject.fragments.mediaitem.MediaItemSearchFragment"
+        android:label="fragment_media_item_search"
+        tools:layout="@layout/fragment_media_item_search" />
 </navigation>

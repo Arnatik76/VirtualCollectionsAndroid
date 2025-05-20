@@ -9,11 +9,14 @@ import com.example.finalproject.models.request.ForgotPasswordRequest
 import com.example.finalproject.models.responce.PagedResponse
 import com.example.finalproject.models.request.RegistrationRequest
 import com.example.finalproject.models.CollectionCollaborator
+import com.example.finalproject.models.ContentType
 import com.example.finalproject.models.MediaItem
 import com.example.finalproject.models.User
 import com.example.finalproject.models.request.CreateCollectionRequest
 import com.example.finalproject.models.request.CreateCommentRequest
 import com.example.finalproject.models.request.AddItemToCollectionRequest
+import com.example.finalproject.models.request.CreateMediaItemRequest
+import com.example.finalproject.models.request.UpdateMediaItemRequest
 import com.example.finalproject.models.request.UpdateProfileRequest
 import okhttp3.ResponseBody
 import retrofit2.Call
@@ -89,7 +92,23 @@ interface ApiService {
         @Body commentRequest: CreateCommentRequest
     ): Call<CollectionComment>
 
-    @GET("media-items/search")
+
+    @GET("vc-content/media-items/{itemId}")
+    fun getMediaItemById(@Path("itemId") itemId: Long): Call<MediaItem>
+
+    @POST("vc-content/media-items")
+    fun createMediaItem(@Body mediaItemCreateRequest: CreateMediaItemRequest): Call<MediaItem>
+
+    @PUT("vc-content/media-items/{itemId}")
+    fun updateMediaItem(
+        @Path("itemId") itemId: Long,
+        @Body mediaItemUpdateRequest: UpdateMediaItemRequest
+    ): Call<MediaItem>
+
+    @DELETE("vc-content/media-items/{itemId}")
+    fun deleteMediaItem(@Path("itemId") itemId: Long): Call<ResponseBody>
+
+    @GET("vc-content/media-items/search")
     fun searchMediaItems(
         @Query("query") query: String,
         @Query("type") type: String? = null,
@@ -97,6 +116,8 @@ interface ApiService {
         @Query("size") size: Int = 15
     ): Call<PagedResponse<MediaItem>>
 
+    @GET("vc-content/content-types")
+    fun getContentTypes(): Call<List<ContentType>>
 
 
     @POST("vc-users/auth/login")

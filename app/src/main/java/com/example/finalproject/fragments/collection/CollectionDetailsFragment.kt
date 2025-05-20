@@ -74,9 +74,8 @@ class CollectionDetailsFragment : Fragment() {
 
     private fun setupAdapters() {
         itemsAdapter = CollectionItemAdapter { itemEntry ->
-            Toast.makeText(context, "Открыть элемент: ${itemEntry.mediaItem.title}", Toast.LENGTH_SHORT).show()
-            // val action = CollectionDetailsFragmentDirections.actionCollectionDetailsFragmentToMediaItemDetailsFragment(itemEntry.mediaItem.itemId)
-            // findNavController().navigate(action)
+            val action = CollectionDetailsFragmentDirections.actionCollectionDetailsFragmentToMediaItemDetailsFragment(itemEntry.mediaItem.itemId)
+            findNavController().navigate(action)
         }
         binding.collectionItemsRecyclerView.apply {
             adapter = itemsAdapter

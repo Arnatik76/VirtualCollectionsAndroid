@@ -1,14 +1,183 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragments.mediaitem.MediaItemDetailsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar_layout_media_details"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/collapsing_toolbar_layout_media_details"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            app:contentScrim="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:titleEnabled="false">
+
+            <ImageView
+                android:id="@+id/media_item_detail_thumbnail"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:contentDescription="@string/media_item_thumbnail_desc"
+                tools:srcCompat="@drawable/ic_image_placeholder_24"
+                app:layout_collapseMode="parallax"/>
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar_media_details"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-</FrameLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/media_item_detail_title_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Очень длинное название Медиа Элемента"
+                android:textAppearance="?attr/textAppearanceHeadline5" />
+
+            <TextView
+                android:id="@+id/media_item_detail_creator_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/label_media_item_creator"
+                android:textAppearance="?attr/textAppearanceCaption"
+                android:layout_marginTop="8dp"/>
+
+            <TextView
+                android:id="@+id/media_item_detail_creator_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Имя Создателя"
+                android:textAppearance="?attr/textAppearanceSubtitle1"
+                android:textColor="?attr/colorPrimary"/>
+
+            <TextView
+                android:id="@+id/media_item_detail_type_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/label_media_item_type"
+                android:textAppearance="?attr/textAppearanceCaption"
+                android:layout_marginTop="8dp"/>
+            <TextView
+                android:id="@+id/media_item_detail_type_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Фильм"
+                android:textAppearance="?attr/textAppearanceBody1"/>
+
+            <TextView
+                android:id="@+id/media_item_detail_description_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/label_media_item_description"
+                android:textAppearance="?attr/textAppearanceSubtitle2"
+                android:layout_marginTop="16dp"/>
+            <TextView
+                android:id="@+id/media_item_detail_description_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="Очень длинное и подробное описание медиа-элемента, которое может занимать несколько строк и содержать много интересной информации об этом элементе."
+                android:textAppearance="?attr/textAppearanceBody2"
+                android:layout_marginTop="4dp"/>
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/media_item_detail_tags_chip_group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:visibility="gone"
+                tools:visibility="visible"/>
+
+            <TextView
+                android:id="@+id/media_item_detail_release_date_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/label_media_item_release_date"
+                android:textAppearance="?attr/textAppearanceCaption"
+                android:layout_marginTop="12dp"/>
+            <TextView
+                android:id="@+id/media_item_detail_release_date_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="2023-05-20"
+                android:textAppearance="?attr/textAppearanceBody2"/>
+
+            <TextView
+                android:id="@+id/media_item_detail_added_at_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/label_media_item_added_at"
+                android:textAppearance="?attr/textAppearanceCaption"
+                android:layout_marginTop="8dp"/>
+            <TextView
+                android:id="@+id/media_item_detail_added_at_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="2024-01-15 10:00"
+                android:textAppearance="?attr/textAppearanceBody2"/>
+
+            <Button
+                android:id="@+id/button_open_external_url"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/button_open_external_url"
+                android:layout_marginTop="16dp"
+                android:visibility="gone"
+                tools:visibility="visible"/>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <ProgressBar
+        android:id="@+id/media_item_detail_progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        tools:visibility="visible"/>
+
+    <TextView
+        android:id="@+id/media_item_detail_error_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/error_loading_media_item_details"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        tools:visibility="visible"
+        android:textColor="?attr/colorError"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_edit_media_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        app:srcCompat="@drawable/ic_edit_24"
+        android:contentDescription="@string/button_edit_media_item"
+        android:visibility="gone"
+        tools:visibility="visible"/>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -108,4 +108,37 @@
     <string name="profile_updated_successfully">Профиль успешно обновлен</string>
     <string name="error_updating_profile">Ошибка при обновлении профиля</string>
     <string name="error_loading_data_for_edit">Ошибка загрузки данных для редактирования</string>
+
+    <string name="media_item_details_title_toolbar">Детали элемента</string>
+    <string name="label_media_item_title">Название:</string>
+    <string name="label_media_item_creator">Автор/Создатель:</string>
+    <string name="label_media_item_type">Тип:</string>
+    <string name="label_media_item_description">Описание:</string>
+    <string name="label_media_item_release_date">Дата выхода:</string>
+    <string name="label_media_item_added_at">Добавлено:</string>
+    <string name="label_media_item_external_url">Внешняя ссылка:</string>
+    <string name="button_open_external_url">Открыть ссылку</string>
+    <string name="button_edit_media_item">Редактировать элемент</string>
+    <string name="button_delete_media_item">Удалить элемент</string>
+    <string name="confirm_delete_media_item_title">Удалить элемент?</string>
+    <string name="confirm_delete_media_item_message">Вы уверены, что хотите удалить этот медиа-элемент? Это действие необратимо.</string>
+    <string name="media_item_deleted_successfully">Медиа-элемент удален</string>
+    <string name="error_deleting_media_item">Ошибка удаления медиа-элемента</string>
+    <string name="error_loading_media_item_details">Ошибка загрузки деталей элемента</string>
+    <string name="media_item_not_found">Медиа-элемент не найден</string>
+    <string name="no_external_url">Внешняя ссылка отсутствует</string>
+    <string name="cannot_open_url">Не удалось открыть ссылку</string>
+
+    <string name="edit_media_item_toolbar_title">Редактировать медиа-элемент</string>
+    <string name="hint_media_item_title_edit">Название*</string>
+    <string name="hint_media_item_creator_edit">Автор/Создатель</string>
+    <string name="hint_media_item_description_edit">Описание</string>
+    <string name="hint_media_item_thumbnail_url_edit">URL миниатюры</string>
+    <string name="hint_media_item_external_url_edit">Внешняя ссылка (URL)</string>
+    <string name="hint_media_item_release_date_edit">Дата выхода (гггг-мм-дд)</string>
+    <string name="button_save_media_item_changes">Сохранить изменения</string>
+    <string name="media_item_updated_successfully">Медиа-элемент обновлен</string>
+    <string name="error_updating_media_item">Ошибка обновления медиа-элемента</string>
+    <string name="error_media_item_title_required">Название медиа-элемента обязательно</string>
+    <string name="label_media_item_tags">Теги:</string>
 </resources>

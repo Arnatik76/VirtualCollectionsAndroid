@@ -1,5 +1,5 @@
 ﻿# PROJECT CODE COMPILATION
-# Generated on 05/20/2025 20:59:22
+# Generated on 05/20/2025 21:39:36
 # Source: C:\Users\Arnat\AndroidStudioProjects\FinalProject
 
 
@@ -2263,7 +2263,7 @@ zipStorePath=wrapper/dists
         <argument
             android:name="userId"
             app:argType="long"
-            android:defaultValue="-1" />
+            android:defaultValue="-1L" />
     </fragment>
 
     <fragment
@@ -2326,7 +2326,7 @@ zipStorePath=wrapper/dists
         <argument
             android:name="collectionId"
             app:argType="long"
-            android:defaultValue="-1" />
+            android:defaultValue="-1L" />
         <action
             android:id="@+id/action_createCollectionFragment_to_collectionDetailsFragment"
             app:destination="@id/collectionDetailsFragment"
@@ -2851,13 +2851,11 @@ import com.bumptech.glide.Glide
 import com.example.finalproject.R
 import com.example.finalproject.databinding.ItemCommentBinding
 import com.example.finalproject.models.CollectionComment
-// import java.text.SimpleDateFormat // Для форматирования даты
-// import java.util.Locale
 
-class CommentAdapter(private val onAuthorClicked: (Int?) -> Unit) :
+class CommentAdapter(private val onAuthorClicked: (Long?) -> Unit) :
     ListAdapter<CollectionComment, CommentAdapter.CommentViewHolder>(CommentDiffCallback()) {
 
-    // private val dateFormat = SimpleDateFormat("dd MMM yyyy, HH:mm", Locale.getDefault()) // Пример
+    // private val dateFormat = SimpleDateFormat("dd MMM yyyy, HH:mm", Locale.getDefault())
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CommentViewHolder {
         val binding = ItemCommentBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -2870,14 +2868,14 @@ class CommentAdapter(private val onAuthorClicked: (Int?) -> Unit) :
 
     class CommentViewHolder(
         private val binding: ItemCommentBinding,
-        private val onAuthorClicked: (Int?) -> Unit
+        private val onAuthorClicked: (Long?) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(comment: CollectionComment) {
             binding.commentText.text = comment.commentText
             binding.commentAuthorName.text = comment.user?.displayName ?: comment.user?.username ?: itemView.context.getString(R.string.unknown_author)
             // binding.commentDate.text = comment.createdAt // TODO: Format date properly
             // Простая заглушка для даты
-            binding.commentDate.text = " " // Замените на реальное форматирование даты
+            binding.commentDate.text = " "
 
             Glide.with(itemView.context)
                 .load(comment.user?.avatarUrl)
@@ -2916,6 +2914,7 @@ import com.example.finalproject.models.request.ForgotPasswordRequest
 import com.example.finalproject.models.responce.PagedResponse
 import com.example.finalproject.models.request.RegistrationRequest
 import com.example.finalproject.models.CollectionCollaborator
+import com.example.finalproject.models.MediaItem
 import com.example.finalproject.models.User
 import com.example.finalproject.models.request.CreateCollectionRequest
 import com.example.finalproject.models.request.CreateCommentRequest
@@ -2994,6 +2993,18 @@ interface ApiService {
         @Path("collectionId") collectionId: Long,
         @Body commentRequest: CreateCommentRequest
     ): Call<CollectionComment>
+
+
+
+    @GET("media-items/search")
+    fun searchMediaItems(
+        @Query("query") query: String,
+        @Query("type") type: String? = null,
+        @Query("page") page: Int = 0,
+        @Query("size") size: Int = 15
+    ): Call<PagedResponse<MediaItem>>
+
+
 
     @POST("vc-users/auth/login")
     fun loginUser(@Body loginRequest: LoginRequest): Call<AuthResponse>
@@ -3128,8 +3139,8 @@ package com.example.finalproject.models
 
 data class CollectionComment(
     val commentId: Int,
-    val collectionId: Int,
-    val userId: Int?,
+    val collectionId: Long,
+    val userId: Long?,
     val commentText: String,
     val createdAt: String, // Или использовать тип Date/Timestamp
     val user: User? = null // Детали пользователя, оставившего комментарий
@@ -3521,7 +3532,7 @@ class CollectionDetailsFragment : Fragment() {
     private lateinit var collaboratorAdapter: CollaboratorAdapter
 
     private var currentCollection: Collection? = null
-    private var isLikedByCurrentUser: Boolean = false // TODO: Получать эту информацию с сервера или определять локально
+    private var isLikedByCurrentUser: Boolean = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -3565,10 +3576,8 @@ class CollectionDetailsFragment : Fragment() {
 
         commentsAdapter = CommentAdapter { userId ->
             userId?.let {
-                // TODO: Navigate to UserProfileFragment
-                Toast.makeText(context, "Открыть профиль автора комментария ID: $it", Toast.LENGTH_SHORT).show()
-                // val action = CollectionDetailsFragmentDirections.actionCollectionDetailsFragmentToUserProfileFragment(it)
-                // findNavController().navigate(action)
+                val action = CollectionDetailsFragmentDirections.actionCollectionDetailsFragmentToUserProfileFragment(it.toLong())
+                findNavController().navigate(action)
             }
         }
         binding.commentsRecyclerView.apply {
@@ -3578,10 +3587,10 @@ class CollectionDetailsFragment : Fragment() {
         }
 
         collaboratorAdapter = CollaboratorAdapter { user ->
-            // TODO: Navigate to UserProfileFragment
-            Toast.makeText(context, "Открыть профиль соавтора: ${user.username}", Toast.LENGTH_SHORT).show()
-            // val action = CollectionDetailsFragmentDirections.actionCollectionDetailsFragmentToUserProfileFragment(user.userId ?: -1) // Проверка на null
-            // findNavController().navigate(action)
+            user.userId?.let { collaboratorUserId ->
+                val action = CollectionDetailsFragmentDirections.actionCollectionDetailsFragmentToUserProfileFragment(collaboratorUserId)
+                findNavController().navigate(action)
+            }
         }
         binding.collaboratorsRecyclerView.apply {
             adapter = collaboratorAdapter
@@ -3590,7 +3599,7 @@ class CollectionDetailsFragment : Fragment() {
         }
     }
 
-    private fun fetchCollectionDetails(collectionId: Int) {
+    private fun fetchCollectionDetails(collectionId: Long) {
         setLoading(true)
         RetrofitClient.instance.getCollectionById(collectionId)
             .enqueue(object : Callback<Collection> {
@@ -3600,9 +3609,8 @@ class CollectionDetailsFragment : Fragment() {
                         response.body()?.let { collection ->
                             currentCollection = collection
                             displayCollectionDetails(collection)
-                            // TODO: Определить isLikedByCurrentUser (например, если API возвращает флаг или список лайкнувших)
                             updateLikeButtonState()
-                            fetchAdditionalData(collection) // Загрузка комментов/элементов если они не пришли сразу
+                            fetchAdditionalData(collection)
                         } ?: handleApiError(getString(R.string.error_loading_collection_details) + " (пустой ответ)")
                     } else {
                         handleApiError("Ошибка ${response.code()}: ${response.message()}")
@@ -3618,19 +3626,13 @@ class CollectionDetailsFragment : Fragment() {
     }
 
     private fun fetchAdditionalData(collection: Collection) {
-        // Если элементы не пришли с коллекцией, загружаем их отдельно
         if (collection.items.isNullOrEmpty()) {
             fetchItems(collection.collectionId)
         } else {
             itemsAdapter.submitList(collection.items)
         }
-
-        // Аналогично для комментариев, если они не приходят с основной коллекцией.
-        // Здесь для примера загрузим комментарии отдельно
         fetchComments(collection.collectionId)
 
-
-        // Коллабораторы
         if (!collection.collaborators.isNullOrEmpty()) {
             binding.collaboratorsTitle.isVisible = true
             binding.collaboratorsRecyclerView.isVisible = true
@@ -3644,9 +3646,8 @@ class CollectionDetailsFragment : Fragment() {
     }
 
 
-    private fun fetchItems(collectionId: Int) {
-        // Показываем какой-то ProgressBar для элементов, если нужно
-        RetrofitClient.instance.getCollectionItems(collectionId) // Предполагаем, что PagedResponse
+    private fun fetchItems(collectionId: Long) {
+        RetrofitClient.instance.getCollectionItems(collectionId)
             .enqueue(object : Callback<PagedResponse<CollectionItemEntry>> {
                 override fun onResponse(call: Call<PagedResponse<CollectionItemEntry>>, response: Response<PagedResponse<CollectionItemEntry>>) {
                     if (response.isSuccessful) {
@@ -3661,8 +3662,7 @@ class CollectionDetailsFragment : Fragment() {
             })
     }
 
-    private fun fetchComments(collectionId: Int) {
-        // Показываем ProgressBar для комментов
+    private fun fetchComments(collectionId: Long) {
         RetrofitClient.instance.getCollectionComments(collectionId)
             .enqueue(object : Callback<PagedResponse<CollectionComment>> {
                 override fun onResponse(call: Call<PagedResponse<CollectionComment>>, response: Response<PagedResponse<CollectionComment>>) {
@@ -3696,7 +3696,7 @@ class CollectionDetailsFragment : Fragment() {
 
         binding.collectionDetailLikesCount.text = formatCount(collection.likeCount ?: 0)
         binding.collectionDetailViewsCount.text = formatCount(collection.viewCount ?: 0)
-        binding.collectionDetailCommentsCount.text = (collection.commentCount ?: 0).toString() // Или formatCount
+        binding.collectionDetailCommentsCount.text = (collection.commentCount ?: 0).toString()
 
         Glide.with(this)
             .load(collection.coverImageUrl)
@@ -3704,11 +3704,7 @@ class CollectionDetailsFragment : Fragment() {
             .error(R.drawable.ic_image_placeholder_24)
             .into(binding.collectionDetailCoverImage)
 
-        // Элементы, если они пришли сразу с коллекцией
         collection.items?.let { itemsAdapter.submitList(it) }
-
-        // Комментарии, если они пришли сразу с коллекцией (маловероятно для большого числа)
-        // collection.comments?.let { commentsAdapter.submitList(it) }
     }
 
     private fun handleLikeClicked() {
@@ -3721,13 +3717,12 @@ class CollectionDetailsFragment : Fragment() {
             RetrofitClient.instance.likeCollection(collectionId)
         }
 
-        call.enqueue(object : Callback<ResponseBody> { // Или Call<Collection> если сервер возвращает обновленную коллекцию
+        call.enqueue(object : Callback<ResponseBody> {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                 setLikeButtonLoading(false)
                 if (response.isSuccessful) {
                     isLikedByCurrentUser = !isLikedByCurrentUser
                     updateLikeButtonState()
-                    // Обновить счетчик лайков (либо из ответа, либо инкремент/декремент локально)
                     val currentLikes = currentCollection?.likeCount ?: 0
                     val newLikes = if (isLikedByCurrentUser) currentLikes + 1 else maxOf(0, currentLikes - 1)
                     binding.collectionDetailLikesCount.text = formatCount(newLikes)
@@ -3760,14 +3755,12 @@ class CollectionDetailsFragment : Fragment() {
                     setCommentButtonLoading(false)
                     if (response.isSuccessful) {
                         response.body()?.let { newComment ->
-                            // Добавить новый комментарий в начало списка и обновить адаптер
                             val currentComments = commentsAdapter.currentList.toMutableList()
                             currentComments.add(0, newComment)
                             commentsAdapter.submitList(currentComments)
                             binding.commentsRecyclerView.scrollToPosition(0)
-                            binding.commentEditText.text = null // Очистить поле ввода
+                            binding.commentEditText.text = null
                             Toast.makeText(context, getString(R.string.comment_posted_successfully), Toast.LENGTH_SHORT).show()
-                            // Обновить счетчик комментариев
                             val currentCommentCount = currentCollection?.commentCount ?: 0
                             binding.collectionDetailCommentsCount.text = (currentCommentCount + 1).toString()
                             currentCollection = currentCollection?.copy(commentCount = currentCommentCount + 1)
@@ -3783,38 +3776,32 @@ class CollectionDetailsFragment : Fragment() {
             })
     }
 
-
     private fun updateLikeButtonState() {
         if (isLikedByCurrentUser) {
-            binding.fabLikeCollection.setImageResource(R.drawable.ic_like_filled_24) // Заполненная иконка
-            binding.fabLikeCollection.imageTintList = ContextCompat.getColorStateList(requireContext(), R.color.color_liked) // Красный цвет для лайка
+            binding.fabLikeCollection.setImageResource(R.drawable.ic_like_filled_24)
+            binding.fabLikeCollection.imageTintList = ContextCompat.getColorStateList(requireContext(), R.color.color_liked)
         } else {
-            binding.fabLikeCollection.setImageResource(R.drawable.ic_like_outline_24) // Контурная иконка
-            binding.fabLikeCollection.imageTintList = ContextCompat.getColorStateList(requireContext(), R.color.white) // Или ваш цвет по умолчанию
+            binding.fabLikeCollection.setImageResource(R.drawable.ic_like_outline_24)
+            binding.fabLikeCollection.imageTintList = ContextCompat.getColorStateList(requireContext(), R.color.white)
         }
     }
     private fun setLikeButtonLoading(isLoading: Boolean) {
         binding.fabLikeCollection.isEnabled = !isLoading
-        // Можно добавить ProgressBar рядом с FAB
     }
     private fun setCommentButtonLoading(isLoading: Boolean) {
         binding.postCommentButton.isEnabled = !isLoading
         binding.commentEditText.isEnabled = !isLoading
     }
 
-
     private fun setLoading(isLoading: Boolean) {
         binding.collectionDetailProgressBar.isVisible = isLoading
-        // Скрываем основной контент при загрузке
-        // binding.contentGroup.isVisible = !isLoading // Создать группу в ConstraintLayout для основного контента
     }
 
     private fun handleApiError(errorMessage: String) {
         Toast.makeText(context, errorMessage, Toast.LENGTH_LONG).show()
-        // Можно показать сообщение об ошибке на весь экран
     }
 
-    private fun formatCount(count: Int): String { // Дублируется из CollectionAdapter, можно вынести в Utils
+    private fun formatCount(count: Int): String {
         return when {
             count >= 1_000_000 -> String.format("%.1fM", count / 1_000_000.0)
             count >= 1_000 -> String.format("%.1fK", count / 1_000.0)
@@ -4449,7 +4436,7 @@ class EditProfileFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val args: EditProfileFragmentArgs by navArgs()
-    private var userIdToEdit: Int = -1
+    private var userIdToEdit: Long = -1L
     private var currentUserData: User? = null
 
     override fun onCreateView(
@@ -4465,7 +4452,7 @@ class EditProfileFragment : Fragment() {
 
         userIdToEdit = args.userId
 
-        if (userIdToEdit == -1 || userIdToEdit != AuthTokenProvider.getCurrentUser()?.userId) {
+        if (userIdToEdit == -1L || userIdToEdit != AuthTokenProvider.getCurrentUser()?.userId) {
             Toast.makeText(context, "Ошибка: Невозможно редактировать этот профиль.", Toast.LENGTH_LONG).show()
             Log.e("EditProfileFragment", "Attempted to edit profile with invalid userId: $userIdToEdit")
             findNavController().popBackStack()
@@ -4539,11 +4526,10 @@ class EditProfileFragment : Fragment() {
                     setLoading(false)
                     if (response.isSuccessful) {
                         response.body()?.let { updatedUser ->
-                            // Обновляем данные пользователя в AuthTokenProvider
                             AuthTokenProvider.saveUser(updatedUser)
                             Toast.makeText(context, getString(R.string.profile_updated_successfully), Toast.LENGTH_SHORT).show()
                             Log.d("EditProfileFragment", "Profile updated for user: ${updatedUser.username}")
-                            findNavController().popBackStack() // Возвращаемся на UserProfileFragment
+                            findNavController().popBackStack()
                         } ?: run {
                             Toast.makeText(context, getString(R.string.error_updating_profile) + " (пустой ответ)", Toast.LENGTH_LONG).show()
                         }
@@ -4561,7 +4547,6 @@ class EditProfileFragment : Fragment() {
                 }
             })
     }
-
 
     private fun setLoading(isLoading: Boolean) {
         binding.editProfileProgressBar.isVisible = isLoading
@@ -4969,7 +4954,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.example.finalproject.R
-import com.example.finalproject.api.RetrofitClient // Убедитесь, что импортирован
+import com.example.finalproject.api.RetrofitClient
 import com.example.finalproject.databinding.FragmentUserProfileBinding
 import com.example.finalproject.models.User
 import com.example.finalproject.utils.AuthTokenProvider
@@ -4987,8 +4972,8 @@ class UserProfileFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val args: UserProfileFragmentArgs by navArgs()
-    private var profileUserIdToLoad: Int? = null // ID пользователя, чей профиль нужно загрузить
-    private var currentlyDisplayedUser: User? = null // Пользователь, чей профиль отображается
+    private var profileUserIdToLoad: Long? = null
+    private var currentlyDisplayedUser: User? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -5001,8 +4986,8 @@ class UserProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        profileUserIdToLoad = if (args.userId == -1) {
-            AuthTokenProvider.getCurrentUser()?.userId // Если -1, берем ID текущего пользователя
+        profileUserIdToLoad = if (args.userId == -1L) {
+            AuthTokenProvider.getCurrentUser()?.userId
         } else {
             args.userId
         }
@@ -5010,19 +4995,15 @@ class UserProfileFragment : Fragment() {
         loadUserProfileData()
 
         binding.editProfileButton.setOnClickListener {
-            // Кнопка активна только если это наш профиль
             if (isCurrentUserProfileOwner()) {
-                currentlyDisplayedUser?.userId?.let {
-                    // Передаем userId в EditProfileFragment, если он нужен для API (например, для PUT /users/{id})
-                    // Либо EditProfileFragment сам берет ID текущего пользователя
-                    val action = UserProfileFragmentDirections.actionUserProfileFragmentToEditProfile(it)
+                currentlyDisplayedUser?.userId?.let { userId ->
+                    val action = UserProfileFragmentDirections.actionUserProfileFragmentToEditProfile(userId)
                     findNavController().navigate(action)
                 } ?: Toast.makeText(context, "Ошибка: ID пользователя не найден", Toast.LENGTH_SHORT).show()
             }
         }
 
         binding.logoutButton.setOnClickListener {
-            // Кнопка активна только если это наш профиль
             if (isCurrentUserProfileOwner()) {
                 showLogoutConfirmationDialog()
             }
@@ -5039,17 +5020,16 @@ class UserProfileFragment : Fragment() {
         binding.profileErrorText.isVisible = false
         binding.profileContentGroup.isVisible = false
 
-        if (profileUserIdToLoad == null && args.userId == -1) {
-            // Это случай, когда мы хотим показать профиль текущего юзера, но он не залогинен
+        if (profileUserIdToLoad == null && args.userId == -1L) {
             val currentUser = AuthTokenProvider.getCurrentUser()
             if (currentUser != null) {
-                profileUserIdToLoad = currentUser.userId // Устанавливаем ID для ясности
+                profileUserIdToLoad = currentUser.userId
                 displayProfileData(currentUser)
                 setLoading(false)
             } else {
                 showError(getString(R.string.user_not_logged_in))
                 setLoading(false)
-                updateButtonVisibility() // Обновить видимость кнопок
+                updateButtonVisibility()
             }
             return
         }
@@ -5061,7 +5041,6 @@ class UserProfileFragment : Fragment() {
             return
         }
 
-        // Загрузка профиля по ID с сервера
         RetrofitClient.instance.getUserProfileById(profileUserIdToLoad!!)
             .enqueue(object : Callback<User> {
                 override fun onResponse(call: Call<User>, response: Response<User>) {
@@ -5084,11 +5063,11 @@ class UserProfileFragment : Fragment() {
     }
 
     private fun displayProfileData(user: User) {
-        currentlyDisplayedUser = user // Сохраняем текущего отображаемого пользователя
+        currentlyDisplayedUser = user
 
         binding.usernameTextView.text = user.username
         binding.displayNameTextView.text = user.displayName ?: getString(R.string.default_display_name)
-        binding.emailTextView.text = user.email // Email может быть скрыт для чужих профилей на уровне API
+        binding.emailTextView.text = user.email
         binding.bioTextView.text = user.bio ?: getString(R.string.default_bio)
 
         binding.joinedDateTextView.text = formatDate(user.createdAt)
@@ -5140,7 +5119,7 @@ class UserProfileFragment : Fragment() {
 
     private fun setLoading(isLoading: Boolean) {
         binding.profileProgressBar.isVisible = isLoading
-        if (!isLoading) { // Только скрываем контент, если не было ошибки
+        if (!isLoading) {
             if (!binding.profileErrorText.isVisible) binding.profileContentGroup.isVisible = true
         } else {
             binding.profileContentGroup.isVisible = false
@@ -5151,15 +5130,14 @@ class UserProfileFragment : Fragment() {
         binding.profileErrorText.text = message
         binding.profileErrorText.isVisible = true
         binding.profileContentGroup.isVisible = false
-        updateButtonVisibility() // Скрыть кнопки при ошибке
+        updateButtonVisibility()
     }
-
 
     private fun formatDate(dateString: String?): String {
         if (dateString.isNullOrEmpty()) return getString(R.string.placeholder_date)
         val inputFormats = listOf(
             SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSSS", Locale.getDefault()),
-            SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSSSZ", Locale.getDefault()), // с Z в конце для смещения
+            SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSSSZ", Locale.getDefault()),
             SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault()),
             SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault())
         )
@@ -5167,11 +5145,9 @@ class UserProfileFragment : Fragment() {
 
         for (format in inputFormats) {
             if (!dateString.contains("Z") && format.toPattern().endsWith("'Z'")) {
-                // Пропускаем форматы с Z, если в строке нет Z
             } else {
-                format.timeZone = TimeZone.getTimeZone("UTC") // Предполагаем, что даты с сервера в UTC
+                format.timeZone = TimeZone.getTimeZone("UTC")
             }
-
             try {
                 val date = format.parse(dateString)
                 if (date != null) {
@@ -5179,28 +5155,24 @@ class UserProfileFragment : Fragment() {
                     return outputFormat.format(date)
                 }
             } catch (e: ParseException) {
-                // Log.v("UserProfileFragment", "Date parse failed for $dateString with pattern ${format.toPattern()}", e)
             }
         }
         Log.w("UserProfileFragment", "Could not parse date: $dateString, returning as is.")
         return dateString
     }
 
-
     override fun onResume() {
         super.onResume()
-        // Перезагружаем данные, если ID пользователя изменился (маловероятно без пересоздания фрагмента)
-        // или если мы вернулись с экрана редактирования
-        val newProfileUserIdToLoad = if (args.userId == -1) AuthTokenProvider.getCurrentUser()?.userId else args.userId
-        if (profileUserIdToLoad != newProfileUserIdToLoad || currentlyDisplayedUser == null) {
-            profileUserIdToLoad = newProfileUserIdToLoad
+        val currentLoggedInUserId = AuthTokenProvider.getCurrentUser()?.userId
+        val targetUserIdForDisplay = if (args.userId == -1L) currentLoggedInUserId else args.userId
+
+        if (profileUserIdToLoad != targetUserIdForDisplay || currentlyDisplayedUser == null) {
+            profileUserIdToLoad = targetUserIdForDisplay
             loadUserProfileData()
         } else {
-            // Если вернулись с EditProfile, а данные могли измениться у currentlyDisplayedUser
-            // Если EditProfile меняет данные в AuthTokenProvider, можно просто перезагрузить
             if (isCurrentUserProfileOwner()) {
                 AuthTokenProvider.getCurrentUser()?.let {
-                    if (it != currentlyDisplayedUser) { // Простая проверка, если User - data class
+                    if (it != currentlyDisplayedUser) {
                         displayProfileData(it)
                     }
                 }
@@ -5389,6 +5361,6 @@ data class SortProperty(
 ###############################################################################
 # SUMMARY
 # Total files: 85
-# Total size: 214.82 KB
-# Processing time: 1.53 seconds
+# Total size: 209.66 KB
+# Processing time: 0.72 seconds
 ###############################################################################

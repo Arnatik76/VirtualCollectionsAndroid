@@ -9,9 +9,11 @@ import com.example.finalproject.models.request.ForgotPasswordRequest
 import com.example.finalproject.models.responce.PagedResponse
 import com.example.finalproject.models.request.RegistrationRequest
 import com.example.finalproject.models.CollectionCollaborator
+import com.example.finalproject.models.User
 import com.example.finalproject.models.request.CreateCollectionRequest
 import com.example.finalproject.models.request.CreateCommentRequest
 import com.example.finalproject.models.request.AddItemToCollectionRequest
+import com.example.finalproject.models.request.UpdateProfileRequest
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.Body
@@ -51,7 +53,7 @@ interface ApiService {
         @Query("sort") sort: String = "updatedAt,desc"
     ): Call<PagedResponse<Collection>>
 
-    @GET("collections/{collectionId}/items")
+    @GET("vc-collections/collections/{collectionId}/items")
     fun getCollectionItems(
         @Path("collectionId") collectionId: Int,
         @Query("page") page: Int = 0,
@@ -64,23 +66,23 @@ interface ApiService {
         @Body addItemRequest: AddItemToCollectionRequest
     ): Call<CollectionItemEntry>
 
-    @GET("collections/{collectionId}/comments")
+    @GET("vc-collections/collections/{collectionId}/comments")
     fun getCollectionComments(
         @Path("collectionId") collectionId: Int,
         @Query("page") page: Int = 0,
         @Query("size") size: Int = 10
     ): Call<PagedResponse<CollectionComment>>
 
-    @GET("collections/{collectionId}/collaborators")
+    @GET("vc-collections/collections/{collectionId}/collaborators")
     fun getCollectionCollaborators(@Path("collectionId") collectionId: Int): Call<List<CollectionCollaborator>>
 
-    @POST("collections/{collectionId}/like")
+    @POST("vc-collections/collections/{collectionId}/like")
     fun likeCollection(@Path("collectionId") collectionId: Int): Call<ResponseBody>
 
-    @DELETE("collections/{collectionId}/like")
+    @DELETE("vc-collections/collections/{collectionId}/like")
     fun unlikeCollection(@Path("collectionId") collectionId: Int): Call<ResponseBody>
 
-    @POST("collections/{collectionId}/comments")
+    @POST("vc-collections/collections/{collectionId}/comments")
     fun addCollectionComment(
         @Path("collectionId") collectionId: Int,
         @Body commentRequest: CreateCommentRequest
@@ -94,4 +96,10 @@ interface ApiService {
 
     @POST("vc-users/auth/register")
     fun registerUser(@Body registrationRequest: RegistrationRequest): Call<AuthResponse>
+
+    @GET("vc-users/users/{userId}")
+    fun getUserProfileById(@Path("userId") userId: Int): Call<User>
+
+    @PUT("vc-users/users/me")
+    fun updateMyProfile(@Body updateProfileRequest: UpdateProfileRequest): Call<User>
 }

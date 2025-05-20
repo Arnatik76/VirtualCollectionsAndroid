@@ -35,7 +35,7 @@ class CollectionDetailsFragment : Fragment() {
     private var _binding: FragmentCollectionDetailsBinding? = null
     private val binding get() = _binding!!
 
-    private val args: CollectionDetailsFragmentArgs by navArgs() // Для получения collectionId
+    private val args: CollectionDetailsFragmentArgs by navArgs()
 
     private lateinit var itemsAdapter: CollectionItemAdapter
     private lateinit var commentsAdapter: CommentAdapter
@@ -206,10 +206,9 @@ class CollectionDetailsFragment : Fragment() {
         binding.collectionDetailAuthor.text = getString(R.string.author_prefix, authorName)
         binding.collectionDetailAuthor.setOnClickListener {
             collection.owner?.userId?.let { userId ->
-                // TODO: Navigate to UserProfileFragment
                 Toast.makeText(context, "Открыть профиль автора ID: $userId", Toast.LENGTH_SHORT).show()
-                // val action = CollectionDetailsFragmentDirections.actionCollectionDetailsFragmentToUserProfileFragment(userId)
-                // findNavController().navigate(action)
+                val action = CollectionDetailsFragmentDirections.actionCollectionDetailsFragmentToUserProfileFragment(userId)
+                findNavController().navigate(action)
             }
         }
 

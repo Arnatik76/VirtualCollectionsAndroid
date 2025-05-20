@@ -1,8 +1,8 @@
 package com.example.finalproject.models
 
 data class CollectionItemEntry(
-    val collectionId: Int,
-    val itemId: Int,
+    val collectionId: Long,
+    val itemId: Long,
     val addedByUserId: Int?,
     val addedAt: String,
     val position: Int?,

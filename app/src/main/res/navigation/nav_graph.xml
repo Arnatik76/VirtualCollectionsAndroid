@@ -43,19 +43,21 @@
         <action
             android:id="@+id/action_userProfileFragment_to_editProfile"
             app:destination="@id/editProfile" />
-        <!-- Если есть аргумент userId для просмотра чужих профилей:
         <argument
             android:name="userId"
             app:argType="integer"
             android:defaultValue="-1" />
-        -->
     </fragment>
 
     <fragment
         android:id="@+id/editProfile"
         android:name="com.example.finalproject.fragments.user.EditProfileFragment"
         android:label="fragment_edit_profile"
-        tools:layout="@layout/fragment_edit_profile" />
+        tools:layout="@layout/fragment_edit_profile" >
+        <argument
+            android:name="userId"
+            app:argType="integer" />
+    </fragment>
 
     <fragment
         android:id="@+id/homeFragment"
@@ -134,6 +136,7 @@
         android:name="com.example.finalproject.fragments.mediaitem.EditMediaItemFragment"
         android:label="fragment_edit_media_item"
         tools:layout="@layout/fragment_edit_media_item" />
+
     <fragment
         android:id="@+id/forgetPasswordFragment"
         android:name="com.example.finalproject.fragments.user.ForgotPasswordFragment"

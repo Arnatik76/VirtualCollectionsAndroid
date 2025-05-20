@@ -10,11 +10,16 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.example.finalproject.R
+import com.example.finalproject.api.RetrofitClient // Убедитесь, что импортирован
 import com.example.finalproject.databinding.FragmentUserProfileBinding
 import com.example.finalproject.models.User
 import com.example.finalproject.utils.AuthTokenProvider
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.Locale
@@ -25,9 +30,9 @@ class UserProfileFragment : Fragment() {
     private var _binding: FragmentUserProfileBinding? = null
     private val binding get() = _binding!!
 
-    // TODO: Если планируется просмотр чужих профилей, добавить аргумент userId и API для его загрузки
-    // private val args: UserProfileFragmentArgs by navArgs()
-    // private var profileUserId: Int? = null
+    private val args: UserProfileFragmentArgs by navArgs()
+    private var profileUserIdToLoad: Int? = null // ID пользователя, чей профиль нужно загрузить
+    private var currentlyDisplayedUser: User? = null // Пользователь, чей профиль отображается
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,60 +45,94 @@ class UserProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // TODO: Определить, чей профиль смотрим (текущего пользователя или другого)
-        // profileUserId = args.userId.let { if (it == -1) null else it }
+        profileUserIdToLoad = if (args.userId == -1) {
+            AuthTokenProvider.getCurrentUser()?.userId // Если -1, берем ID текущего пользователя
+        } else {
+            args.userId
+        }
 
-        // Пока что всегда отображаем профиль текущего авторизованного пользователя
-        loadCurrentUserProfile()
+        loadUserProfileData()
 
         binding.editProfileButton.setOnClickListener {
-            // TODO: Проверить, является ли текущий пользователь владельцем этого профиля
-            // if (profileUserId == null || profileUserId == AuthTokenProvider.getCurrentUser()?.userId) {
-            if (AuthTokenProvider.isAuthenticated()) {
-                try {
-                    findNavController().navigate(R.id.editProfile) // Убедитесь, что ID верный в nav_graph
-                } catch (e: Exception) {
-                    Toast.makeText(context, "Не удалось перейти к редактированию: ${e.localizedMessage}", Toast.LENGTH_SHORT).show()
-                    Log.e("UserProfileFragment", "Navigation to EditProfile failed", e)
-                }
-            } else {
-                Toast.makeText(context, getString(R.string.user_not_logged_in), Toast.LENGTH_SHORT).show()
+            // Кнопка активна только если это наш профиль
+            if (isCurrentUserProfileOwner()) {
+                currentlyDisplayedUser?.userId?.let {
+                    // Передаем userId в EditProfileFragment, если он нужен для API (например, для PUT /users/{id})
+                    // Либо EditProfileFragment сам берет ID текущего пользователя
+                    val action = UserProfileFragmentDirections.actionUserProfileFragmentToEditProfile(it)
+                    findNavController().navigate(action)
+                } ?: Toast.makeText(context, "Ошибка: ID пользователя не найден", Toast.LENGTH_SHORT).show()
             }
         }
 
         binding.logoutButton.setOnClickListener {
-            // TODO: Кнопка выхода должна быть видна/активна только если это профиль текущего пользователя
-            showLogoutConfirmationDialog()
+            // Кнопка активна только если это наш профиль
+            if (isCurrentUserProfileOwner()) {
+                showLogoutConfirmationDialog()
+            }
         }
     }
 
-    private fun loadCurrentUserProfile() {
-        setLoading(true)
-        val currentUser = AuthTokenProvider.getCurrentUser()
+    private fun isCurrentUserProfileOwner(): Boolean {
+        val loggedInUserId = AuthTokenProvider.getCurrentUser()?.userId
+        return loggedInUserId != null && currentlyDisplayedUser?.userId == loggedInUserId
+    }
 
-        if (currentUser != null) {
-            displayProfileData(currentUser)
-            setLoading(false)
-            binding.profileErrorText.isVisible = false
-            binding.profileContentGroup.isVisible = true
-        } else {
-            Log.w("UserProfileFragment", "Current user data not found in AuthTokenProvider.")
-            setLoading(false)
-            binding.profileErrorText.text = getString(R.string.user_not_logged_in)
-            binding.profileErrorText.isVisible = true
-            binding.profileContentGroup.isVisible = false
-            // Скрыть кнопки, если пользователь не авторизован
-            binding.editProfileButton.isEnabled = false
-            binding.logoutButton.isEnabled = false
+    private fun loadUserProfileData() {
+        setLoading(true)
+        binding.profileErrorText.isVisible = false
+        binding.profileContentGroup.isVisible = false
+
+        if (profileUserIdToLoad == null && args.userId == -1) {
+            // Это случай, когда мы хотим показать профиль текущего юзера, но он не залогинен
+            val currentUser = AuthTokenProvider.getCurrentUser()
+            if (currentUser != null) {
+                profileUserIdToLoad = currentUser.userId // Устанавливаем ID для ясности
+                displayProfileData(currentUser)
+                setLoading(false)
+            } else {
+                showError(getString(R.string.user_not_logged_in))
+                setLoading(false)
+                updateButtonVisibility() // Обновить видимость кнопок
+            }
+            return
         }
-        // Если бы мы загружали профиль по ID с сервера:
-        // RetrofitClient.instance.getUserProfile(profileUserId!!).enqueue(...)
+
+        if (profileUserIdToLoad == null) {
+            showError(getString(R.string.user_not_found) + " (ID не указан)")
+            setLoading(false)
+            updateButtonVisibility()
+            return
+        }
+
+        // Загрузка профиля по ID с сервера
+        RetrofitClient.instance.getUserProfileById(profileUserIdToLoad!!)
+            .enqueue(object : Callback<User> {
+                override fun onResponse(call: Call<User>, response: Response<User>) {
+                    setLoading(false)
+                    if (response.isSuccessful) {
+                        response.body()?.let { user ->
+                            displayProfileData(user)
+                        } ?: showError(getString(R.string.user_not_found))
+                    } else {
+                        showError("${getString(R.string.error_loading_profile)}: ${response.code()} ${response.message()}")
+                    }
+                }
+
+                override fun onFailure(call: Call<User>, t: Throwable) {
+                    setLoading(false)
+                    showError("${getString(R.string.network_error)}: ${t.localizedMessage}")
+                    Log.e("UserProfileFragment", "Failed to load profile", t)
+                }
+            })
     }
 
     private fun displayProfileData(user: User) {
+        currentlyDisplayedUser = user // Сохраняем текущего отображаемого пользователя
+
         binding.usernameTextView.text = user.username
         binding.displayNameTextView.text = user.displayName ?: getString(R.string.default_display_name)
-        binding.emailTextView.text = user.email
+        binding.emailTextView.text = user.email // Email может быть скрыт для чужих профилей на уровне API
         binding.bioTextView.text = user.bio ?: getString(R.string.default_bio)
 
         binding.joinedDateTextView.text = formatDate(user.createdAt)
@@ -106,11 +145,14 @@ class UserProfileFragment : Fragment() {
             .circleCrop()
             .into(binding.profileAvatarImageView)
 
-        // TODO: Показываем/скрываем кнопку редактирования в зависимости от того,
-        // является ли текущий пользователь владельцем просматриваемого профиля.
-        // В данном случае, мы всегда смотрим свой профиль, так что кнопка активна.
-        binding.editProfileButton.isEnabled = true
-        binding.logoutButton.isEnabled = true
+        binding.profileContentGroup.isVisible = true
+        updateButtonVisibility()
+    }
+
+    private fun updateButtonVisibility() {
+        val isOwner = isCurrentUserProfileOwner()
+        binding.editProfileButton.isVisible = isOwner
+        binding.logoutButton.isVisible = isOwner
     }
 
 
@@ -131,68 +173,88 @@ class UserProfileFragment : Fragment() {
     private fun performLogout() {
         AuthTokenProvider.clearAuthData()
         Toast.makeText(context, getString(R.string.logged_out_successfully), Toast.LENGTH_SHORT).show()
-
-        // Переход на экран входа
-        // Важно: убедитесь, что у вас есть глобальное действие или правильный путь к экрану логина
-        // из любого места графа навигации, если UserProfileFragment доступен из разных мест.
-        // Самый простой способ - это перейти к стартовому экрану графа навигации,
-        // который затем перенаправит на логин, если пользователь не аутентифицирован.
         try {
-            // Переход на LoginFragment и очистка бэкстека до него (если LoginFragment не стартовый)
-            // Либо переход на стартовый фрагмент, который решит, куда направить дальше
             findNavController().navigate(R.id.login, null, androidx.navigation.NavOptions.Builder()
-                .setPopUpTo(R.id.nav_graph, true) // Очистить весь backstack до nav_graph
+                .setPopUpTo(R.id.nav_graph, true)
                 .build())
-
-            // Если MainActivity управляет видимостью BottomNav, нужно ей сообщить
-            // (activity as? MainActivity)?.showBottomNavigation(false) // Пример
         } catch (e: Exception) {
-            Toast.makeText(context, "Ошибка навигации после выхода: ${e.localizedMessage}", Toast.LENGTH_LONG).show()
             Log.e("UserProfileFragment", "Navigation to login after logout failed", e)
         }
     }
 
     private fun setLoading(isLoading: Boolean) {
         binding.profileProgressBar.isVisible = isLoading
-        binding.profileContentGroup.isVisible = !isLoading && !binding.profileErrorText.isVisible
+        if (!isLoading) { // Только скрываем контент, если не было ошибки
+            if (!binding.profileErrorText.isVisible) binding.profileContentGroup.isVisible = true
+        } else {
+            binding.profileContentGroup.isVisible = false
+        }
     }
+
+    private fun showError(message: String) {
+        binding.profileErrorText.text = message
+        binding.profileErrorText.isVisible = true
+        binding.profileContentGroup.isVisible = false
+        updateButtonVisibility() // Скрыть кнопки при ошибке
+    }
+
 
     private fun formatDate(dateString: String?): String {
         if (dateString.isNullOrEmpty()) return getString(R.string.placeholder_date)
-        // Пример входного формата: "2024-05-20T10:30:00Z" или "2024-05-20T10:30:00.123456"
         val inputFormats = listOf(
             SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSSS", Locale.getDefault()),
+            SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSSSZ", Locale.getDefault()), // с Z в конце для смещения
             SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault()),
             SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault())
         )
         val outputFormat = SimpleDateFormat("dd MMMM yyyy, HH:mm", Locale.getDefault())
 
         for (format in inputFormats) {
-            format.timeZone = TimeZone.getTimeZone("UTC") // Если даты с сервера в UTC
+            if (!dateString.contains("Z") && format.toPattern().endsWith("'Z'")) {
+                // Пропускаем форматы с Z, если в строке нет Z
+            } else {
+                format.timeZone = TimeZone.getTimeZone("UTC") // Предполагаем, что даты с сервера в UTC
+            }
+
             try {
                 val date = format.parse(dateString)
                 if (date != null) {
-                    outputFormat.timeZone = TimeZone.getDefault() // Форматируем в локальную зону
+                    outputFormat.timeZone = TimeZone.getDefault()
                     return outputFormat.format(date)
                 }
             } catch (e: ParseException) {
-                // Продолжаем попытки с другими форматами
+                // Log.v("UserProfileFragment", "Date parse failed for $dateString with pattern ${format.toPattern()}", e)
             }
         }
-        Log.w("UserProfileFragment", "Could not parse date: $dateString")
-        return dateString // Возвращаем исходную строку, если не удалось распарсить
+        Log.w("UserProfileFragment", "Could not parse date: $dateString, returning as is.")
+        return dateString
     }
 
 
     override fun onResume() {
         super.onResume()
-        // Если пользователь мог обновить данные профиля на экране EditProfile,
-        // и мы возвращаемся сюда, стоит перезагрузить данные.
-        loadCurrentUserProfile()
+        // Перезагружаем данные, если ID пользователя изменился (маловероятно без пересоздания фрагмента)
+        // или если мы вернулись с экрана редактирования
+        val newProfileUserIdToLoad = if (args.userId == -1) AuthTokenProvider.getCurrentUser()?.userId else args.userId
+        if (profileUserIdToLoad != newProfileUserIdToLoad || currentlyDisplayedUser == null) {
+            profileUserIdToLoad = newProfileUserIdToLoad
+            loadUserProfileData()
+        } else {
+            // Если вернулись с EditProfile, а данные могли измениться у currentlyDisplayedUser
+            // Если EditProfile меняет данные в AuthTokenProvider, можно просто перезагрузить
+            if (isCurrentUserProfileOwner()) {
+                AuthTokenProvider.getCurrentUser()?.let {
+                    if (it != currentlyDisplayedUser) { // Простая проверка, если User - data class
+                        displayProfileData(it)
+                    }
+                }
+            }
+        }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        currentlyDisplayedUser = null
     }
 }

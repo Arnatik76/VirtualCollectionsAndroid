@@ -1,60 +1,158 @@
 package com.example.finalproject.fragments.user
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.view.isVisible
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
+import com.bumptech.glide.Glide
 import com.example.finalproject.R
+import com.example.finalproject.api.RetrofitClient
+import com.example.finalproject.databinding.FragmentEditProfileBinding
+import com.example.finalproject.models.User
+import com.example.finalproject.models.request.UpdateProfileRequest
+import com.example.finalproject.utils.AuthTokenProvider
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [androidx.fragment.app.Fragment] subclass.
- * Use the [EditProfileFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class EditProfileFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private var _binding: FragmentEditProfileBinding? = null
+    private val binding get() = _binding!!
+
+    private val args: EditProfileFragmentArgs by navArgs()
+    private var userIdToEdit: Int = -1
+    private var currentUserData: User? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_edit_profile, container, false)
+    ): View {
+        _binding = FragmentEditProfileBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment EditProfile.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            EditProfileFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        userIdToEdit = args.userId
+
+        if (userIdToEdit == -1 || userIdToEdit != AuthTokenProvider.getCurrentUser()?.userId) {
+            Toast.makeText(context, "Ошибка: Невозможно редактировать этот профиль.", Toast.LENGTH_LONG).show()
+            Log.e("EditProfileFragment", "Attempted to edit profile with invalid userId: $userIdToEdit")
+            findNavController().popBackStack()
+            return
+        }
+
+        loadCurrentProfileData()
+
+        binding.saveProfileButton.setOnClickListener {
+            handleUpdateProfile()
+        }
+
+        binding.avatarUrlEditTextField.doOnTextChanged { text, _, _, _ ->
+            Glide.with(this)
+                .load(text.toString())
+                .placeholder(R.drawable.ic_profile_24)
+                .error(R.drawable.ic_profile_24)
+                .circleCrop()
+                .into(binding.editProfileAvatarPreview)
+        }
+    }
+
+    private fun loadCurrentProfileData() {
+        setLoading(true)
+        currentUserData = AuthTokenProvider.getCurrentUser()
+
+        if (currentUserData == null) {
+            setLoading(false)
+            Toast.makeText(context, getString(R.string.error_loading_data_for_edit), Toast.LENGTH_LONG).show()
+            Log.e("EditProfileFragment", "Could not load current user data from AuthTokenProvider.")
+            findNavController().popBackStack()
+            return
+        }
+
+        populateFields(currentUserData!!)
+        setLoading(false)
+    }
+
+    private fun populateFields(user: User) {
+        binding.displayNameEditTextField.setText(user.displayName ?: "")
+        binding.bioEditTextField.setText(user.bio ?: "")
+        binding.avatarUrlEditTextField.setText(user.avatarUrl ?: "")
+
+        Glide.with(this)
+            .load(user.avatarUrl)
+            .placeholder(R.drawable.ic_profile_24)
+            .error(R.drawable.ic_profile_24)
+            .circleCrop()
+            .into(binding.editProfileAvatarPreview)
+    }
+
+    private fun handleUpdateProfile() {
+        val displayName = binding.displayNameEditTextField.text.toString().trim().ifEmpty { null }
+        val bio = binding.bioEditTextField.text.toString().trim().ifEmpty { null }
+        val avatarUrl = binding.avatarUrlEditTextField.text.toString().trim().ifEmpty { null }
+
+        if (displayName == currentUserData?.displayName &&
+            bio == currentUserData?.bio &&
+            avatarUrl == currentUserData?.avatarUrl) {
+            Toast.makeText(context, "Нет изменений для сохранения.", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        setLoading(true)
+
+        val updateRequest = UpdateProfileRequest(displayName, bio, avatarUrl)
+
+        RetrofitClient.instance.updateMyProfile(updateRequest)
+            .enqueue(object : Callback<User> {
+                override fun onResponse(call: Call<User>, response: Response<User>) {
+                    setLoading(false)
+                    if (response.isSuccessful) {
+                        response.body()?.let { updatedUser ->
+                            // Обновляем данные пользователя в AuthTokenProvider
+                            AuthTokenProvider.saveUser(updatedUser)
+                            Toast.makeText(context, getString(R.string.profile_updated_successfully), Toast.LENGTH_SHORT).show()
+                            Log.d("EditProfileFragment", "Profile updated for user: ${updatedUser.username}")
+                            findNavController().popBackStack() // Возвращаемся на UserProfileFragment
+                        } ?: run {
+                            Toast.makeText(context, getString(R.string.error_updating_profile) + " (пустой ответ)", Toast.LENGTH_LONG).show()
+                        }
+                    } else {
+                        val errorMsg = response.errorBody()?.string() ?: getString(R.string.error_updating_profile)
+                        Toast.makeText(context, "${getString(R.string.error_updating_profile)}: ${response.code()} $errorMsg", Toast.LENGTH_LONG).show()
+                        Log.e("EditProfileFragment", "API Error ${response.code()}: $errorMsg")
+                    }
                 }
-            }
+
+                override fun onFailure(call: Call<User>, t: Throwable) {
+                    setLoading(false)
+                    Toast.makeText(context, "${getString(R.string.network_error)}: ${t.message}", Toast.LENGTH_LONG).show()
+                    Log.e("EditProfileFragment", "Network Failure", t)
+                }
+            })
+    }
+
+
+    private fun setLoading(isLoading: Boolean) {
+        binding.editProfileProgressBar.isVisible = isLoading
+        binding.displayNameEditTextField.isEnabled = !isLoading
+        binding.bioEditTextField.isEnabled = !isLoading
+        binding.avatarUrlEditTextField.isEnabled = !isLoading
+        binding.saveProfileButton.isEnabled = !isLoading
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+        currentUserData = null
     }
 }

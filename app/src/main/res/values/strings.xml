@@ -99,4 +99,13 @@
     <string name="default_bio">Информация отсутствует.</string>
     <string name="default_display_name">Не указано</string>
     <string name="placeholder_date">дд.мм.гггг</string>
+
+    <string name="edit_profile_toolbar_title">Редактирование профиля</string>
+    <string name="hint_display_name_edit">Отображаемое имя</string>
+    <string name="hint_bio_edit">О себе</string>
+    <string name="hint_avatar_url_edit">URL аватара</string>
+    <string name="button_save_profile_changes">Сохранить изменения</string>
+    <string name="profile_updated_successfully">Профиль успешно обновлен</string>
+    <string name="error_updating_profile">Ошибка при обновлении профиля</string>
+    <string name="error_loading_data_for_edit">Ошибка загрузки данных для редактирования</string>
 </resources>

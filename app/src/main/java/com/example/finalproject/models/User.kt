@@ -1,7 +1,7 @@
 package com.example.finalproject.models
 
 data class User(
-    val userId: Int?,
+    val userId: Long?,
     val username: String,
     val email: String,
     val displayName: String?,

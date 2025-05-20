@@ -1,8 +1,8 @@
 package com.example.finalproject.models
 
 data class MediaItem(
-    val itemId: Int,
-    val typeId: Int,
+    val itemId: Long,
+    val typeId: Long,
     val title: String,
     val creator: String?,
     val description: String?,

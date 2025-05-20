@@ -1,7 +1,7 @@
 package com.example.finalproject.models
 
 data class ContentType(
-    val typeId: Int,
+    val typeId: Long,
     val typeName: String,
     val typeIcon: String?
 )

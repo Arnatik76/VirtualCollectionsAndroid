@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/login">
 
     <fragment
         android:id="@+id/login"
@@ -52,26 +52,36 @@
             android:id="@+id/action_homeFragment_to_collectionDetailsFragment"
             app:destination="@id/collectionDetailsFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/myCollectionsFragment"
         android:name="com.example.finalproject.fragments.collection.MyCollectionsFragment"
         android:label="fragment_my_collections"
-        tools:layout="@layout/fragment_my_collections" />
+        tools:layout="@layout/fragment_my_collections" >
+        <action
+            android:id="@+id/action_myCollectionsFragment_to_createCollectionFragment"
+            app:destination="@id/createCollectionFragment" />
+        <action
+            android:id="@+id/action_myCollectionsFragment_to_collectionDetailsFragment"
+            app:destination="@id/collectionDetailsFragment" />
+    </fragment>
+
     <fragment
         android:id="@+id/collectionDetailsFragment"
         android:name="com.example.finalproject.fragments.collection.CollectionDetailsFragment"
         android:label="fragment_collection_details"
         tools:layout="@layout/fragment_collection_details" >
-    <argument
-        android:name="collectionId"
-        app:argType="integer" />
-    <action
-        android:id="@+id/action_collectionDetailsFragment_to_userProfileFragment"
-        app:destination="@id/userProfileFragment" />
-    <action
-        android:id="@+id/action_collectionDetailsFragment_to_mediaItemDetailsFragment"
-        app:destination="@id/mediaItemDetailsFragment" />
+        <argument
+            android:name="collectionId"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_collectionDetailsFragment_to_userProfileFragment"
+            app:destination="@id/userProfileFragment" />
+        <action
+            android:id="@+id/action_collectionDetailsFragment_to_mediaItemDetailsFragment"
+            app:destination="@id/mediaItemDetailsFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/createCollectionFragment"
         android:name="com.example.finalproject.fragments.collection.EditCollectionFragment"

@@ -49,5 +49,33 @@
     <string name="error_posting_comment">Ошибка публикации комментария</string>
 
     <string name="media_item_thumbnail_desc">Миниатюра элемента</string>
-    <string name="user_avatar_desc">user_avatar\n</string>
+    <string name="user_avatar_desc">User Avatar\n</string>
+
+    <string name="no_my_collections_found">У вас пока нет коллекций. Создайте первую!</string>
+    <string name="create_new_collection_desc">Создать новую коллекцию</string>
+    <string name="error_loading_my_collections">Ошибка загрузки ваших коллекций</string>
+    <string name="please_login_to_see_collections">Пожалуйста, войдите, чтобы увидеть свои коллекции.</string>
+    <string name="error_cannot_create_collection">Не удалось перейти к созданию коллекции</string>
+    <string name="error_cannot_open_collection_details">Не удалось открыть детали коллекции</string>
+
+    <string name="create_collection_title_toolbar">Создать коллекцию</string>
+    <string name="hint_collection_title">Название коллекции*</string>
+    <string name="hint_collection_description">Описание (необязательно)</string>
+    <string name="hint_collection_cover_url">URL обложки (необязательно)</string>
+    <string name="label_is_public">Сделать публичной</string>
+    <string name="button_create_collection">Создать</string>
+    <string name="error_collection_title_required">Название коллекции обязательно</string>
+    <string name="collection_created_successfully">Коллекция успешно создана</string>
+    <string name="error_creating_collection">Ошибка при создании коллекции</string>
+    <string name="edit_collection_title_toolbar">Редактировать коллекцию</string>
+    <string name="button_save_changes">Сохранить изменения
+
+    <string name="add_item_to_collection_toolbar">Добавить элемент в коллекцию</string>
+    <string name="hint_media_item_id">ID медиа-элемента*</string>
+    <string name="hint_item_notes">Заметки к элементу (необязательно)</string>
+    <string name="button_add_item">Добавить элемент</string>
+    <string name="error_media_item_id_required">ID медиа-элемента обязателен</string>
+    <string name="item_added_successfully">Элемент успешно добавлен</string>
+    <string name="error_adding_item">Ошибка при добавлении элемента</string>
+    <string name="collection_id_missing">ID коллекции отсутствует</string>
 </resources>

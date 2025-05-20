@@ -43,14 +43,10 @@ class HomeFragment : Fragment() {
 
     private fun setupRecyclerView() {
         collectionAdapter = CollectionAdapter { collection ->
-            // Обработка клика на коллекцию -> переход на CollectionDetailsFragment
-            // Для этого нужно будет создать action в nav_graph.xml
-            // и передать, например, collection.collectionId
             Toast.makeText(context, "Переход к коллекции: ${collection.title}", Toast.LENGTH_SHORT).show()
             Log.d("HomeFragment", "Clicked collection ID: ${collection.collectionId}")
-            // Пример навигации (раскомментировать и настроить action в nav_graph.xml):
-            // val action = HomeFragmentDirections.actionHomeFragmentToCollectionDetailsFragment(collection.collectionId)
-            // findNavController().navigate(action)
+            val action = HomeFragmentDirections.actionHomeFragmentToCollectionDetailsFragment(collection.collectionId)
+            findNavController().navigate(action)
         }
         binding.collectionsRecyclerView.apply {
             adapter = collectionAdapter

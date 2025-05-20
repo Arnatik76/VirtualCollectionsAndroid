@@ -1,5 +1,5 @@
 ﻿# PROJECT CODE COMPILATION
-# Generated on 05/18/2025 20:30:41
+# Generated on 05/20/2025 16:58:28
 # Source: C:\Users\Arnat\AndroidStudioProjects\FinalProject
 
 
@@ -193,6 +193,16 @@ zipStorePath=wrapper/dists
 
 <uses-permission android:name="android.permission.INTERNET" />
     </manifest>
+
+###############################################################################
+# FILE: app\src\main\res\drawable\bg_tag_chip.xml
+###############################################################################
+
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="#1A000000"/>
+    <corners android:radius="12dp"/>
+    <stroke android:width="1dp" android:color="?attr/colorPrimary"/>
+</shape>
 
 ###############################################################################
 # FILE: app\src\main\res\drawable\ic_launcher_background.xml
@@ -466,19 +476,284 @@ zipStorePath=wrapper/dists
 ###############################################################################
 
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fillViewport="true"
     tools:context=".fragments.collection.CollectionDetailsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:paddingBottom="16dp">
 
-</FrameLayout>
+        <ImageView
+            android:id="@+id/collection_detail_cover_image"
+            android:layout_width="0dp"
+            android:layout_height="250dp"
+            android:scaleType="centerCrop"
+            android:contentDescription="@string/collection_cover_image_desc"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:srcCompat="@drawable/ic_launcher_background" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_like_collection"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/ic_like_outline_24"
+            app:layout_constraintTop_toBottomOf="@id/collection_detail_cover_image"
+            app:layout_constraintBottom_toBottomOf="@id/collection_detail_cover_image"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:tint="@color/white"
+            android:contentDescription="@string/like_button_desc"/>
+
+        <TextView
+            android:id="@+id/collection_detail_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:textAppearance="?attr/textAppearanceHeadline5"
+            app:layout_constraintTop_toBottomOf="@id/collection_detail_cover_image"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/fab_like_collection"
+            tools:text="Название очень длинной коллекции" />
+
+        <TextView
+            android:id="@+id/collection_detail_author"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:textAppearance="?attr/textAppearanceSubtitle1"
+            android:textColor="?attr/colorPrimary"
+            app:layout_constraintTop_toBottomOf="@id/collection_detail_title"
+            app:layout_constraintStart_toStartOf="@id/collection_detail_title"
+            app:layout_constraintEnd_toEndOf="@id/collection_detail_title"
+            tools:text="Автор: username123" />
+
+        <TextView
+            android:id="@+id/collection_detail_description"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textAppearance="?attr/textAppearanceBody1"
+            app:layout_constraintTop_toBottomOf="@id/collection_detail_author"
+            app:layout_constraintStart_toStartOf="@id/collection_detail_title"
+            app:layout_constraintEnd_toEndOf="@id/collection_detail_title"
+            tools:text="Очень длинное и подробное описание коллекции, которое может занимать несколько строк и содержать много интересной информации." />
+
+        <LinearLayout
+            android:id="@+id/collection_detail_stats_layout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="12dp"
+            android:gravity="start|center_vertical"
+            app:layout_constraintTop_toBottomOf="@id/collection_detail_description"
+            app:layout_constraintStart_toStartOf="@id/collection_detail_title"
+            app:layout_constraintEnd_toEndOf="@id/collection_detail_title">
+
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:src="@drawable/ic_like_filled_24"
+                app:tint="?attr/colorControlNormal"
+                android:layout_marginEnd="4dp"/>
+            <TextView
+                android:id="@+id/collection_detail_likes_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                tools:text="1.2K" />
+
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:src="@drawable/ic_views_24"
+                app:tint="?attr/colorControlNormal"
+                android:layout_marginEnd="4dp"/>
+            <TextView
+                android:id="@+id/collection_detail_views_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                tools:text="10.5K" />
+
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:src="@drawable/ic_comment_24"
+                app:tint="?attr/colorControlNormal"
+                android:layout_marginEnd="4dp"/>
+            <TextView
+                android:id="@+id/collection_detail_comments_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="15" />
+        </LinearLayout>
+
+        <View
+            android:id="@+id/divider1"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@id/collection_detail_stats_layout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <!-- Элементы коллекции -->
+        <TextView
+            android:id="@+id/items_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/collection_items_title"
+            android:textAppearance="?attr/textAppearanceHeadline6"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@id/divider1"
+            app:layout_constraintStart_toStartOf="@id/collection_detail_title" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/collection_items_recycler_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:nestedScrollingEnabled="false"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintTop_toBottomOf="@id/items_title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:listitem="@layout/item_collection_item_entry"
+            tools:itemCount="3"/>
+
+        <View
+            android:id="@+id/divider2"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@id/collection_items_recycler_view"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <!-- Коллабораторы (если есть) -->
+        <TextView
+            android:id="@+id/collaborators_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/collaborators_title"
+            android:textAppearance="?attr/textAppearanceHeadline6"
+            android:layout_marginTop="16dp"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@id/divider2"
+            app:layout_constraintStart_toStartOf="@id/collection_detail_title"
+            tools:visibility="visible"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/collaborators_recycler_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:nestedScrollingEnabled="false"
+            android:visibility="gone"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@id/collaborators_title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:listitem="@layout/item_collaborator"
+            tools:itemCount="2"
+            tools:visibility="visible"/>
+        <!-- item_collaborator.xml нужно будет создать (аватар + имя) -->
+
+        <View
+            android:id="@+id/divider3"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider"
+            android:layout_marginTop="16dp"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@id/collaborators_recycler_view"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:visibility="visible"/>
+
+
+        <!-- Комментарии -->
+        <TextView
+            android:id="@+id/comments_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/comments_title"
+            android:textAppearance="?attr/textAppearanceHeadline6"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@id/divider3"
+            app:layout_constraintStart_toStartOf="@id/collection_detail_title" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/comments_recycler_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:nestedScrollingEnabled="false"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintTop_toBottomOf="@id/comments_title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:listitem="@layout/item_comment"
+            tools:itemCount="2"/>
+        <!-- item_comment.xml нужно будет создать (аватар, имя, текст, дата) -->
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/comment_input_layout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintTop_toBottomOf="@id/comments_recycler_view"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:hint="@string/add_comment_hint">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/comment_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textMultiLine"
+                android:maxLines="5"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/post_comment_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/post_comment_button"
+            app:layout_constraintTop_toBottomOf="@id/comment_input_layout"
+            app:layout_constraintEnd_toEndOf="@id/comment_input_layout" />
+
+
+        <ProgressBar
+            android:id="@+id/collection_detail_progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:visibility="visible"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>
 
 ###############################################################################
 # FILE: app\src\main\res\layout\fragment_create_collection.xml
@@ -1016,6 +1291,37 @@ zipStorePath=wrapper/dists
 </FrameLayout>
 
 ###############################################################################
+# FILE: app\src\main\res\layout\item_collaborator.xml
+###############################################################################
+
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:padding="8dp">
+
+    <ImageView
+        android:id="@+id/collaborator_avatar"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        tools:srcCompat="@drawable/ic_profile_24"
+        android:contentDescription="@string/user_avatar_desc"/>
+
+    <TextView
+        android:id="@+id/collaborator_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:textSize="12sp"
+        android:maxLines="1"
+        android:ellipsize="end"
+        tools:text="Collaborator Name"/>
+</LinearLayout>
+
+###############################################################################
 # FILE: app\src\main\res\layout\item_collection_card.xml
 ###############################################################################
 
@@ -1091,7 +1397,7 @@ zipStorePath=wrapper/dists
                 android:id="@+id/likes_icon"
                 android:layout_width="18dp"
                 android:layout_height="18dp"
-                android:src="@drawable/ic_like_24"
+                android:src="@drawable/ic_like_filled_24"
                 app:tint="?attr/colorControlNormal"
                 android:contentDescription="@string/likes_icon_desc" />
 
@@ -1123,6 +1429,155 @@ zipStorePath=wrapper/dists
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>
+
+###############################################################################
+# FILE: app\src\main\res\layout\item_collection_item_entry.xml
+###############################################################################
+
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardElevation="2dp"
+    app:cardCornerRadius="4dp"
+    android:layout_marginStart="16dp"
+    android:layout_marginEnd="16dp"
+    android:layout_marginTop="4dp"
+    android:layout_marginBottom="4dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="12dp">
+
+        <ImageView
+            android:id="@+id/item_thumbnail"
+            android:layout_width="80dp"
+            android:layout_height="100dp"
+            android:scaleType="centerCrop"
+            android:contentDescription="@string/media_item_thumbnail_desc"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:srcCompat="@drawable/ic_image_placeholder_24"/>
+
+        <TextView
+            android:id="@+id/item_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:textAppearance="?attr/textAppearanceSubtitle1"
+            android:maxLines="2"
+            android:ellipsize="end"
+            app:layout_constraintTop_toTopOf="@id/item_thumbnail"
+            app:layout_constraintStart_toEndOf="@id/item_thumbnail"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="Название медиа-элемента, которое может быть длинным"/>
+
+        <TextView
+            android:id="@+id/item_creator"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:textAppearance="?attr/textAppearanceBody2"
+            android:textColor="?android:attr/textColorSecondary"
+            app:layout_constraintTop_toBottomOf="@id/item_title"
+            app:layout_constraintStart_toStartOf="@id/item_title"
+            app:layout_constraintEnd_toEndOf="@id/item_title"
+            tools:text="Автор/Режиссер: Имя Фамилия"/>
+
+        <TextView
+            android:id="@+id/item_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/bg_tag_chip"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
+            android:textAppearance="?attr/textAppearanceCaption"
+            android:textColor="?attr/colorPrimary"
+            app:layout_constraintTop_toBottomOf="@id/item_creator"
+            app:layout_constraintStart_toStartOf="@id/item_title"
+            tools:text="Фильм"/>
+
+        <TextView
+            android:id="@+id/item_notes"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textAppearance="?attr/textAppearanceCaption"
+            android:maxLines="3"
+            android:ellipsize="end"
+            android:visibility="gone"
+            tools:visibility="visible"
+            app:layout_constraintTop_toBottomOf="@id/item_type"
+            app:layout_constraintStart_toStartOf="@id/item_title"
+            app:layout_constraintEnd_toEndOf="@id/item_title"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:text="Заметки пользователя к этому элементу: очень интересная деталь..."/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>
+
+###############################################################################
+# FILE: app\src\main\res\layout\item_comment.xml
+###############################################################################
+
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingStart="16dp"
+    android:paddingEnd="16dp"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp">
+
+    <ImageView
+        android:id="@+id/comment_author_avatar"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@drawable/ic_profile_24"
+        android:contentDescription="@string/user_avatar_desc"/>
+
+    <TextView
+        android:id="@+id/comment_author_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/comment_author_avatar"
+        app:layout_constraintTop_toTopOf="@id/comment_author_avatar"
+        app:layout_constraintEnd_toStartOf="@id/comment_date"
+        tools:text="User Name"/>
+
+    <TextView
+        android:id="@+id/comment_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/comment_author_name"
+        app:layout_constraintTop_toBottomOf="@id/comment_author_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="This is a sample comment text which can be quite long and wrap to multiple lines."/>
+
+    <TextView
+        android:id="@+id/comment_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:textColor="?android:attr/textColorSecondary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/comment_author_name"
+        app:layout_constraintBottom_toBottomOf="@id/comment_author_name"
+        tools:text="2h ago"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
 
 ###############################################################################
 # FILE: app\src\main\res\menu\bottom_nav_menu.xml
@@ -1175,7 +1630,7 @@ zipStorePath=wrapper/dists
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/login">
+    app:startDestination="@id/homeFragment">
 
     <fragment
         android:id="@+id/login"
@@ -1219,7 +1674,11 @@ zipStorePath=wrapper/dists
         android:id="@+id/homeFragment"
         android:name="com.example.finalproject.fragments.collection.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_collectionDetailsFragment"
+            app:destination="@id/collectionDetailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/myCollectionsFragment"
         android:name="com.example.finalproject.fragments.collection.MyCollectionsFragment"
@@ -1229,7 +1688,17 @@ zipStorePath=wrapper/dists
         android:id="@+id/collectionDetailsFragment"
         android:name="com.example.finalproject.fragments.collection.CollectionDetailsFragment"
         android:label="fragment_collection_details"
-        tools:layout="@layout/fragment_collection_details" />
+        tools:layout="@layout/fragment_collection_details" >
+    <argument
+        android:name="collectionId"
+        app:argType="integer" />
+    <action
+        android:id="@+id/action_collectionDetailsFragment_to_userProfileFragment"
+        app:destination="@id/userProfileFragment" />
+    <action
+        android:id="@+id/action_collectionDetailsFragment_to_mediaItemDetailsFragment"
+        app:destination="@id/mediaItemDetailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/createCollectionFragment"
         android:name="com.example.finalproject.fragments.collection.EditCollectionFragment"
@@ -1271,6 +1740,7 @@ zipStorePath=wrapper/dists
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="color_liked">#FF0000</color>
 </resources>
 
 ###############################################################################
@@ -1316,6 +1786,19 @@ zipStorePath=wrapper/dists
     <string name="no_collections_found">Коллекций пока нет.</string>
     <string name="error_loading_collections">Ошибка загрузки коллекций</string>
     <string name="network_error">Сетевая ошибка</string>
+
+    <string name="like_button_desc">Кнопка Лайк</string>
+    <string name="collection_items_title">Элементы коллекции</string>
+    <string name="collaborators_title">Соавторы</string>
+    <string name="comments_title">Комментарии</string>
+    <string name="add_comment_hint">Добавить комментарий...</string>
+    <string name="post_comment_button">Опубликовать</string>
+    <string name="error_loading_collection_details">Ошибка загрузки деталей коллекции</string>
+    <string name="comment_posted_successfully">Комментарий опубликован</string>
+    <string name="error_posting_comment">Ошибка публикации комментария</string>
+
+    <string name="media_item_thumbnail_desc">Миниатюра элемента</string>
+    <string name="user_avatar_desc">user_avatar\n</string>
 </resources>
 
 ###############################################################################
@@ -1454,6 +1937,61 @@ class MainActivity : AppCompatActivity() {
 }
 
 ###############################################################################
+# FILE: app\src\main\java\com\example\finalproject\adapters\CollaboratorAdapter.kt
+###############################################################################
+
+package com.example.finalproject.adapters
+
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.example.finalproject.R
+import com.example.finalproject.databinding.ItemCollaboratorBinding
+import com.example.finalproject.models.User // Предполагаем, что collaborators это List<User>
+
+class CollaboratorAdapter(private val onCollaboratorClicked: (User) -> Unit) :
+    ListAdapter<User, CollaboratorAdapter.CollaboratorViewHolder>(UserDiffCallback()) {
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CollaboratorViewHolder {
+        val binding = ItemCollaboratorBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return CollaboratorViewHolder(binding, onCollaboratorClicked)
+    }
+
+    override fun onBindViewHolder(holder: CollaboratorViewHolder, position: Int) {
+        holder.bind(getItem(position))
+    }
+
+    class CollaboratorViewHolder(
+        private val binding: ItemCollaboratorBinding,
+        private val onCollaboratorClicked: (User) -> Unit
+    ) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(user: User) {
+            binding.collaboratorName.text = user.displayName ?: user.username
+            Glide.with(itemView.context)
+                .load(user.avatarUrl)
+                .placeholder(R.drawable.ic_profile_24)
+                .error(R.drawable.ic_profile_24)
+                .circleCrop()
+                .into(binding.collaboratorAvatar)
+            itemView.setOnClickListener { onCollaboratorClicked(user) }
+        }
+    }
+
+    // Можно использовать общий UserDiffCallback, если он уже есть
+    class UserDiffCallback : DiffUtil.ItemCallback<User>() {
+        override fun areItemsTheSame(oldItem: User, newItem: User): Boolean {
+            return oldItem.userId == newItem.userId
+        }
+        override fun areContentsTheSame(oldItem: User, newItem: User): Boolean {
+            return oldItem == newItem
+        }
+    }
+}
+
+###############################################################################
 # FILE: app\src\main\java\com\example\finalproject\adapters\CollectionAdapter.kt
 ###############################################################################
 
@@ -1530,20 +2068,167 @@ class CollectionAdapter(private val onItemClicked: (Collection) -> Unit) :
 }
 
 ###############################################################################
+# FILE: app\src\main\java\com\example\finalproject\adapters\CollectionItemAdapter.kt
+###############################################################################
+
+package com.example.finalproject.adapters
+
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.example.finalproject.R
+import com.example.finalproject.databinding.ItemCollectionItemEntryBinding
+import com.example.finalproject.models.CollectionItemEntry
+
+class CollectionItemAdapter(private val onItemClicked: (CollectionItemEntry) -> Unit) :
+    ListAdapter<CollectionItemEntry, CollectionItemAdapter.ItemViewHolder>(ItemDiffCallback()) {
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
+        val binding = ItemCollectionItemEntryBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ItemViewHolder(binding, onItemClicked)
+    }
+
+    override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
+        holder.bind(getItem(position))
+    }
+
+    class ItemViewHolder(
+        private val binding: ItemCollectionItemEntryBinding,
+        private val onItemClicked: (CollectionItemEntry) -> Unit
+    ) : RecyclerView.ViewHolder(binding.root) {
+
+        fun bind(entry: CollectionItemEntry) {
+            val mediaItem = entry.mediaItem
+            binding.itemTitle.text = mediaItem.title
+            binding.itemCreator.text = mediaItem.creator ?: itemView.context.getString(R.string.unknown_author) // или другой текст
+
+            mediaItem.contentType?.typeName?.let {
+                binding.itemType.text = it
+                binding.itemType.visibility = View.VISIBLE
+            } ?: run {
+                binding.itemType.visibility = View.GONE
+            }
+
+            entry.notes?.let {
+                binding.itemNotes.text = it
+                binding.itemNotes.visibility = View.VISIBLE
+            } ?: run {
+                binding.itemNotes.visibility = View.GONE
+            }
+
+            Glide.with(itemView.context)
+                .load(mediaItem.thumbnailUrl)
+                .placeholder(R.drawable.ic_image_placeholder_24)
+                .error(R.drawable.ic_image_placeholder_24)
+                .into(binding.itemThumbnail)
+
+            itemView.setOnClickListener {
+                onItemClicked(entry)
+            }
+        }
+    }
+
+    class ItemDiffCallback : DiffUtil.ItemCallback<CollectionItemEntry>() {
+        override fun areItemsTheSame(oldItem: CollectionItemEntry, newItem: CollectionItemEntry): Boolean {
+            // Предполагаем, что у CollectionItemEntry есть уникальный ID, если нет, используй itemId из mediaItem
+            return oldItem.itemId == newItem.itemId && oldItem.collectionId == newItem.collectionId
+        }
+
+        override fun areContentsTheSame(oldItem: CollectionItemEntry, newItem: CollectionItemEntry): Boolean {
+            return oldItem == newItem
+        }
+    }
+}
+
+###############################################################################
+# FILE: app\src\main\java\com\example\finalproject\adapters\CommentAdapter.kt
+###############################################################################
+
+package com.example.finalproject.adapters
+
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.example.finalproject.R
+import com.example.finalproject.databinding.ItemCommentBinding
+import com.example.finalproject.models.CollectionComment
+// import java.text.SimpleDateFormat // Для форматирования даты
+// import java.util.Locale
+
+class CommentAdapter(private val onAuthorClicked: (Int?) -> Unit) :
+    ListAdapter<CollectionComment, CommentAdapter.CommentViewHolder>(CommentDiffCallback()) {
+
+    // private val dateFormat = SimpleDateFormat("dd MMM yyyy, HH:mm", Locale.getDefault()) // Пример
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CommentViewHolder {
+        val binding = ItemCommentBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return CommentViewHolder(binding, onAuthorClicked)
+    }
+
+    override fun onBindViewHolder(holder: CommentViewHolder, position: Int) {
+        holder.bind(getItem(position))
+    }
+
+    class CommentViewHolder(
+        private val binding: ItemCommentBinding,
+        private val onAuthorClicked: (Int?) -> Unit
+    ) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(comment: CollectionComment) {
+            binding.commentText.text = comment.commentText
+            binding.commentAuthorName.text = comment.user?.displayName ?: comment.user?.username ?: itemView.context.getString(R.string.unknown_author)
+            // binding.commentDate.text = comment.createdAt // TODO: Format date properly
+            // Простая заглушка для даты
+            binding.commentDate.text = " " // Замените на реальное форматирование даты
+
+            Glide.with(itemView.context)
+                .load(comment.user?.avatarUrl)
+                .placeholder(R.drawable.ic_profile_24) // Заглушка
+                .error(R.drawable.ic_profile_24)
+                .circleCrop()
+                .into(binding.commentAuthorAvatar)
+
+            binding.commentAuthorAvatar.setOnClickListener { onAuthorClicked(comment.userId) }
+            binding.commentAuthorName.setOnClickListener { onAuthorClicked(comment.userId) }
+        }
+    }
+
+    class CommentDiffCallback : DiffUtil.ItemCallback<CollectionComment>() {
+        override fun areItemsTheSame(oldItem: CollectionComment, newItem: CollectionComment): Boolean {
+            return oldItem.commentId == newItem.commentId
+        }
+        override fun areContentsTheSame(oldItem: CollectionComment, newItem: CollectionComment): Boolean {
+            return oldItem == newItem
+        }
+    }
+}
+
+###############################################################################
 # FILE: app\src\main\java\com\example\finalproject\api\ApiService.kt
 ###############################################################################
 
 package com.example.finalproject.api
 
 import com.example.finalproject.models.Collection
-import com.example.finalproject.models.LoginRequest
-import com.example.finalproject.models.AuthResponse
-import com.example.finalproject.models.ForgotPasswordRequest
-import com.example.finalproject.models.PagedResponse
-import com.example.finalproject.models.RegistrationRequest
+import com.example.finalproject.models.request.LoginRequest
+import com.example.finalproject.models.responce.AuthResponse
+import com.example.finalproject.models.CollectionComment
+import com.example.finalproject.models.CollectionItemEntry
+import com.example.finalproject.models.request.ForgotPasswordRequest
+import com.example.finalproject.models.responce.PagedResponse
+import com.example.finalproject.models.request.RegistrationRequest
+import com.example.finalproject.models.CollectionCollaborator
+import com.example.finalproject.models.request.CreateCommentRequest
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
@@ -1555,7 +2240,7 @@ interface ApiService {
         @Body collection: Collection
     ): Call<Collection>
 
-    @GET("collections/{id}")
+    @GET("vc-collections/collections/{id}")
     fun getCollectionById(@Path("id") collectionId: Int): Call<Collection>
 
     @GET("vc-collections/collections/public-feed")
@@ -1565,6 +2250,34 @@ interface ApiService {
         @Query("sort") sort: String = "viewCount,desc"
     ): Call<PagedResponse<Collection>>
 
+    @GET("collections/{collectionId}/items")
+    fun getCollectionItems(
+        @Path("collectionId") collectionId: Int,
+        @Query("page") page: Int = 0,
+        @Query("size") size: Int = 20
+    ): Call<PagedResponse<CollectionItemEntry>>
+
+    @GET("collections/{collectionId}/comments")
+    fun getCollectionComments(
+        @Path("collectionId") collectionId: Int,
+        @Query("page") page: Int = 0,
+        @Query("size") size: Int = 10
+    ): Call<PagedResponse<CollectionComment>>
+
+    @GET("collections/{collectionId}/collaborators")
+    fun getCollectionCollaborators(@Path("collectionId") collectionId: Int): Call<List<CollectionCollaborator>>
+
+    @POST("collections/{collectionId}/like")
+    fun likeCollection(@Path("collectionId") collectionId: Int): Call<ResponseBody>
+
+    @DELETE("collections/{collectionId}/like")
+    fun unlikeCollection(@Path("collectionId") collectionId: Int): Call<ResponseBody>
+
+    @POST("collections/{collectionId}/comments")
+    fun addCollectionComment(
+        @Path("collectionId") collectionId: Int,
+        @Body commentRequest: CreateCommentRequest
+    ): Call<CollectionComment>
 
     @POST("vc-users/auth/login")
     fun loginUser(@Body loginRequest: LoginRequest): Call<AuthResponse>
@@ -1575,8 +2288,7 @@ interface ApiService {
     @POST("auth/register")
     fun registerUser(@Body registrationRequest: RegistrationRequest): Call<AuthResponse>
 
-//    @GET("achievements/{id}")
-//    fun getAchievement(@Path("id") achievementId: Int): Call<AchievementType>
+
 }
 
 ###############################################################################
@@ -1650,17 +2362,6 @@ data class AchievementType(
     val description: String?,
     val iconUrl: String?,
     val requirement: String?
-)
-
-###############################################################################
-# FILE: app\src\main\java\com\example\finalproject\models\AuthResponse.kt
-###############################################################################
-
-package com.example.finalproject.models
-
-data class AuthResponse(
-    val token: String,
-    val user: User
 )
 
 ###############################################################################
@@ -1758,41 +2459,6 @@ data class ContentType(
 )
 
 ###############################################################################
-# FILE: app\src\main\java\com\example\finalproject\models\CreateCollectionRequest.kt
-###############################################################################
-
-package com.example.finalproject.models
-
-data class CreateCollectionRequest(
-    val title: String,
-    val description: String?,
-    val coverImageUrl: String?,
-    val isPublic: Boolean
-    // userId обычно берется из токена на сервере
-)
-
-###############################################################################
-# FILE: app\src\main\java\com\example\finalproject\models\ForgotPasswordRequest.kt
-###############################################################################
-
-package com.example.finalproject.models
-
-data class ForgotPasswordRequest(
-    val email: String
-)
-
-###############################################################################
-# FILE: app\src\main\java\com\example\finalproject\models\LoginRequest.kt
-###############################################################################
-
-package com.example.finalproject.models
-
-data class LoginRequest(
-    val email: String,
-    val password: String
-)
-
-###############################################################################
 # FILE: app\src\main\java\com\example\finalproject\models\MediaItem.kt
 ###############################################################################
 
@@ -1800,101 +2466,45 @@ package com.example.finalproject.models
 
 data class MediaItem(
     val itemId: Int,
-    val typeId: Int, // Может быть заменен на вложенный объект ContentType при получении
+    val typeId: Int,
     val title: String,
     val creator: String?,
     val description: String?,
     val thumbnailUrl: String?,
     val externalUrl: String?,
-    val releaseDate: String?, // Или использовать тип Date
-    val addedAt: String, // Или использовать тип Date/Timestamp
-    // Для удобства можно добавить поля, не являющиеся прямыми колонками,
-    // например, список тегов или тип контента как объект
-    val contentType: ContentType? = null, // Если API будет возвращать вложенный объект
-    val tags: List<Tag>? = null // Если API будет возвращать вложенный список тегов
+    val releaseDate: String?,
+    val addedAt: String,
+    val contentType: ContentType? = null,
+    val tags: List<Tag>? = null
 )
 
 ###############################################################################
-# FILE: app\src\main\java\com\example\finalproject\models\PagedResponse.kt
+# FILE: app\src\main\java\com\example\finalproject\models\PageableDetails.kt
 ###############################################################################
 
 package com.example.finalproject.models
 
+import com.example.finalproject.models.responce.SortProperty
 import com.google.gson.annotations.SerializedName
 
-data class PagedResponse<T>(
-    @SerializedName("content")
-    val content: List<T>,
-
-    @SerializedName("pageable")
-    val pageable: PageableDetails, // Оставляем, если используется
-
-    @SerializedName("last")
-    val last: Boolean,
-
-    @SerializedName("totalPages")
-    val totalPages: Int,
-
-    @SerializedName("totalElements")
-    val totalElements: Int,
-
-    @SerializedName("size")
-    val size: Int,
-
-    @SerializedName("number")
-    val number: Int,
-
-    // ИЗМЕНЕНО ЗДЕСЬ:
-    @SerializedName("sort")
-    val sort: List<SortProperty>, // Теперь это список объектов SortProperty
-
-    @SerializedName("first")
-    val first: Boolean,
-
-    @SerializedName("numberOfElements")
-    val numberOfElements: Int,
-
-    @SerializedName("empty")
-    val empty: Boolean
-)
-
 data class PageableDetails(
+    @SerializedName("pageNumber")
     val pageNumber: Int,
+
+    @SerializedName("pageSize")
     val pageSize: Int,
-    @SerializedName("sort") // Это поле sort внутри pageable
-    val sortDetails: List<SortProperty>, // Gson будет искать поле "sort" внутри "pageable"
+
+    @SerializedName("sort") // Информация о сортировке, примененной к этому pageable запросу
+    val sortDetails: List<SortProperty>,
+
+    @SerializedName("offset")
     val offset: Long,
+
+    @SerializedName("paged")
     val paged: Boolean,
+
+    @SerializedName("unpaged")
     val unpaged: Boolean
-)
-
-// Класс SortInfo больше не нужен на верхнем уровне PagedResponse
-// data class SortInfo(
-//    val sorted: Boolean,
-//    val unsorted: Boolean,
-//    val empty: Boolean
-// )
-
-data class SortProperty(
-    val direction: String?, // Сделал nullable на всякий случай, если какое-то поле может отсутствовать
-    val property: String?,
-    val ignoreCase: Boolean?,
-    val nullHandling: String?,
-    val ascending: Boolean?,
-    val descending: Boolean?
-)
-
-###############################################################################
-# FILE: app\src\main\java\com\example\finalproject\models\RegistrationRequest.kt
-###############################################################################
-
-package com.example.finalproject.models
-
-data class RegistrationRequest(
-    val username: String,
-    val email: String,
-    val password: String,
-    val displayName: String?
 )
 
 ###############################################################################
@@ -2089,61 +2699,350 @@ class AddItemFragment : Fragment() {
 package com.example.finalproject.fragments.collection
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.example.finalproject.R
+import com.example.finalproject.adapters.CollectionItemAdapter
+import com.example.finalproject.adapters.CommentAdapter
+import com.example.finalproject.adapters.CollaboratorAdapter
+import com.example.finalproject.api.RetrofitClient
+import com.example.finalproject.databinding.FragmentCollectionDetailsBinding
+import com.example.finalproject.models.Collection
+import com.example.finalproject.models.CollectionComment
+import com.example.finalproject.models.CollectionItemEntry
+import com.example.finalproject.models.request.CreateCommentRequest
+import com.example.finalproject.models.responce.PagedResponse
+import com.example.finalproject.models.User
+import okhttp3.ResponseBody
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [androidx.fragment.app.Fragment] subclass.
- * Use the [CollectionDetailsFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class CollectionDetailsFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private var _binding: FragmentCollectionDetailsBinding? = null
+    private val binding get() = _binding!!
+
+    private val args: CollectionDetailsFragmentArgs by navArgs() // Для получения collectionId
+
+    private lateinit var itemsAdapter: CollectionItemAdapter
+    private lateinit var commentsAdapter: CommentAdapter
+    private lateinit var collaboratorAdapter: CollaboratorAdapter
+
+    private var currentCollection: Collection? = null
+    private var isLikedByCurrentUser: Boolean = false // TODO: Получать эту информацию с сервера или определять локально
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_collection_details, container, false)
+    ): View {
+        _binding = FragmentCollectionDetailsBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment CollectionDetailsFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            CollectionDetailsFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        setupAdapters()
+        fetchCollectionDetails(args.collectionId)
+
+        binding.fabLikeCollection.setOnClickListener {
+            handleLikeClicked()
+        }
+        binding.postCommentButton.setOnClickListener {
+            postComment()
+        }
+    }
+
+    private fun setupAdapters() {
+        itemsAdapter = CollectionItemAdapter { itemEntry ->
+            // TODO: Navigate to MediaItemDetailsFragment
+            Toast.makeText(context, "Открыть элемент: ${itemEntry.mediaItem.title}", Toast.LENGTH_SHORT).show()
+            // val action = CollectionDetailsFragmentDirections.actionCollectionDetailsFragmentToMediaItemDetailsFragment(itemEntry.mediaItem.itemId)
+            // findNavController().navigate(action)
+        }
+        binding.collectionItemsRecyclerView.apply {
+            adapter = itemsAdapter
+            layoutManager = LinearLayoutManager(context)
+            isNestedScrollingEnabled = false
+        }
+
+        commentsAdapter = CommentAdapter { userId ->
+            userId?.let {
+                // TODO: Navigate to UserProfileFragment
+                Toast.makeText(context, "Открыть профиль автора комментария ID: $it", Toast.LENGTH_SHORT).show()
+                // val action = CollectionDetailsFragmentDirections.actionCollectionDetailsFragmentToUserProfileFragment(it)
+                // findNavController().navigate(action)
+            }
+        }
+        binding.commentsRecyclerView.apply {
+            adapter = commentsAdapter
+            layoutManager = LinearLayoutManager(context)
+            isNestedScrollingEnabled = false
+        }
+
+        collaboratorAdapter = CollaboratorAdapter { user ->
+            // TODO: Navigate to UserProfileFragment
+            Toast.makeText(context, "Открыть профиль соавтора: ${user.username}", Toast.LENGTH_SHORT).show()
+            // val action = CollectionDetailsFragmentDirections.actionCollectionDetailsFragmentToUserProfileFragment(user.userId ?: -1) // Проверка на null
+            // findNavController().navigate(action)
+        }
+        binding.collaboratorsRecyclerView.apply {
+            adapter = collaboratorAdapter
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            isNestedScrollingEnabled = false
+        }
+    }
+
+    private fun fetchCollectionDetails(collectionId: Int) {
+        setLoading(true)
+        RetrofitClient.instance.getCollectionById(collectionId)
+            .enqueue(object : Callback<Collection> {
+                override fun onResponse(call: Call<Collection>, response: Response<Collection>) {
+                    setLoading(false)
+                    if (response.isSuccessful) {
+                        response.body()?.let { collection ->
+                            currentCollection = collection
+                            displayCollectionDetails(collection)
+                            // TODO: Определить isLikedByCurrentUser (например, если API возвращает флаг или список лайкнувших)
+                            updateLikeButtonState()
+                            fetchAdditionalData(collection) // Загрузка комментов/элементов если они не пришли сразу
+                        } ?: handleApiError(getString(R.string.error_loading_collection_details) + " (пустой ответ)")
+                    } else {
+                        handleApiError("Ошибка ${response.code()}: ${response.message()}")
+                    }
+                }
+
+                override fun onFailure(call: Call<Collection>, t: Throwable) {
+                    setLoading(false)
+                    handleApiError(getString(R.string.network_error) + ": ${t.localizedMessage}")
+                    Log.e("CollectionDetails", "API Failure", t)
+                }
+            })
+    }
+
+    private fun fetchAdditionalData(collection: Collection) {
+        // Если элементы не пришли с коллекцией, загружаем их отдельно
+        if (collection.items.isNullOrEmpty()) {
+            fetchItems(collection.collectionId)
+        } else {
+            itemsAdapter.submitList(collection.items)
+        }
+
+        // Аналогично для комментариев, если они не приходят с основной коллекцией.
+        // Здесь для примера загрузим комментарии отдельно
+        fetchComments(collection.collectionId)
+
+
+        // Коллабораторы
+        if (!collection.collaborators.isNullOrEmpty()) {
+            binding.collaboratorsTitle.isVisible = true
+            binding.collaboratorsRecyclerView.isVisible = true
+            binding.divider3.isVisible = true
+            collaboratorAdapter.submitList(collection.collaborators)
+        } else {
+            binding.collaboratorsTitle.isVisible = false
+            binding.collaboratorsRecyclerView.isVisible = false
+            binding.divider3.isVisible = false
+        }
+    }
+
+
+    private fun fetchItems(collectionId: Int) {
+        // Показываем какой-то ProgressBar для элементов, если нужно
+        RetrofitClient.instance.getCollectionItems(collectionId) // Предполагаем, что PagedResponse
+            .enqueue(object : Callback<PagedResponse<CollectionItemEntry>> {
+                override fun onResponse(call: Call<PagedResponse<CollectionItemEntry>>, response: Response<PagedResponse<CollectionItemEntry>>) {
+                    if (response.isSuccessful) {
+                        response.body()?.content?.let { itemsAdapter.submitList(it) }
+                    } else {
+                        Log.e("CollectionDetails", "Error fetching items: ${response.code()}")
+                    }
+                }
+                override fun onFailure(call: Call<PagedResponse<CollectionItemEntry>>, t: Throwable) {
+                    Log.e("CollectionDetails", "Failure fetching items", t)
+                }
+            })
+    }
+
+    private fun fetchComments(collectionId: Int) {
+        // Показываем ProgressBar для комментов
+        RetrofitClient.instance.getCollectionComments(collectionId)
+            .enqueue(object : Callback<PagedResponse<CollectionComment>> {
+                override fun onResponse(call: Call<PagedResponse<CollectionComment>>, response: Response<PagedResponse<CollectionComment>>) {
+                    if (response.isSuccessful) {
+                        response.body()?.content?.let { commentsAdapter.submitList(it) }
+                    } else {
+                        Log.e("CollectionDetails", "Error fetching comments: ${response.code()}")
+                    }
+                }
+                override fun onFailure(call: Call<PagedResponse<CollectionComment>>, t: Throwable) {
+                    Log.e("CollectionDetails", "Failure fetching comments", t)
+                }
+            })
+    }
+
+
+    private fun displayCollectionDetails(collection: Collection) {
+        binding.collectionDetailTitle.text = collection.title
+        val authorName = collection.owner?.displayName ?: collection.owner?.username ?: getString(R.string.unknown_author)
+        binding.collectionDetailAuthor.text = getString(R.string.author_prefix, authorName)
+        binding.collectionDetailAuthor.setOnClickListener {
+            collection.owner?.userId?.let { userId ->
+                // TODO: Navigate to UserProfileFragment
+                Toast.makeText(context, "Открыть профиль автора ID: $userId", Toast.LENGTH_SHORT).show()
+                // val action = CollectionDetailsFragmentDirections.actionCollectionDetailsFragmentToUserProfileFragment(userId)
+                // findNavController().navigate(action)
+            }
+        }
+
+        binding.collectionDetailDescription.text = collection.description
+        binding.collectionDetailDescription.isVisible = !collection.description.isNullOrEmpty()
+
+        binding.collectionDetailLikesCount.text = formatCount(collection.likeCount ?: 0)
+        binding.collectionDetailViewsCount.text = formatCount(collection.viewCount ?: 0)
+        binding.collectionDetailCommentsCount.text = (collection.commentCount ?: 0).toString() // Или formatCount
+
+        Glide.with(this)
+            .load(collection.coverImageUrl)
+            .placeholder(R.drawable.ic_launcher_background)
+            .error(R.drawable.ic_image_placeholder_24)
+            .into(binding.collectionDetailCoverImage)
+
+        // Элементы, если они пришли сразу с коллекцией
+        collection.items?.let { itemsAdapter.submitList(it) }
+
+        // Комментарии, если они пришли сразу с коллекцией (маловероятно для большого числа)
+        // collection.comments?.let { commentsAdapter.submitList(it) }
+    }
+
+    private fun handleLikeClicked() {
+        val collectionId = currentCollection?.collectionId ?: return
+        setLikeButtonLoading(true)
+
+        val call = if (isLikedByCurrentUser) {
+            RetrofitClient.instance.unlikeCollection(collectionId)
+        } else {
+            RetrofitClient.instance.likeCollection(collectionId)
+        }
+
+        call.enqueue(object : Callback<ResponseBody> { // Или Call<Collection> если сервер возвращает обновленную коллекцию
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                setLikeButtonLoading(false)
+                if (response.isSuccessful) {
+                    isLikedByCurrentUser = !isLikedByCurrentUser
+                    updateLikeButtonState()
+                    // Обновить счетчик лайков (либо из ответа, либо инкремент/декремент локально)
+                    val currentLikes = currentCollection?.likeCount ?: 0
+                    val newLikes = if (isLikedByCurrentUser) currentLikes + 1 else maxOf(0, currentLikes - 1)
+                    binding.collectionDetailLikesCount.text = formatCount(newLikes)
+                    currentCollection = currentCollection?.copy(likeCount = newLikes)
+                } else {
+                    Toast.makeText(context, "Ошибка при ${if(isLikedByCurrentUser) "снятии" else "установке"} лайка", Toast.LENGTH_SHORT).show()
                 }
             }
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                setLikeButtonLoading(false)
+                Toast.makeText(context, "Сетевая ошибка при лайке", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
+    private fun postComment() {
+        val commentText = binding.commentEditText.text.toString().trim()
+        if (commentText.isEmpty()) {
+            binding.commentInputLayout.error = "Комментарий не может быть пустым"
+            return
+        }
+        binding.commentInputLayout.error = null
+        val collectionId = currentCollection?.collectionId ?: return
+
+        setCommentButtonLoading(true)
+        val request = CreateCommentRequest(commentText)
+        RetrofitClient.instance.addCollectionComment(collectionId, request)
+            .enqueue(object : Callback<CollectionComment>{
+                override fun onResponse(call: Call<CollectionComment>, response: Response<CollectionComment>) {
+                    setCommentButtonLoading(false)
+                    if (response.isSuccessful) {
+                        response.body()?.let { newComment ->
+                            // Добавить новый комментарий в начало списка и обновить адаптер
+                            val currentComments = commentsAdapter.currentList.toMutableList()
+                            currentComments.add(0, newComment)
+                            commentsAdapter.submitList(currentComments)
+                            binding.commentsRecyclerView.scrollToPosition(0)
+                            binding.commentEditText.text = null // Очистить поле ввода
+                            Toast.makeText(context, getString(R.string.comment_posted_successfully), Toast.LENGTH_SHORT).show()
+                            // Обновить счетчик комментариев
+                            val currentCommentCount = currentCollection?.commentCount ?: 0
+                            binding.collectionDetailCommentsCount.text = (currentCommentCount + 1).toString()
+                            currentCollection = currentCollection?.copy(commentCount = currentCommentCount + 1)
+                        }
+                    } else {
+                        Toast.makeText(context, getString(R.string.error_posting_comment) + ": ${response.code()}", Toast.LENGTH_SHORT).show()
+                    }
+                }
+                override fun onFailure(call: Call<CollectionComment>, t: Throwable) {
+                    setCommentButtonLoading(false)
+                    Toast.makeText(context, getString(R.string.network_error), Toast.LENGTH_SHORT).show()
+                }
+            })
+    }
+
+
+    private fun updateLikeButtonState() {
+        if (isLikedByCurrentUser) {
+            binding.fabLikeCollection.setImageResource(R.drawable.ic_like_filled_24) // Заполненная иконка
+            binding.fabLikeCollection.imageTintList = ContextCompat.getColorStateList(requireContext(), R.color.color_liked) // Красный цвет для лайка
+        } else {
+            binding.fabLikeCollection.setImageResource(R.drawable.ic_like_outline_24) // Контурная иконка
+            binding.fabLikeCollection.imageTintList = ContextCompat.getColorStateList(requireContext(), R.color.white) // Или ваш цвет по умолчанию
+        }
+    }
+    private fun setLikeButtonLoading(isLoading: Boolean) {
+        binding.fabLikeCollection.isEnabled = !isLoading
+        // Можно добавить ProgressBar рядом с FAB
+    }
+    private fun setCommentButtonLoading(isLoading: Boolean) {
+        binding.postCommentButton.isEnabled = !isLoading
+        binding.commentEditText.isEnabled = !isLoading
+    }
+
+
+    private fun setLoading(isLoading: Boolean) {
+        binding.collectionDetailProgressBar.isVisible = isLoading
+        // Скрываем основной контент при загрузке
+        // binding.contentGroup.isVisible = !isLoading // Создать группу в ConstraintLayout для основного контента
+    }
+
+    private fun handleApiError(errorMessage: String) {
+        Toast.makeText(context, errorMessage, Toast.LENGTH_LONG).show()
+        // Можно показать сообщение об ошибке на весь экран
+    }
+
+    private fun formatCount(count: Int): String { // Дублируется из CollectionAdapter, можно вынести в Utils
+        return when {
+            count >= 1_000_000 -> String.format("%.1fM", count / 1_000_000.0)
+            count >= 1_000 -> String.format("%.1fK", count / 1_000.0)
+            else -> count.toString()
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding.collectionItemsRecyclerView.adapter = null
+        binding.commentsRecyclerView.adapter = null
+        binding.collaboratorsRecyclerView.adapter = null
+        _binding = null
     }
 }
 
@@ -2233,7 +3132,7 @@ import com.example.finalproject.adapters.CollectionAdapter
 import com.example.finalproject.api.RetrofitClient
 import com.example.finalproject.databinding.FragmentHomeBinding
 import com.example.finalproject.models.Collection
-import com.example.finalproject.models.PagedResponse
+import com.example.finalproject.models.responce.PagedResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -2615,7 +3514,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.finalproject.R
 import com.example.finalproject.api.RetrofitClient
 import com.example.finalproject.databinding.FragmentForgotPasswordBinding
-import com.example.finalproject.models.ForgotPasswordRequest
+import com.example.finalproject.models.request.ForgotPasswordRequest
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
@@ -2714,8 +3613,8 @@ import androidx.navigation.fragment.findNavController
 import com.example.finalproject.R
 import com.example.finalproject.api.RetrofitClient
 import com.example.finalproject.databinding.FragmentLoginBinding
-import com.example.finalproject.models.AuthResponse
-import com.example.finalproject.models.LoginRequest
+import com.example.finalproject.models.responce.AuthResponse
+import com.example.finalproject.models.request.LoginRequest
 import com.example.finalproject.utils.AuthTokenProvider
 import retrofit2.Call
 import retrofit2.Callback
@@ -2833,8 +3732,8 @@ import androidx.navigation.fragment.findNavController
 import com.example.finalproject.R
 import com.example.finalproject.api.RetrofitClient
 import com.example.finalproject.databinding.FragmentRegistrationBinding
-import com.example.finalproject.models.AuthResponse
-import com.example.finalproject.models.RegistrationRequest
+import com.example.finalproject.models.responce.AuthResponse
+import com.example.finalproject.models.request.RegistrationRequest
 // import com.example.finalproject.utils.AuthTokenProvider // Не нужен здесь, т.к. после регистрации обычно перенаправляем на логин
 import retrofit2.Call
 import retrofit2.Callback
@@ -3034,8 +3933,156 @@ class UserProfileFragment : Fragment() {
 }
 
 ###############################################################################
+# FILE: app\src\main\java\com\example\finalproject\models\request\CreateCollectionRequest.kt
+###############################################################################
+
+package com.example.finalproject.models.request
+
+data class CreateCollectionRequest(
+    val title: String,
+    val description: String?,
+    val coverImageUrl: String?,
+    val isPublic: Boolean
+)
+
+###############################################################################
+# FILE: app\src\main\java\com\example\finalproject\models\request\CreateCommentRequest.kt
+###############################################################################
+
+package com.example.finalproject.models.request
+
+data class CreateCommentRequest(
+    val commentText: String
+)
+
+###############################################################################
+# FILE: app\src\main\java\com\example\finalproject\models\request\ForgotPasswordRequest.kt
+###############################################################################
+
+package com.example.finalproject.models.request
+
+data class ForgotPasswordRequest(
+    val email: String
+)
+
+###############################################################################
+# FILE: app\src\main\java\com\example\finalproject\models\request\LoginRequest.kt
+###############################################################################
+
+package com.example.finalproject.models.request
+
+data class LoginRequest(
+    val email: String,
+    val password: String
+)
+
+###############################################################################
+# FILE: app\src\main\java\com\example\finalproject\models\request\RegistrationRequest.kt
+###############################################################################
+
+package com.example.finalproject.models.request
+
+data class RegistrationRequest(
+    val username: String,
+    val email: String,
+    val password: String,
+    val displayName: String?
+)
+
+###############################################################################
+# FILE: app\src\main\java\com\example\finalproject\models\responce\AuthResponse.kt
+###############################################################################
+
+package com.example.finalproject.models.responce
+
+import com.example.finalproject.models.User
+
+data class AuthResponse(
+    val token: String,
+    val user: User
+)
+
+###############################################################################
+# FILE: app\src\main\java\com\example\finalproject\models\responce\PageableDetails.kt
+###############################################################################
+
+package com.example.finalproject.models.responce
+
+import com.google.gson.annotations.SerializedName
+
+data class PageableDetails(
+    val pageNumber: Int,
+    val pageSize: Int,
+    @SerializedName("sort")
+    val sortDetails: List<SortProperty>,
+    val offset: Long,
+    val paged: Boolean,
+    val unpaged: Boolean
+)
+
+
+###############################################################################
+# FILE: app\src\main\java\com\example\finalproject\models\responce\PagedResponse.kt
+###############################################################################
+
+package com.example.finalproject.models.responce
+
+import com.google.gson.annotations.SerializedName
+
+data class PagedResponse<T>(
+    @SerializedName("content")
+    val content: List<T>,
+
+    @SerializedName("pageable")
+    val pageable: PageableDetails,
+
+    @SerializedName("last")
+    val last: Boolean,
+
+    @SerializedName("totalPages")
+    val totalPages: Int,
+
+    @SerializedName("totalElements")
+    val totalElements: Int,
+
+    @SerializedName("size")
+    val size: Int,
+
+    @SerializedName("number")
+    val number: Int,
+
+    @SerializedName("sort")
+    val sort: List<SortProperty>,
+
+    @SerializedName("first")
+    val first: Boolean,
+
+    @SerializedName("numberOfElements")
+    val numberOfElements: Int,
+
+    @SerializedName("empty")
+    val empty: Boolean
+)
+
+###############################################################################
+# FILE: app\src\main\java\com\example\finalproject\models\responce\SortProperty.kt
+###############################################################################
+
+package com.example.finalproject.models.responce
+
+data class SortProperty(
+    val direction: String?,
+    val property: String?,
+    val ignoreCase: Boolean?,
+    val nullHandling: String?,
+    val ascending: Boolean?,
+    val descending: Boolean?
+)
+
+
+###############################################################################
 # SUMMARY
-# Total files: 68
-# Total size: 105.05 KB
-# Processing time: 0.55 seconds
+# Total files: 79
+# Total size: 151.51 KB
+# Processing time: 0.95 seconds
 ###############################################################################

@@ -5,6 +5,9 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
@@ -14,8 +17,9 @@ import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.example.finalproject.R
 import com.example.finalproject.api.RetrofitClient
-import com.example.finalproject.databinding.FragmentAddItemBinding // Убедитесь, что имя байндинга правильное
+import com.example.finalproject.databinding.FragmentAddItemBinding
 import com.example.finalproject.models.CollectionItemEntry
+import com.example.finalproject.models.ContentType // Импорт модели ContentType
 import com.example.finalproject.models.MediaItem
 import com.example.finalproject.models.request.AddItemToCollectionRequest
 import com.example.finalproject.models.request.CreateMediaItemRequest
@@ -36,6 +40,8 @@ class AddItemFragment : Fragment() {
     private var collectionId: Long = -1L
 
     private val releaseDateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.US)
+    private var contentTypesList: List<ContentType> = emptyList()
+    private var selectedContentTypeId: Long? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,12 +64,27 @@ class AddItemFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        fetchContentTypes() // Загружаем типы контента
+
         binding.thumbnailUrlNewMediaTextField.doOnTextChanged { text, _, _, _ ->
             Glide.with(this)
                 .load(text.toString().trim())
                 .placeholder(R.drawable.ic_image_placeholder_24)
                 .error(R.drawable.ic_image_placeholder_24)
                 .into(binding.newMediaItemThumbnailPreview)
+        }
+
+        binding.contentTypeSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                if (position > 0 && contentTypesList.isNotEmpty()) { // Пропускаем prompt "Выберите тип"
+                    selectedContentTypeId = contentTypesList[position - 1].typeId
+                } else {
+                    selectedContentTypeId = null
+                }
+            }
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                selectedContentTypeId = null
+            }
         }
 
         binding.addItemButton.setOnClickListener {
@@ -79,27 +100,53 @@ class AddItemFragment : Fragment() {
         }
     }
 
+    private fun fetchContentTypes() {
+        setLoading(true) // Можно добавить отдельный ProgressBar для спиннера
+        RetrofitClient.instance.getContentTypes().enqueue(object: Callback<List<ContentType>> {
+            override fun onResponse(call: Call<List<ContentType>>, response: Response<List<ContentType>>) {
+                setLoading(false)
+                if (response.isSuccessful) {
+                    contentTypesList = response.body() ?: emptyList()
+                    setupContentTypeSpinner()
+                } else {
+                    Toast.makeText(context, "Ошибка загрузки типов контента: ${response.code()}", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<List<ContentType>>, t: Throwable) {
+                setLoading(false)
+                Toast.makeText(context, "Сетевая ошибка при загрузке типов: ${t.message}", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
+    private fun setupContentTypeSpinner() {
+        val typeNames = mutableListOf("Выберите тип*") // Добавляем подсказку
+        typeNames.addAll(contentTypesList.map { it.typeName })
+
+        val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, typeNames).apply {
+            setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        }
+        binding.contentTypeSpinner.adapter = adapter
+    }
+
+
     private fun validateMediaItemFields(): CreateMediaItemRequest? {
         val title = binding.titleNewMediaTextField.text.toString().trim()
-        val typeIdString = binding.typeIdNewMediaTextField.text.toString().trim()
 
         if (title.isEmpty()) {
             binding.titleNewMediaLayout.error = getString(R.string.error_media_item_title_required)
+            (binding.titleNewMediaLayout.editText as? TextView)?.error = getString(R.string.error_media_item_title_required) // Для отображения ошибки в Material EditText
             return null
         } else {
             binding.titleNewMediaLayout.error = null
         }
 
-        if (typeIdString.isEmpty()) {
-            binding.typeIdNewMediaLayout.error = "ID типа контента обязателен"
+        if (selectedContentTypeId == null) {
+            Toast.makeText(context, "Пожалуйста, выберите тип контента", Toast.LENGTH_SHORT).show()
+            // Можно подсветить спиннер
+            (binding.contentTypeSpinner.selectedView as? TextView)?.error = "Выберите тип"
             return null
-        }
-        val typeId = typeIdString.toLongOrNull()
-        if (typeId == null) {
-            binding.typeIdNewMediaLayout.error = "ID типа должен быть числом"
-            return null
-        } else {
-            binding.typeIdNewMediaLayout.error = null
         }
 
         val creator = binding.creatorNewMediaTextField.text.toString().trim().ifEmpty { null }
@@ -121,7 +168,7 @@ class AddItemFragment : Fragment() {
 
         return CreateMediaItemRequest(
             title = title,
-            typeId = typeId,
+            typeId = selectedContentTypeId!!,
             creator = creator,
             description = description,
             thumbnailUrl = thumbnailUrl,
@@ -137,7 +184,6 @@ class AddItemFragment : Fragment() {
 
         setLoading(true)
 
-        // 1. Создаем MediaItem
         RetrofitClient.instance.createMediaItem(createMediaItemRequest)
             .enqueue(object : Callback<MediaItem> {
                 override fun onResponse(call: Call<MediaItem>, response: Response<MediaItem>) {
@@ -145,7 +191,6 @@ class AddItemFragment : Fragment() {
                         val createdMediaItem = response.body()
                         if (createdMediaItem != null) {
                             Log.d("AddItemFragment", "MediaItem created: ID ${createdMediaItem.itemId}")
-                            // 2. Добавляем созданный MediaItem в коллекцию
                             addNewlyCreatedItemToCollection(createdMediaItem.itemId, notesForItemCollection)
                         } else {
                             setLoading(false)
@@ -173,7 +218,7 @@ class AddItemFragment : Fragment() {
         RetrofitClient.instance.addItemToCollection(collectionId, addItemToCollectionRequest)
             .enqueue(object : Callback<CollectionItemEntry> {
                 override fun onResponse(call: Call<CollectionItemEntry>, response: Response<CollectionItemEntry>) {
-                    setLoading(false) // Завершаем общую загрузку здесь
+                    setLoading(false)
                     if (response.isSuccessful && response.code() == 201) {
                         Toast.makeText(context, getString(R.string.item_added_successfully), Toast.LENGTH_SHORT).show()
                         Log.d("AddItemFragment", "Item ID $mediaItemId added to collection $collectionId")
@@ -182,12 +227,11 @@ class AddItemFragment : Fragment() {
                         val errorMsg = response.errorBody()?.string() ?: getString(R.string.error_adding_item)
                         Toast.makeText(context, "Ошибка добавления в коллекцию ${response.code()}: $errorMsg", Toast.LENGTH_LONG).show()
                         Log.e("AddItemFragment", "API Error adding item to collection ${response.code()}: $errorMsg")
-                        // Важно: MediaItem мог быть создан, но не добавлен в коллекцию. Нужна логика отката или информирования.
                     }
                 }
 
                 override fun onFailure(call: Call<CollectionItemEntry>, t: Throwable) {
-                    setLoading(false) // Завершаем общую загрузку здесь
+                    setLoading(false)
                     Toast.makeText(context, "Сетевая ошибка при добавлении в коллекцию: ${t.message}", Toast.LENGTH_LONG).show()
                     Log.e("AddItemFragment", "Network Failure adding item to collection", t)
                 }
@@ -196,9 +240,8 @@ class AddItemFragment : Fragment() {
 
     private fun setLoading(isLoading: Boolean) {
         binding.addItemProgressBar.isVisible = isLoading
-        // Блокируем все поля ввода
         binding.titleNewMediaTextField.isEnabled = !isLoading
-        binding.typeIdNewMediaTextField.isEnabled = !isLoading
+        binding.contentTypeSpinner.isEnabled = !isLoading
         binding.creatorNewMediaTextField.isEnabled = !isLoading
         binding.descriptionNewMediaTextField.isEnabled = !isLoading
         binding.thumbnailUrlNewMediaTextField.isEnabled = !isLoading

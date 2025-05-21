@@ -1,7 +1,31 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
     <style name="Base.Theme.FinalProject" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        <item name="colorPrimary">@color/purple_primary</item>
+        <item name="colorPrimaryVariant">@color/purple_primary_dark</item>
+        <item name="colorOnPrimary">@color/white</item>
+
+        <item name="colorSecondary">@color/cyan_accent</item>
+        <item name="colorSecondaryVariant">@color/cyan_accent_dark</item>
+        <item name="colorOnSecondary">@color/black</item>
+
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorSurface</item>
+
+        <item name="android:colorBackground">@color/dark_background</item>
+        <item name="colorSurface">@color/dark_surface</item>
+        <item name="colorError">@color/dark_error</item>
+        <item name="colorOnError">@color/black</item>
+        <item name="colorOnBackground">@color/dark_text_primary</item>
+        <item name="colorOnSurface">@color/dark_text_primary</item>
+        <item name="android:textColorPrimary">@color/dark_text_primary</item>
+        <item name="android:textColorSecondary">@color/dark_text_secondary</item>
+        <item name="colorControlNormal">@color/color_control_normal_dark</item>
+        <item name="dividerColor">#1FFFFFFF</item>
+
+        <item name="textInputStyle">@style/Widget.App.TextInputLayout.OutlinedBox.Dark</item>
+    </style>
+
+    <style name="Widget.App.TextInputLayout.OutlinedBox.Dark" parent="Widget.Material3.TextInputLayout.OutlinedBox">
+        <item name="shapeAppearance">?attr/shapeAppearanceSmallComponent</item>
+        <item name="boxStrokeColor">@color/text_input_layout_stroke_color_dark</item>
     </style>
 </resources>

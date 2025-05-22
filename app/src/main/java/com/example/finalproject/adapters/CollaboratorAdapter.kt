@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.finalproject.R
 import com.example.finalproject.databinding.ItemCollaboratorBinding
-import com.example.finalproject.models.User // Предполагаем, что collaborators это List<User>
+import com.example.finalproject.models.User
 
 class CollaboratorAdapter(private val onCollaboratorClicked: (User) -> Unit) :
     ListAdapter<User, CollaboratorAdapter.CollaboratorViewHolder>(UserDiffCallback()) {
@@ -38,7 +38,6 @@ class CollaboratorAdapter(private val onCollaboratorClicked: (User) -> Unit) :
         }
     }
 
-    // Можно использовать общий UserDiffCallback, если он уже есть
     class UserDiffCallback : DiffUtil.ItemCallback<User>() {
         override fun areItemsTheSame(oldItem: User, newItem: User): Boolean {
             return oldItem.userId == newItem.userId

@@ -58,12 +58,9 @@ class ForgotPasswordFragment : Fragment() {
                 override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                     setLoading(false)
                     if (response.isSuccessful) {
-                        // Успешный ответ от сервера
                         Toast.makeText(context, "Инструкции по сбросу пароля отправлены на вашу почту.", Toast.LENGTH_LONG).show()
-                        // Можно добавить навигацию обратно на экран входа или показать сообщение
-                        findNavController().popBackStack() // Вернуться на предыдущий экран (LoginFragment)
+                        findNavController().popBackStack()
                     } else {
-                        // Ошибка сервера
                         val errorBody = response.errorBody()?.string() ?: "Неизвестная ошибка сервера"
                         Toast.makeText(context, "Ошибка: ${response.code()} - $errorBody", Toast.LENGTH_LONG).show()
                         Log.e("ForgetPassword", "API Error: ${response.code()} - $errorBody")

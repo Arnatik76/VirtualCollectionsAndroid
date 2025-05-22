@@ -35,12 +35,12 @@ class CollectionAdapter(private val onItemClicked: (Collection) -> Unit) :
             binding.collectionAuthorTextView.text = itemView.context.getString(R.string.author_prefix, authorName)
 
             binding.collectionLikesCountTextView.text = formatCount(collection.likeCount ?: 0)
-            binding.collectionViewCountTextView.text = formatCount(collection.viewCount ?: 0) // viewCount у тебя не nullable
+            binding.collectionViewCountTextView.text = formatCount(collection.viewCount ?: 0)
 
             Glide.with(itemView.context)
-                .load(collection.coverImageUrl) // Убедись, что URL полный и рабочий
-                .placeholder(R.drawable.ic_launcher_background) // Стандартная заглушка
-                .error(R.drawable.ic_image_placeholder_24) // Заглушка при ошибке (создай ее)
+                .load(collection.coverImageUrl)
+                .placeholder(R.drawable.ic_launcher_background)
+                .error(R.drawable.ic_image_placeholder_24)
                 .into(binding.collectionCoverImageView)
 
             itemView.setOnClickListener {
@@ -48,7 +48,6 @@ class CollectionAdapter(private val onItemClicked: (Collection) -> Unit) :
             }
         }
 
-        // Простая функция для форматирования чисел (1200 -> 1.2K)
         private fun formatCount(count: Int): String {
             return when {
                 count >= 1_000_000 -> String.format("%.1fM", count / 1_000_000.0)
@@ -64,7 +63,6 @@ class CollectionAdapter(private val onItemClicked: (Collection) -> Unit) :
         }
 
         override fun areContentsTheSame(oldItem: Collection, newItem: Collection): Boolean {
-            // Сравнивай по нужным полям, если объект Collection может меняться без смены ID
             return oldItem == newItem
         }
     }

@@ -31,13 +31,11 @@ class CommentAdapter(private val onAuthorClicked: (Long?) -> Unit) :
         fun bind(comment: CollectionComment) {
             binding.commentText.text = comment.commentText
             binding.commentAuthorName.text = comment.user?.displayName ?: comment.user?.username ?: itemView.context.getString(R.string.unknown_author)
-            // binding.commentDate.text = comment.createdAt // TODO: Format date properly
-            // Простая заглушка для даты
             binding.commentDate.text = " "
 
             Glide.with(itemView.context)
                 .load(comment.user?.avatarUrl)
-                .placeholder(R.drawable.ic_profile_24) // Заглушка
+                .placeholder(R.drawable.ic_profile_24)
                 .error(R.drawable.ic_profile_24)
                 .circleCrop()
                 .into(binding.commentAuthorAvatar)

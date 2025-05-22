@@ -19,7 +19,7 @@ import com.example.finalproject.R
 import com.example.finalproject.api.RetrofitClient
 import com.example.finalproject.databinding.FragmentAddItemBinding
 import com.example.finalproject.models.CollectionItemEntry
-import com.example.finalproject.models.ContentType // Импорт модели ContentType
+import com.example.finalproject.models.ContentType
 import com.example.finalproject.models.MediaItem
 import com.example.finalproject.models.request.AddItemToCollectionRequest
 import com.example.finalproject.models.request.CreateMediaItemRequest
@@ -64,7 +64,7 @@ class AddItemFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        fetchContentTypes() // Загружаем типы контента
+        fetchContentTypes()
 
         binding.thumbnailUrlNewMediaTextField.doOnTextChanged { text, _, _, _ ->
             Glide.with(this)
@@ -76,7 +76,7 @@ class AddItemFragment : Fragment() {
 
         binding.contentTypeSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                if (position > 0 && contentTypesList.isNotEmpty()) { // Пропускаем prompt "Выберите тип"
+                if (position > 0 && contentTypesList.isNotEmpty()) {
                     selectedContentTypeId = contentTypesList[position - 1].typeId
                 } else {
                     selectedContentTypeId = null
@@ -101,7 +101,7 @@ class AddItemFragment : Fragment() {
     }
 
     private fun fetchContentTypes() {
-        setLoading(true) // Можно добавить отдельный ProgressBar для спиннера
+        setLoading(true)
         RetrofitClient.instance.getContentTypes().enqueue(object: Callback<List<ContentType>> {
             override fun onResponse(call: Call<List<ContentType>>, response: Response<List<ContentType>>) {
                 setLoading(false)
@@ -121,7 +121,7 @@ class AddItemFragment : Fragment() {
     }
 
     private fun setupContentTypeSpinner() {
-        val typeNames = mutableListOf("Выберите тип*") // Добавляем подсказку
+        val typeNames = mutableListOf("Выберите тип*")
         typeNames.addAll(contentTypesList.map { it.typeName })
 
         val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, typeNames).apply {
@@ -136,7 +136,7 @@ class AddItemFragment : Fragment() {
 
         if (title.isEmpty()) {
             binding.titleNewMediaLayout.error = getString(R.string.error_media_item_title_required)
-            (binding.titleNewMediaLayout.editText as? TextView)?.error = getString(R.string.error_media_item_title_required) // Для отображения ошибки в Material EditText
+            (binding.titleNewMediaLayout.editText as? TextView)?.error = getString(R.string.error_media_item_title_required)
             return null
         } else {
             binding.titleNewMediaLayout.error = null
@@ -144,7 +144,6 @@ class AddItemFragment : Fragment() {
 
         if (selectedContentTypeId == null) {
             Toast.makeText(context, "Пожалуйста, выберите тип контента", Toast.LENGTH_SHORT).show()
-            // Можно подсветить спиннер
             (binding.contentTypeSpinner.selectedView as? TextView)?.error = "Выберите тип"
             return null
         }

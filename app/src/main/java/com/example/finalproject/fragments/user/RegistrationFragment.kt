@@ -15,7 +15,6 @@ import com.example.finalproject.api.RetrofitClient
 import com.example.finalproject.databinding.FragmentRegistrationBinding
 import com.example.finalproject.models.responce.AuthResponse
 import com.example.finalproject.models.request.RegistrationRequest
-// import com.example.finalproject.utils.AuthTokenProvider // Не нужен здесь, т.к. после регистрации обычно перенаправляем на логин
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -41,7 +40,6 @@ class RegistrationFragment : Fragment() {
         }
 
         binding.loginNowTextView.setOnClickListener {
-            // Переход на экран логина, если пользователь уже имеет аккаунт
             findNavController().navigate(R.id.action_registration_to_login)
         }
     }
@@ -50,12 +48,11 @@ class RegistrationFragment : Fragment() {
         val username = binding.usernameEditText.text.toString().trim()
         val email = binding.emailEditTextRegister.text.toString().trim()
         val displayName = binding.displayNameEditText.text.toString().trim().let { if (it.isEmpty()) null else it }
-        val password = binding.passwordEditTextRegister.text.toString() // Не trim, чтобы не обрезать пробелы в пароле
+        val password = binding.passwordEditTextRegister.text.toString()
         val confirmPassword = binding.confirmPasswordEditText.text.toString()
 
         var isValid = true
 
-        // Валидация имени пользователя
         if (username.isEmpty()) {
             binding.usernameTextInputLayout.error = getString(R.string.error_empty_username)
             isValid = false
@@ -63,7 +60,6 @@ class RegistrationFragment : Fragment() {
             binding.usernameTextInputLayout.error = null
         }
 
-        // Валидация email
         if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             binding.emailTextInputLayoutRegister.error = getString(R.string.error_invalid_email)
             isValid = false
@@ -71,7 +67,6 @@ class RegistrationFragment : Fragment() {
             binding.emailTextInputLayoutRegister.error = null
         }
 
-        // Валидация пароля
         if (password.isEmpty()) {
             binding.passwordTextInputLayoutRegister.error = getString(R.string.error_empty_password)
             isValid = false
@@ -82,7 +77,6 @@ class RegistrationFragment : Fragment() {
             binding.passwordTextInputLayoutRegister.error = null
         }
 
-        // Валидация подтверждения пароля
         if (confirmPassword.isEmpty()) {
             binding.confirmPasswordTextInputLayout.error = getString(R.string.error_empty_password)
             isValid = false
@@ -104,16 +98,10 @@ class RegistrationFragment : Fragment() {
                 override fun onResponse(call: Call<AuthResponse>, response: Response<AuthResponse>) {
                     setLoading(false)
                     if (response.isSuccessful) {
-                        // ВАЖНО: Сервер возвращает AuthResponse, но мы не сохраняем токен здесь.
-                        // Вместо этого перенаправляем пользователя на экран входа.
-                        // Либо, если API спроектировано так, что регистрация сразу логинит,
-                        // то нужно сохранить токен и пользователя, как в LoginFragment.
-                        // Сейчас предполагаем, что после регистрации нужно залогиниться отдельно.
                         val authResponse = response.body()
                         Log.d("RegistrationFragment", "Registration successful: ${authResponse?.user?.username}")
                         Toast.makeText(context, getString(R.string.registration_successful), Toast.LENGTH_LONG).show()
 
-                        // Переход на экран логина
                         findNavController().navigate(R.id.action_registration_to_login)
 
                     } else {

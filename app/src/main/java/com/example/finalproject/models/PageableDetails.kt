@@ -10,7 +10,7 @@ data class PageableDetails(
     @SerializedName("pageSize")
     val pageSize: Int,
 
-    @SerializedName("sort") // Информация о сортировке, примененной к этому pageable запросу
+    @SerializedName("sort")
     val sortDetails: List<SortProperty>,
 
     @SerializedName("offset")

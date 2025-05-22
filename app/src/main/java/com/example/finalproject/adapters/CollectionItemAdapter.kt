@@ -31,7 +31,7 @@ class CollectionItemAdapter(private val onItemClicked: (CollectionItemEntry) -> 
         fun bind(entry: CollectionItemEntry) {
             val mediaItem = entry.mediaItem
             binding.itemTitle.text = mediaItem.title
-            binding.itemCreator.text = mediaItem.creator ?: itemView.context.getString(R.string.unknown_author) // или другой текст
+            binding.itemCreator.text = mediaItem.creator ?: itemView.context.getString(R.string.unknown_author)
 
             mediaItem.contentType?.typeName?.let {
                 binding.itemType.text = it

@@ -1,70 +1,151 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <style name="Base.Theme.FinalProject" parent="Theme.Material3.DayNight.NoActionBar">
-        <item name="colorPrimary">@color/purple_primary</item>
-        <item name="colorPrimaryVariant">@color/purple_primary_dark</item>
-        <item name="colorOnPrimary">@color/white</item>
-        <item name="colorSecondary">@color/cyan_accent</item>
-        <item name="colorSecondaryVariant">@color/cyan_accent_dark</item>
-        <item name="colorOnSecondary">@color/black</item>
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
-        <item name="android:colorBackground">@color/light_background</item>
-        <item name="colorSurface">@color/light_surface</item>
-        <item name="colorError">@color/light_error</item>
-        <item name="colorOnError">@color/white</item>
-        <item name="colorOnBackground">@color/light_text_primary</item>
-        <item name="colorOnSurface">@color/light_text_primary</item>
-        <item name="android:textColorPrimary">@color/light_text_primary</item>
-        <item name="android:textColorSecondary">@color/light_text_secondary</item>
-        <item name="colorControlNormal">@color/color_control_normal_light</item>
-        <item name="dividerColor">#1F000000</item>
+    <style name="Base.Theme.FinalProject" parent="Theme.Material3.Light.NoActionBar">
+        <item name="colorPrimary">@color/aurora_vibrant_teal</item>
+        <item name="colorOnPrimary">@color/aurora_cloud_surface</item>
+        <item name="colorPrimaryContainer">@color/aurora_vibrant_teal_darker</item>
+        <item name="colorOnPrimaryContainer">@color/aurora_cloud_surface</item>
 
-        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.App.SmallComponent</item>
-        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.App.MediumComponent</item>
+        <item name="colorSecondary">@color/aurora_electric_purple</item>
+        <item name="colorOnSecondary">@color/aurora_cloud_surface</item>
+        <item name="colorSecondaryContainer">@color/aurora_electric_purple_darker</item>
+        <item name="colorOnSecondaryContainer">@color/aurora_cloud_surface</item>
 
-        <item name="materialCardViewStyle">@style/Widget.App.CardView</item>
-        <item name="materialButtonStyle">@style/Widget.App.Button</item>
-        <item name="textInputStyle">@style/Widget.App.TextInputLayout.OutlinedBox</item>
-        <item name="floatingActionButtonStyle">@style/Widget.App.FloatingActionButton</item>
+        <item name="colorTertiary">@color/aurora_cyan_shimmer</item>
+        <item name="colorOnTertiary">@color/aurora_deep_indigo_text</item>
+        <item name="colorTertiaryContainer">#A0E7FF</item>
+        <item name="colorOnTertiaryContainer">@color/aurora_deep_indigo_text</item>
+
+        <item name="android:colorBackground">@color/aurora_day_sky</item>
+        <item name="colorOnBackground">@color/aurora_deep_indigo_text</item>
+
+        <item name="colorSurface">@color/aurora_cloud_surface</item>
+        <item name="colorOnSurface">@color/aurora_deep_indigo_text</item>
+        <item name="colorSurfaceVariant">#E0E5F0</item>
+        <item name="colorOnSurfaceVariant">@color/aurora_slate_text</item>
+
+        <item name="colorError">@color/aurora_error_light</item>
+        <item name="colorOnError">@color/aurora_on_error_light</item>
+        <item name="colorErrorContainer">#FFDAD6</item>
+        <item name="colorOnErrorContainer">@color/aurora_error_light</item>
+
+        <item name="colorOutline">@color/aurora_slate_text</item>
+        <item name="colorOutlineVariant">#C0C5D0</item>
+
+
+        <item name="android:statusBarColor">@color/aurora_day_sky</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
+
+        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.App.Aurora.SmallComponent</item>
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.App.Aurora.MediumComponent</item>
+        <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.App.Aurora.LargeComponent</item>
+
+        <item name="materialCardViewStyle">@style/Widget.App.AuroraCardView</item>
+        <item name="materialButtonStyle">@style/Widget.App.AuroraButton</item>
+        <item name="textInputStyle">@style/Widget.App.AuroraTextInputLayout.OutlinedBox</item>
+        <item name="floatingActionButtonStyle">@style/Widget.App.AuroraFloatingActionButton</item>
+        <item name="toolbarStyle">@style/Widget.App.AuroraToolbar</item>
+        <item name="bottomNavigationStyle">@style/Widget.App.AuroraBottomNavigationView</item>
+        <item name="textAppearanceHeadline5">@style/TextAppearance.App.Aurora.Headline5</item>
+        <item name="textAppearanceHeadline6">@style/TextAppearance.App.Aurora.Headline6</item>
+        <item name="textAppearanceSubtitle1">@style/TextAppearance.App.Aurora.Subtitle1</item>
+        <item name="textAppearanceBody1">@style/TextAppearance.App.Aurora.Body1</item>
+        <item name="textAppearanceBody2">@style/TextAppearance.App.Aurora.Body2</item>
+        <item name="textAppearanceCaption">@style/TextAppearance.App.Aurora.Caption</item>
+        <item name="textAppearanceButton">@style/TextAppearance.App.Aurora.Button</item>
+
+        <item name="android:textColorPrimary">@color/aurora_deep_indigo_text</item>
+        <item name="android:textColorSecondary">@color/aurora_slate_text</item>
+        <item name="colorControlNormal">@color/aurora_slate_text</item>
+        <item name="dividerColor">#1F5C677D</item>
     </style>
 
     <style name="Theme.FinalProject" parent="Base.Theme.FinalProject" />
 
-    <style name="ShapeAppearance.App.SmallComponent" parent="ShapeAppearance.Material3.SmallComponent">
-        <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">6dp</item>
-    </style>
-
-    <style name="ShapeAppearance.App.MediumComponent" parent="ShapeAppearance.Material3.MediumComponent">
+    <style name="ShapeAppearance.App.Aurora.SmallComponent" parent="ShapeAppearance.Material3.SmallComponent">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">8dp</item>
     </style>
+    <style name="ShapeAppearance.App.Aurora.MediumComponent" parent="ShapeAppearance.Material3.MediumComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">12dp</item>
+    </style>
+    <style name="ShapeAppearance.App.Aurora.LargeComponent" parent="ShapeAppearance.Material3.LargeComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">16dp</item>
+    </style>
 
-    <style name="Widget.App.CardView" parent="Widget.Material3.CardView.Elevated">
+    <style name="Widget.App.AuroraCardView" parent="Widget.Material3.CardView.Elevated">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.AuroraCard</item>
         <item name="shapeAppearance">?attr/shapeAppearanceMediumComponent</item>
         <item name="cardElevation">4dp</item>
     </style>
+    <style name="ThemeOverlay.App.AuroraCard" parent="">
+        <item name="colorSurface">@color/aurora_cloud_surface</item>
+        <item name="colorOnSurface">@color/aurora_deep_indigo_text</item>
+        <item name="colorOutline">#207B2CBF</item>
+    </style>
 
-    <style name="Widget.App.Button" parent="Widget.Material3.Button">
+    <style name="Widget.App.AuroraButton" parent="Widget.Material3.Button">
         <item name="shapeAppearance">?attr/shapeAppearanceSmallComponent</item>
         <item name="android:paddingTop">12dp</item>
         <item name="android:paddingBottom">12dp</item>
+        <item name="backgroundTint">?attr/colorPrimary</item>
+        <item name="android:textColor">?attr/colorOnPrimary</item>
     </style>
-
-    <style name="Widget.App.Button.Outlined" parent="Widget.Material3.Button.OutlinedButton">
+    <style name="Widget.App.AuroraButton.Outlined" parent="Widget.Material3.Button.OutlinedButton">
         <item name="shapeAppearance">?attr/shapeAppearanceSmallComponent</item>
         <item name="android:paddingTop">12dp</item>
         <item name="android:paddingBottom">12dp</item>
+        <item name="strokeColor">?attr/colorPrimary</item>
+        <item name="android:textColor">?attr/colorPrimary</item>
     </style>
 
-    <style name="Widget.App.TextInputLayout.OutlinedBox" parent="Widget.Material3.TextInputLayout.OutlinedBox">
+    <style name="Widget.App.AuroraTextInputLayout.OutlinedBox" parent="Widget.Material3.TextInputLayout.OutlinedBox">
         <item name="shapeAppearance">?attr/shapeAppearanceSmallComponent</item>
         <item name="boxStrokeColor">@color/text_input_layout_stroke_color_light</item>
+        <item name="hintTextColor">?attr/colorPrimary</item>
     </style>
 
-    <style name="Widget.App.FloatingActionButton" parent="Widget.Material3.FloatingActionButton.Primary">
+    <style name="Widget.App.AuroraFloatingActionButton" parent="Widget.Material3.FloatingActionButton.Primary">
         <item name="shapeAppearance">?attr/shapeAppearanceMediumComponent</item>
         <item name="backgroundTint">?attr/colorSecondary</item>
         <item name="tint">?attr/colorOnSecondary</item>
     </style>
 
+    <style name="Widget.App.AuroraToolbar" parent="Widget.Material3.Toolbar.OnSurface">
+        <item name="android:background">?attr/colorSurface</item>
+        <item name="titleTextColor">?attr/colorOnSurface</item>
+        <item name="subtitleTextColor">?attr/colorOnSurfaceVariant</item>
+    </style>
+    <style name="Widget.App.AuroraBottomNavigationView" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
+        <item name="android:background">?attr/colorSurface</item>
+        <item name="itemIconTint">@drawable/bottom_nav_item_tint_light</item>
+        <item name="itemTextColor">@drawable/bottom_nav_item_tint_light</item>
+        <item name="itemActiveIndicatorStyle">@style/Widget.App.AuroraBottomNavIndicator</item>
+    </style>
+    <style name="Widget.App.AuroraBottomNavIndicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
+        <item name="android:color">?attr/colorPrimaryContainer</item>
+    </style>
+
+    <style name="TextAppearance.App.Aurora.Headline5" parent="TextAppearance.Material3.HeadlineSmall">
+        <item name="android:textColor">?attr/colorOnBackground</item>
+    </style>
+    <style name="TextAppearance.App.Aurora.Headline6" parent="TextAppearance.Material3.TitleLarge">
+        <item name="android:textColor">?attr/colorOnSurface</item>
+    </style>
+    <style name="TextAppearance.App.Aurora.Subtitle1" parent="TextAppearance.Material3.TitleMedium">
+        <item name="android:textColor">?attr/colorOnSurface</item>
+    </style>
+    <style name="TextAppearance.App.Aurora.Body1" parent="TextAppearance.Material3.BodyLarge">
+        <item name="android:textColor">?attr/colorOnSurface</item>
+    </style>
+    <style name="TextAppearance.App.Aurora.Body2" parent="TextAppearance.Material3.BodyMedium">
+        <item name="android:textColor">?attr/colorOnSurfaceVariant</item>
+    </style>
+    <style name="TextAppearance.App.Aurora.Caption" parent="TextAppearance.Material3.LabelSmall">
+        <item name="android:textColor">?attr/colorOnSurfaceVariant</item>
+    </style>
+    <style name="TextAppearance.App.Aurora.Button" parent="TextAppearance.Material3.LabelLarge">
+        <item name="android:textColor">?attr/colorOnPrimary</item>
+    </style>
 </resources>

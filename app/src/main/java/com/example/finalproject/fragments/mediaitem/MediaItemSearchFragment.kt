@@ -33,7 +33,7 @@ class MediaItemSearchFragment : Fragment() {
     companion object {
         const val MEDIA_ITEM_SELECTION_REQUEST_KEY = "mediaItemSelectionRequestKey"
         const val SELECTED_MEDIA_ITEM_ID_KEY = "selectedMediaItemId"
-        const val SELECTED_MEDIA_ITEM_TITLE_KEY = "selectedMediaItemTitle" // Опционально
+        const val SELECTED_MEDIA_ITEM_TITLE_KEY = "selectedMediaItemTitle"
     }
 
     override fun onCreateView(
@@ -53,7 +53,7 @@ class MediaItemSearchFragment : Fragment() {
     }
 
     private fun setupToolbar() {
-        binding.toolbar.setNavigationIcon(androidx.appcompat.R.drawable.abc_ic_ab_back_material) // Стандартная иконка назад
+        binding.toolbar.setNavigationIcon(androidx.appcompat.R.drawable.abc_ic_ab_back_material)
         binding.toolbar.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
@@ -72,7 +72,7 @@ class MediaItemSearchFragment : Fragment() {
     private fun onMediaItemSelected(mediaItem: MediaItem) {
         setFragmentResult(MEDIA_ITEM_SELECTION_REQUEST_KEY, bundleOf(
             SELECTED_MEDIA_ITEM_ID_KEY to mediaItem.itemId,
-            SELECTED_MEDIA_ITEM_TITLE_KEY to mediaItem.title // Передаем и название для отображения
+            SELECTED_MEDIA_ITEM_TITLE_KEY to mediaItem.title
         ))
         findNavController().popBackStack()
     }
@@ -81,7 +81,7 @@ class MediaItemSearchFragment : Fragment() {
         binding.mediaItemSearchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 query?.let {
-                    if (it.length >= 2) { // Искать, если минимум 2 символа
+                    if (it.length >= 2) {
                         performSearch(it)
                     } else {
                         Toast.makeText(context, "Введите минимум 2 символа для поиска", Toast.LENGTH_SHORT).show()
@@ -91,7 +91,6 @@ class MediaItemSearchFragment : Fragment() {
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                // Можно добавить поиск по мере ввода с задержкой (debounce)
                 return true
             }
         })

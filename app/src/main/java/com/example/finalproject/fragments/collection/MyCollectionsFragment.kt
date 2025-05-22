@@ -49,10 +49,6 @@ class MyCollectionsFragment : Fragment() {
 
         binding.fabCreateCollection.setOnClickListener {
             try {
-                // Используем ID из nav_graph, так как CreateCollectionFragment не принимает аргументов
-                // и у него может не быть сгенерированного action в MyCollectionsFragmentDirections
-                // Если action есть, то лучше:
-                // findNavController().navigate(MyCollectionsFragmentDirections.actionMyCollectionsFragmentToCreateCollectionFragment())
                 findNavController().navigate(R.id.createCollectionFragment)
             } catch (e: Exception) {
                 Toast.makeText(context, getString(R.string.error_cannot_create_collection) + ": ${e.localizedMessage}", Toast.LENGTH_SHORT).show()
@@ -67,7 +63,7 @@ class MyCollectionsFragment : Fragment() {
         binding.myCollectionsEmptyViewText.isVisible = true
         binding.myCollectionsRecyclerView.isVisible = false
         binding.myCollectionsProgressBar.isVisible = false
-        binding.fabCreateCollection.isEnabled = false // Деактивируем кнопку создания
+        binding.fabCreateCollection.isEnabled = false
         Toast.makeText(context, getString(R.string.please_login_to_see_collections), Toast.LENGTH_LONG).show()
     }
 
@@ -92,7 +88,7 @@ class MyCollectionsFragment : Fragment() {
         setLoading(true)
         binding.myCollectionsEmptyViewText.isVisible = false
 
-        RetrofitClient.instance.getMyCollections(size = 20) // Загружаем до 20 коллекций на страницу
+        RetrofitClient.instance.getMyCollections(size = 20)
             .enqueue(object : Callback<PagedResponse<Collection>> {
                 override fun onResponse(call: Call<PagedResponse<Collection>>, response: Response<PagedResponse<Collection>>) {
                     setLoading(false)
@@ -112,12 +108,10 @@ class MyCollectionsFragment : Fragment() {
                             handleApiError(getString(R.string.error_loading_my_collections) + " (пустой ответ)")
                         }
                     } else {
-                        if (response.code() == 401) { // Unauthorized
+                        if (response.code() == 401) {
                             Toast.makeText(context, "Сессия истекла. Пожалуйста, войдите снова.", Toast.LENGTH_LONG).show()
                             AuthTokenProvider.clearAuthData()
-                            // Можно добавить автоматический переход на экран логина
-                            // (activity as? MainActivity)?.navController?.navigate(R.id.login)
-                            showNotAuthenticatedState() // Показать состояние "не авторизован"
+                            showNotAuthenticatedState()
                         } else {
                             handleApiError("Ошибка ${response.code()}: ${response.message()}")
                         }
@@ -137,7 +131,6 @@ class MyCollectionsFragment : Fragment() {
         binding.myCollectionsRecyclerView.isVisible = false
         if (binding.myCollectionsEmptyViewText.text.toString() == getString(R.string.no_my_collections_found) ||
             binding.myCollectionsEmptyViewText.text.toString() == getString(R.string.please_login_to_see_collections)) {
-            // Не перезаписываем сообщение о пустом списке или необходимости логина, если это была API ошибка
         } else {
             binding.myCollectionsEmptyViewText.text = errorMessage
         }
@@ -147,7 +140,6 @@ class MyCollectionsFragment : Fragment() {
     private fun setLoading(isLoading: Boolean) {
         binding.myCollectionsProgressBar.isVisible = isLoading
         if (!isLoading) {
-            // Показываем RecyclerView только если есть элементы и загрузка завершена
             binding.myCollectionsRecyclerView.isVisible = collectionAdapter.itemCount > 0
         } else {
             binding.myCollectionsRecyclerView.isVisible = false
@@ -157,10 +149,7 @@ class MyCollectionsFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        // Если пользователь мог разлогиниться или залогиниться на другом экране,
-        // и мы возвращаемся сюда, стоит проверить аутентификацию и перезагрузить данные.
         if (AuthTokenProvider.isAuthenticated() && collectionAdapter.itemCount == 0) {
-            // Если авторизован, но список пуст (например, после возврата с экрана логина)
             fetchMyCollections()
         } else if (!AuthTokenProvider.isAuthenticated()) {
             showNotAuthenticatedState()
@@ -169,7 +158,7 @@ class MyCollectionsFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        binding.myCollectionsRecyclerView.adapter = null // Очистка адаптера
+        binding.myCollectionsRecyclerView.adapter = null
         _binding = null
     }
 }

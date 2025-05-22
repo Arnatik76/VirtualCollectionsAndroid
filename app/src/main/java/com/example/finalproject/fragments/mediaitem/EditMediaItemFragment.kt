@@ -18,7 +18,7 @@ import com.example.finalproject.api.RetrofitClient
 import com.example.finalproject.databinding.FragmentEditMediaItemBinding
 import com.example.finalproject.models.MediaItem
 import com.example.finalproject.models.request.UpdateMediaItemRequest
-import com.example.finalproject.utils.AuthTokenProvider // Для проверки прав
+import com.example.finalproject.utils.AuthTokenProvider
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -34,9 +34,7 @@ class EditMediaItemFragment : Fragment() {
     private var mediaItemIdToEdit: Long = -1L
     private var currentMediaItemData: MediaItem? = null
 
-    // Формат для парсинга и отображения даты релиза
     private val releaseDateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.US)
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -58,7 +56,6 @@ class EditMediaItemFragment : Fragment() {
             return
         }
 
-        // TODO: Более строгая проверка прав на редактирование, если MediaItem не привязан к пользователю напрямую
         if (!AuthTokenProvider.isAuthenticated()) {
             Toast.makeText(context, "Необходимо авторизоваться для редактирования.", Toast.LENGTH_LONG).show()
             findNavController().popBackStack()
@@ -141,20 +138,16 @@ class EditMediaItemFragment : Fragment() {
         val externalUrl = binding.externalUrlEditMediaTextField.text.toString().trim().ifEmpty { null }
         var releaseDateString = binding.releaseDateEditMediaTextField.text.toString().trim().ifEmpty { null }
 
-        // Простая валидация формата даты, если введена
         if (releaseDateString != null) {
             try {
                 releaseDateFormat.isLenient = false
-                releaseDateFormat.parse(releaseDateString) // Просто проверяем парсинг
+                releaseDateFormat.parse(releaseDateString)
             } catch (e: ParseException) {
                 binding.releaseDateEditMediaLayout.error = "Неверный формат даты (гггг-мм-дд)"
                 return
             }
             binding.releaseDateEditMediaLayout.error = null
         }
-
-
-        // TODO: Проверка, изменилось ли что-то
 
         setLoading(true)
 
@@ -175,8 +168,6 @@ class EditMediaItemFragment : Fragment() {
                         response.body()?.let { updatedItem ->
                             Toast.makeText(context, getString(R.string.media_item_updated_successfully), Toast.LENGTH_SHORT).show()
                             Log.d("EditMediaItemFragment", "MediaItem updated: ${updatedItem.title}")
-                            // Можно передать результат обратно, если MediaItemDetailsFragment должен обновиться
-                            // setFragmentResult(...)
                             findNavController().popBackStack()
                         } ?: Toast.makeText(context, getString(R.string.error_updating_media_item) + " (пустой ответ)", Toast.LENGTH_LONG).show()
                     } else {

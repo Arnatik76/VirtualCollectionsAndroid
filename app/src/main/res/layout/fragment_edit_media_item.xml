@@ -145,8 +145,6 @@
                 android:inputType="date"/>
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- TODO: Add UI for selecting ContentType and Tags if needed -->
-
         <Button
             android:id="@+id/save_media_item_button"
             android:layout_width="0dp"

@@ -24,11 +24,6 @@ class EditCollectionFragment : Fragment() {
     private var _binding: FragmentCreateCollectionBinding? = null
     private val binding get() = _binding!!
 
-    // TODO: Add argument for collectionId if implementing edit mode
-    // private val args: EditCollectionFragmentArgs by navArgs()
-    // private var isEditMode = false
-    // private var existingCollectionId: Int? = null
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -39,18 +34,6 @@ class EditCollectionFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        // TODO: Check for edit mode arguments
-        // arguments?.let {
-        //     existingCollectionId = EditCollectionFragmentArgs.fromBundle(it).collectionId (if -1, then create mode)
-        //     if (existingCollectionId != -1 && existingCollectionId != 0) { // Assuming -1 or 0 means not provided for edit
-        //         isEditMode = true
-        //         setupEditMode()
-        //         fetchCollectionDetails(existingCollectionId!!)
-        //     } else {
-        //         setupCreateMode()
-        //     }
-        // } ?: setupCreateMode()
         setupCreateMode()
 
         binding.createCollectionButton.setOnClickListener {
@@ -58,8 +41,6 @@ class EditCollectionFragment : Fragment() {
                 handleCreateCollection()
             } else {
                 Toast.makeText(context, R.string.please_login_to_see_collections, Toast.LENGTH_SHORT).show()
-                // Optionally navigate to login
-                // findNavController().navigate(R.id.login)
             }
         }
     }
@@ -68,16 +49,6 @@ class EditCollectionFragment : Fragment() {
         binding.createCollectionHeaderTitle.text = getString(R.string.create_collection_title_toolbar)
         binding.createCollectionButton.text = getString(R.string.button_create_collection)
     }
-
-    // private fun setupEditMode() {
-    //     binding.createCollectionHeaderTitle.text = getString(R.string.edit_collection_title_toolbar)
-    //     binding.createCollectionButton.text = getString(R.string.button_save_changes)
-    // }
-
-    // private fun fetchCollectionDetails(collectionId: Int) {
-    //     setLoading(true)
-    //
-    // }
 
     private fun handleCreateCollection() {
         val title = binding.titleEditText.text.toString().trim()
@@ -104,10 +75,6 @@ class EditCollectionFragment : Fragment() {
                         Toast.makeText(context, getString(R.string.collection_created_successfully), Toast.LENGTH_SHORT).show()
                         Log.d("EditCollectionFragment", "Collection created: ${newCollection?.title}")
                         findNavController().popBackStack()
-                        // newCollection?.collectionId?.let {
-                        //     val action = EditCollectionFragmentDirections.actionCreateCollectionFragmentToCollectionDetailsFragment(it)
-                        //     findNavController().navigate(action)
-                        // }
                     } else {
                         val errorMsg = response.errorBody()?.string() ?: getString(R.string.error_creating_collection)
                         Toast.makeText(context, "${getString(R.string.error_creating_collection)}: ${response.code()} $errorMsg", Toast.LENGTH_LONG).show()

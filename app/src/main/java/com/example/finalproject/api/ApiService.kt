@@ -34,11 +34,11 @@ interface ApiService {
         @Body createCollectionRequest: CreateCollectionRequest
     ): Call<Collection>
 
-    // @PUT("vc-collections/collections/{id}")
-    // fun updateCollection(
-    //     @Path("id") collectionId: Int,
-    //     @Body updateCollectionRequest: CreateCollectionRequest
-    // ): Call<Collection>
+    @PUT("vc-collections/collections/{id}")
+    fun updateCollection(
+        @Path("id") collectionId: Int,
+        @Body updateCollectionRequest: CreateCollectionRequest
+    ): Call<Collection>
 
     @GET("vc-collections/collections/{id}")
     fun getCollectionById(@Path("id") collectionId: Long): Call<Collection>

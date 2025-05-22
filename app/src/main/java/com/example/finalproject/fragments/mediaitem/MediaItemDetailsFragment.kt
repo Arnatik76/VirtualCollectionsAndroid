@@ -52,10 +52,6 @@ class MediaItemDetailsFragment : Fragment() {
 
         binding.fabEditMediaItem.setOnClickListener {
             currentMediaItem?.let {
-                // TODO: Проверить права пользователя на редактирование этого MediaItem
-                // Например, если есть поле createdByUserId в MediaItem и оно совпадает с AuthTokenProvider.getCurrentUser()?.userId
-                // Для простоты, пока разрешаем редактирование, если залогинен.
-                // В реальном приложении нужна более строгая проверка прав.
                 if (AuthTokenProvider.isAuthenticated()) {
                     val action = MediaItemDetailsFragmentDirections.actionMediaItemDetailsFragmentToEditMediaItemFragment(it.itemId)
                     findNavController().navigate(action)
@@ -135,16 +131,12 @@ class MediaItemDetailsFragment : Fragment() {
             item.tags.forEach { tag ->
                 val chip = Chip(context)
                 chip.text = tag.tagName
-                // chip.isClickable = true // Если хотите сделать теги кликабельными для поиска по тегу
-                // chip.setOnClickListener { /* TODO: Navigate to search by tag */ }
                 binding.mediaItemDetailTagsChipGroup.addView(chip)
             }
         } else {
             binding.mediaItemDetailTagsChipGroup.isVisible = false
         }
 
-        // Показать кнопку редактирования, если есть права (здесь упрощенная проверка)
-        // TODO: Реализуйте более надежную проверку прав, если это необходимо (например, на основе createdByUserId)
         binding.fabEditMediaItem.isVisible = AuthTokenProvider.isAuthenticated()
     }
 
@@ -152,55 +144,50 @@ class MediaItemDetailsFragment : Fragment() {
         if (dateString.isNullOrEmpty()) return null
         val defaultLocale = Locale.getDefault()
 
-        // Список возможных входных форматов, включая те, что могут приходить с OffsetDateTime
         val inputFormats = listOf(
             SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSSSZ", defaultLocale),
             SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", defaultLocale),
             SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSSS", defaultLocale),
             SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", defaultLocale),
-            SimpleDateFormat(inputPattern, defaultLocale) // Для дат типа releaseDate
+            SimpleDateFormat(inputPattern, defaultLocale)
         )
-        val outputFormat = SimpleDateFormat("dd MMMM yyyy", defaultLocale) // Более простой формат для отображения
+        val outputFormat = SimpleDateFormat("dd MMMM yyyy", defaultLocale)
 
         for (format in inputFormats) {
             if (!dateString.contains("Z") && format.toPattern().endsWith("Z")) {
-                // Пропускаем форматы с Z, если в строке нет Z, кроме тех, что явно не содержат смещение
                 if(!format.toPattern().contains("'Z'")) continue
             }
-            // Даты с сервера могут быть в UTC
             if (format.toPattern().contains("T") && (format.toPattern().endsWith("Z") || dateString.endsWith("Z"))) {
                 format.timeZone = TimeZone.getTimeZone("UTC")
-            } else if (format.toPattern().contains("T")) { // Если время есть, но нет явного UTC, пробуем как локальное или UTC
-                format.timeZone = TimeZone.getTimeZone("UTC") // Пробуем UTC как основной вариант для timestamp
+            } else if (format.toPattern().contains("T")) {
+                format.timeZone = TimeZone.getTimeZone("UTC")
             }
 
 
             try {
                 val date = format.parse(dateString)
                 if (date != null) {
-                    outputFormat.timeZone = TimeZone.getDefault() // Форматируем в локальную зону
+                    outputFormat.timeZone = TimeZone.getDefault()
                     return outputFormat.format(date)
                 }
             } catch (e: ParseException) {
-                // Log.v("MediaItemDetails", "Date parse failed for $dateString with pattern ${format.toPattern()}")
+                Log.v("MediaItemDetails", "Date parse failed for $dateString with pattern ${format.toPattern()}")
             }
         }
         Log.w("MediaItemDetails", "Could not parse date: $dateString with known formats.")
-        return dateString // Возвращаем исходную строку, если не удалось распарсить
+        return dateString
     }
 
 
     private fun setLoading(isLoading: Boolean) {
         binding.mediaItemDetailProgressBar.isVisible = isLoading
         binding.mediaItemDetailErrorText.isVisible = false
-        // Остальной контент управляется через CollapsingToolbarLayout и NestedScrollView
     }
 
     private fun showError(message: String) {
         binding.mediaItemDetailErrorText.text = message
         binding.mediaItemDetailErrorText.isVisible = true
         binding.mediaItemDetailProgressBar.isVisible = false
-        // Скрыть другие элементы, если нужно
         binding.collapsingToolbarLayoutMediaDetails.isVisible = false
         binding.fabEditMediaItem.isVisible = false
     }

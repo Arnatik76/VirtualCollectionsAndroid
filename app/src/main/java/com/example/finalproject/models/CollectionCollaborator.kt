@@ -4,6 +4,6 @@ data class CollectionCollaborator(
     val collectionId: Int,
     val userId: Int,
     val role: String,
-    val joinedAt: String, // Или использовать тип Date/Timestamp
-    val user: User? = null // Если API будет возвращать детали соавтора
+    val joinedAt: String,
+    val user: User? = null
 )

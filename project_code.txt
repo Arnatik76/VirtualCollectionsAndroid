@@ -1,5 +1,5 @@
 ﻿# PROJECT CODE COMPILATION
-# Generated on 05/21/2025 19:40:10
+# Generated on 05/22/2025 08:12:56
 # Source: C:\Users\Arnat\AndroidStudioProjects\FinalProject
 
 
@@ -6926,47 +6926,127 @@ zipStorePath=wrapper/dists
     </manifest>
 
 ###############################################################################
-# FILE: app\src\main\res\drawable\bg_tag_chip.xml
+# FILE: app\src\main\res\color\text_input_layout_stroke_color_dark.xml
+###############################################################################
+
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:color="?attr/colorPrimary" android:state_focused="true"/>
+    <item android:color="?attr/colorOnSurface" android:state_hovered="true"/>
+    <item android:color="?attr/colorOutline" android:state_enabled="false"/>
+    <item android:color="?attr/colorOutline"/>
+</selector>
+
+###############################################################################
+# FILE: app\src\main\res\color\text_input_layout_stroke_color_light.xml
+###############################################################################
+
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:color="?attr/colorPrimary" android:state_focused="true"/>
+    <item android:color="?attr/colorOnSurface" android:state_hovered="true"/>
+    <item android:color="?attr/colorOutline" android:state_enabled="false"/>
+    <item android:color="?attr/colorOutline"/>
+</selector>
+
+###############################################################################
+# FILE: app\src\main\res\drawable\bg_pattern_overlay.xml
+###############################################################################
+
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <gradient
+        android:type="radial"
+        android:gradientRadius="150%p"
+        android:centerX="0.5"
+        android:centerY="0.1"
+        android:startColor="#00000000"
+        android:centerColor="#0DFFFFFF"
+        android:endColor="?attr/colorSecondaryContainer"
+        android:alpha="0.3"/>
+</shape>
+
+###############################################################################
+# FILE: app\src\main\res\drawable\bg_spinner_outline.xml
 ###############################################################################
 
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <solid android:color="#1A000000"/>
-    <corners android:radius="12dp"/>
-    <stroke android:width="1dp" android:color="?attr/colorPrimary"/>
+    <solid android:color="?attr/colorSurfaceVariant"/>
+    <corners android:radius="8dp"/>
+    <stroke android:width="1dp" android:color="?attr/colorOutline"/>
 </shape>
+
+###############################################################################
+# FILE: app\src\main\res\drawable\bg_tag_chip.xml
+###############################################################################
+
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <solid android:color="?attr/colorTertiaryContainer"/>
+    <corners android:radius="16dp"/>
+    <padding android:left="10dp" android:right="10dp" android:top="4dp" android:bottom="4dp"/>
+    <stroke android:width="1dp" android:color="?attr/colorTertiary"/>
+</shape>
+
+###############################################################################
+# FILE: app\src\main\res\drawable\bottom_nav_item_tint_dark.xml
+###############################################################################
+
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:color="?attr/colorPrimary" android:state_checked="true"/>
+    <item android:color="?attr/colorOnSurfaceVariant" android:state_checked="false"/>
+</selector>
+
+###############################################################################
+# FILE: app\src\main\res\drawable\bottom_nav_item_tint_light.xml
+###############################################################################
+
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:color="?attr/colorPrimary" android:state_checked="true"/>
+    <item android:color="?attr/colorOnSurfaceVariant" android:state_checked="false"/>
+</selector>
 
 ###############################################################################
 # FILE: app\src\main\res\drawable\ic_add_24.xml
 ###############################################################################
 
-<vector xmlns:android="http://schemas.android.com/apk/res/android" android:height="24dp" android:tint="#000000" android:viewportHeight="24" android:viewportWidth="24" android:width="24dp">
-      
-    <path android:fillColor="@android:color/white" android:pathData="M19,13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
-    
-</vector>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:height="24dp"
+    android:width="24dp"
+    android:viewportHeight="24"
+    android:viewportWidth="24"
+    android:tint="?attr/colorControlNormal">
 
+    <path android:fillColor="@android:color/white" android:pathData="M19,13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+</vector>
 
 ###############################################################################
 # FILE: app\src\main\res\drawable\ic_edit_24.xml
 ###############################################################################
 
-<vector xmlns:android="http://schemas.android.com/apk/res/android" android:height="24dp" android:tint="#000000" android:viewportHeight="24" android:viewportWidth="24" android:width="24dp">
-      
-    <path android:fillColor="@android:color/white" android:pathData="M3,17.25V21h3.75L17.81,9.94l-3.75,-3.75L3,17.25zM20.71,7.04c0.39,-0.39 0.39,-1.02 0,-1.41l-2.34,-2.34c-0.39,-0.39 -1.02,-0.39 -1.41,0l-1.83,1.83 3.75,3.75 1.83,-1.83z"/>
-    
-</vector>
+<vector xmlns:android="http://schemas.android.com/apk/res/android" android:height="24dp"
+    android:tint="?attr/colorControlNormal"
+    android:viewportHeight="24" android:viewportWidth="24" android:width="24dp">
 
+    <path android:fillColor="@android:color/white" android:pathData="M3,17.25V21h3.75L17.81,9.94l-3.75,-3.75L3,17.25zM20.71,7.04c0.39,-0.39 0.39,-1.02 0,-1.41l-2.34,-2.34c-0.39,-0.39 -1.02,-0.39 -1.41,0l-1.83,1.83 3.75,3.75 1.83,-1.83z"/>
+
+</vector>
 
 ###############################################################################
 # FILE: app\src\main\res\drawable\ic_image_placeholder_24.xml
 ###############################################################################
 
-<vector xmlns:android="http://schemas.android.com/apk/res/android" android:height="24dp" android:tint="#000000" android:viewportHeight="24" android:viewportWidth="24" android:width="24dp">
-      
-    <path android:fillColor="@android:color/white" android:pathData="M21,19V5c0,-1.1 -0.9,-2 -2,-2H5c-1.1,0 -2,0.9 -2,2v14c0,1.1 0.9,2 2,2h14c1.1,0 2,-0.9 2,-2zM8.5,13.5l2.5,3.01L14.5,12l4.5,6H5l3.5,-4.5z"/>
-    
-</vector>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:height="24dp"
+    android:width="24dp"
+    android:viewportHeight="24"
+    android:viewportWidth="24"
+    android:tint="?attr/colorControlNormal">
 
+    <path android:fillColor="@android:color/white" android:pathData="M21,19V5c0,-1.1 -0.9,-2 -2,-2H5c-1.1,0 -2,0.9 -2,2v14c0,1.1 0.9,2 2,2h14c1.1,0 2,-0.9 2,-2zM8.5,13.5l2.5,3.01L14.5,12l4.5,6H5l3.5,-4.5z"/>
+</vector>
 
 ###############################################################################
 # FILE: app\src\main\res\drawable\ic_launcher_background.xml
@@ -6979,170 +7059,35 @@ zipStorePath=wrapper/dists
     android:viewportWidth="108"
     android:viewportHeight="108">
     <path
-        android:fillColor="#3DDC84"
+        android:fillColor="@color/aurora_deep_sky"
         android:pathData="M0,0h108v108h-108z" />
     <path
-        android:fillColor="#00000000"
-        android:pathData="M9,0L9,108"
-        android:strokeWidth="0.8"
-        android:strokeColor="#33FFFFFF" />
+        android:pathData="M0,40 C30,20 70,60 108,40 L108,108 L0,108 Z"
+        android:fillAlpha="0.15">
+        <aapt:attr xmlns:aapt="http://schemas.android.com/aapt" name="android:fillColor">
+            <gradient
+                android:type="linear"
+                android:startX="0" android:startY="40"
+                android:endX="108" android:endY="108">
+                <item android:color="@color/aurora_green_flare" android:offset="0.0"/>
+                <item android:color="@color/aurora_magenta_glow" android:offset="1.0"/>
+            </gradient>
+        </aapt:attr>
+    </path>
     <path
-        android:fillColor="#00000000"
-        android:pathData="M19,0L19,108"
-        android:strokeWidth="0.8"
-        android:strokeColor="#33FFFFFF" />
-    <path
-        android:fillColor="#00000000"
-        android:pathData="M29,0L29,108"
-        android:strokeWidth="0.8"
-        android:strokeColor="#33FFFFFF" />
-    <path
-        android:fillColor="#00000000"
-        android:pathData="M39,0L39,108"
-        android:strokeWidth="0.8"
-        android:strokeColor="#33FFFFFF" />
-    <path
-        android:fillColor="#00000000"
-        android:pathData="M49,0L49,108"
-        android:strokeWidth="0.8"
-        android:strokeColor="#33FFFFFF" />
-    <path
-        android:fillColor="#00000000"
-        android:pathData="M59,0L59,108"
-        android:strokeWidth="0.8"
-        android:strokeColor="#33FFFFFF" />
-    <path
-        android:fillColor="#00000000"
-        android:pathData="M69,0L69,108"
-        android:strokeWidth="0.8"
-        android:strokeColor="#33FFFFFF" />
-    <path
-        android:fillColor="#00000000"
-        android:pathData="M79,0L79,108"
-        android:strokeWidth="0.8"
-        android:strokeColor="#33FFFFFF" />
-    <path
-        android:fillColor="#00000000"
-        android:pathData="M89,0L89,108"
-        android:strokeWidth="0.8"
-        android:strokeColor="#33FFFFFF" />
-    <path
-        android:fillColor="#00000000"
-        android:pathData="M99,0L99,108"
-        android:strokeWidth="0.8"
-        android:strokeColor="#33FFFFFF" />
-    <path
-        android:fillColor="#00000000"
-        android:pathData="M0,9L108,9"
-        android:strokeWidth="0.8"
-        android:strokeColor="#33FFFFFF" />
-    <path
-        android:fillColor="#00000000"
-        android:pathData="M0,19L108,19"
-        android:strokeWidth="0.8"
-        android:strokeColor="#33FFFFFF" />
-    <path
-        android:fillColor="#00000000"
-        android:pathData="M0,29L108,29"
-        android:strokeWidth="0.8"
-        android:strokeColor="#33FFFFFF" />
-    <path
-        android:fillColor="#00000000"
-        android:pathData="M0,39L108,39"
-        android:strokeWidth="0.8"
-        android:strokeColor="#33FFFFFF" />
-    <path
-        android:fillColor="#00000000"
-        android:pathData="M0,49L108,49"
-        android:strokeWidth="0.8"
-        android:strokeColor="#33FFFFFF" />
-    <path
-        android:fillColor="#00000000"
-        android:pathData="M0,59L108,59"
-        android:strokeWidth="0.8"
-        android:strokeColor="#33FFFFFF" />
-    <path
-        android:fillColor="#00000000"
-        android:pathData="M0,69L108,69"
-        android:strokeWidth="0.8"
-        android:strokeColor="#33FFFFFF" />
-    <path
-        android:fillColor="#00000000"
-        android:pathData="M0,79L108,79"
-        android:strokeWidth="0.8"
-        android:strokeColor="#33FFFFFF" />
-    <path
-        android:fillColor="#00000000"
-        android:pathData="M0,89L108,89"
-        android:strokeWidth="0.8"
-        android:strokeColor="#33FFFFFF" />
-    <path
-        android:fillColor="#00000000"
-        android:pathData="M0,99L108,99"
-        android:strokeWidth="0.8"
-        android:strokeColor="#33FFFFFF" />
-    <path
-        android:fillColor="#00000000"
-        android:pathData="M19,29L89,29"
-        android:strokeWidth="0.8"
-        android:strokeColor="#33FFFFFF" />
-    <path
-        android:fillColor="#00000000"
-        android:pathData="M19,39L89,39"
-        android:strokeWidth="0.8"
-        android:strokeColor="#33FFFFFF" />
-    <path
-        android:fillColor="#00000000"
-        android:pathData="M19,49L89,49"
-        android:strokeWidth="0.8"
-        android:strokeColor="#33FFFFFF" />
-    <path
-        android:fillColor="#00000000"
-        android:pathData="M19,59L89,59"
-        android:strokeWidth="0.8"
-        android:strokeColor="#33FFFFFF" />
-    <path
-        android:fillColor="#00000000"
-        android:pathData="M19,69L89,69"
-        android:strokeWidth="0.8"
-        android:strokeColor="#33FFFFFF" />
-    <path
-        android:fillColor="#00000000"
-        android:pathData="M19,79L89,79"
-        android:strokeWidth="0.8"
-        android:strokeColor="#33FFFFFF" />
-    <path
-        android:fillColor="#00000000"
-        android:pathData="M29,19L29,89"
-        android:strokeWidth="0.8"
-        android:strokeColor="#33FFFFFF" />
-    <path
-        android:fillColor="#00000000"
-        android:pathData="M39,19L39,89"
-        android:strokeWidth="0.8"
-        android:strokeColor="#33FFFFFF" />
-    <path
-        android:fillColor="#00000000"
-        android:pathData="M49,19L49,89"
-        android:strokeWidth="0.8"
-        android:strokeColor="#33FFFFFF" />
-    <path
-        android:fillColor="#00000000"
-        android:pathData="M59,19L59,89"
-        android:strokeWidth="0.8"
-        android:strokeColor="#33FFFFFF" />
-    <path
-        android:fillColor="#00000000"
-        android:pathData="M69,19L69,89"
-        android:strokeWidth="0.8"
-        android:strokeColor="#33FFFFFF" />
-    <path
-        android:fillColor="#00000000"
-        android:pathData="M79,19L79,89"
-        android:strokeWidth="0.8"
-        android:strokeColor="#33FFFFFF" />
+        android:pathData="M0,0 L108,0 L108,70 C70,90 30,50 0,70 Z"
+        android:fillAlpha="0.1">
+        <aapt:attr xmlns:aapt="http://schemas.android.com/aapt" name="android:fillColor">
+            <gradient
+                android:type="linear"
+                android:startX="0" android:startY="0"
+                android:endX="108" android:endY="70">
+                <item android:color="@color/aurora_cyan_shimmer" android:offset="0.0"/>
+                <item android:color="@color/aurora_magenta_glow" android:offset="1.0"/>
+            </gradient>
+        </aapt:attr>
+    </path>
 </vector>
-
 
 ###############################################################################
 # FILE: app\src\main\res\drawable\ic_launcher_foreground.xml
@@ -7163,32 +7108,57 @@ zipStorePath=wrapper/dists
                 android:startY="49.59793"
                 android:type="linear">
                 <item
-                    android:color="#44000000"
-                    android:offset="0.0" />
+                    android:color="#4D05071A"
+                android:offset="0.0" />
                 <item
-                    android:color="#00000000"
+                    android:color="#0005071A"
                     android:offset="1.0" />
             </gradient>
         </aapt:attr>
     </path>
     <path
-        android:fillColor="#FFFFFF"
         android:fillType="nonZero"
         android:pathData="M65.3,45.828l3.8,-6.6c0.2,-0.4 0.1,-0.9 -0.3,-1.1c-0.4,-0.2 -0.9,-0.1 -1.1,0.3l-3.9,6.7c-6.3,-2.8 -13.4,-2.8 -19.7,0l-3.9,-6.7c-0.2,-0.4 -0.7,-0.5 -1.1,-0.3C38.8,38.328 38.7,38.828 38.9,39.228l3.8,6.6C36.2,49.428 31.7,56.028 31,63.928h46C76.3,56.028 71.8,49.428 65.3,45.828zM43.4,57.328c-0.8,0 -1.5,-0.5 -1.8,-1.2c-0.3,-0.7 -0.1,-1.5 0.4,-2.1c0.5,-0.5 1.4,-0.7 2.1,-0.4c0.7,0.3 1.2,1 1.2,1.8C45.3,56.528 44.5,57.328 43.4,57.328L43.4,57.328zM64.6,57.328c-0.8,0 -1.5,-0.5 -1.8,-1.2s-0.1,-1.5 0.4,-2.1c0.5,-0.5 1.4,-0.7 2.1,-0.4c0.7,0.3 1.2,1 1.2,1.8C66.5,56.528 65.6,57.328 64.6,57.328L64.6,57.328z"
-        android:strokeWidth="1"
-        android:strokeColor="#00000000" />
+        android:strokeWidth="0.2"
+        android:strokeColor="#99E0E7FF">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="linear"
+                android:startX="30" android:startY="35"
+                android:endX="80" android:endY="65">
+                <item android:color="@color/aurora_cyan_shimmer" android:offset="0.0" />
+                <item android:color="@color/aurora_green_flare" android:offset="0.5" />
+                <item android:color="@color/aurora_magenta_glow" android:offset="1.0" />
+            </gradient>
+        </aapt:attr>
+    </path>
 </vector>
 
 ###############################################################################
 # FILE: app\src\main\res\drawable\ic_logout_24.xml
 ###############################################################################
 
-<vector xmlns:android="http://schemas.android.com/apk/res/android" android:autoMirrored="true" android:height="24dp" android:tint="#000000" android:viewportHeight="24" android:viewportWidth="24" android:width="24dp">
-      
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:autoMirrored="true"
+    android:height="24dp"
+    android:width="24dp"
+    android:viewportHeight="24"
+    android:viewportWidth="24"
+    android:tint="?attr/colorControlNormal">
+
     <path android:fillColor="@android:color/white" android:pathData="M17,7l-1.41,1.41L18.17,11H8v2h10.17l-2.58,2.58L17,17l5,-5zM4,5h8V3H4c-1.1,0 -2,0.9 -2,2v14c0,1.1 0.9,2 2,2h8v-2H4V5z"/>
-    
 </vector>
 
+###############################################################################
+# FILE: app\src\main\res\drawable\pattern_placeholder.xml
+###############################################################################
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android" android:height="24dp"
+    android:tint="?attr/colorOnSurfaceVariant"
+    android:viewportHeight="24" android:viewportWidth="24" android:width="24dp">
+
+    <path android:fillColor="@android:color/white" android:pathData="M4,6c0,-1.1 0.9,-2 2,-2s2,0.9 2,2S7.1,8 6,8S4,7.1 4,6zM6,14c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2s-2,0.9 -2,2S4.9,14 6,14zM12,8c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2s-2,0.9 -2,2S10.9,8 12,8zM18,10c-1.1,0 -2,0.9 -2,2s0.9,2 2,2s2,-0.9 2,-2S19.1,10 18,10zM17.98,16c-0.74,0 -1.37,0.4 -1.72,1h-2.54c-0.34,-0.6 -0.98,-1 -1.72,-1s-1.37,0.4 -1.72,1H8.41l3.07,-3.07C11.65,13.97 11.82,14 12,14c1.1,0 2,-0.9 2,-2c0,-0.18 -0.03,-0.35 -0.07,-0.51l3.56,-3.56C17.65,7.97 17.82,8 18,8c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2s-2,0.9 -2,2c0,0.18 0.03,0.35 0.07,0.51l-3.56,3.56C12.35,10.03 12.18,10 12,10c-1.1,0 -2,0.9 -2,2c0,0.18 0.03,0.35 0.07,0.51l-3.56,3.56C6.35,16.03 6.18,16 6,16c-1.1,0 -2,0.9 -2,2s0.9,2 2,2c0.74,0 1.37,-0.4 1.72,-1h2.57c0.34,0.6 0.98,1 1.72,1s1.37,-0.4 1.72,-1h2.55c0.34,0.6 0.98,1 1.72,1c1.1,0 2,-0.9 2,-2C19.98,16.9 19.08,16 17.98,16z"/>
+</vector>
 
 ###############################################################################
 # FILE: app\src\main\res\layout\activity_main.xml
@@ -7201,6 +7171,7 @@ zipStorePath=wrapper/dists
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?android:attr/colorBackground"
     tools:context=".MainActivity">
 
     <androidx.fragment.app.FragmentContainerView
@@ -7218,12 +7189,14 @@ zipStorePath=wrapper/dists
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation_view"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="120dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bottom_nav_menu"
-        android:visibility="gone" />
+        android:visibility="visible"
+        app:labelVisibilityMode="labeled"
+        style="?attr/bottomNavigationStyle"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -7300,8 +7273,10 @@ zipStorePath=wrapper/dists
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:minHeight="48dp"
-            style="@style/Widget.AppCompat.Spinner.Underlined"
+            android:minHeight="56dp"
+            android:background="@drawable/bg_spinner_outline"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
             app:layout_constraintTop_toBottomOf="@id/content_type_spinner_label"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
@@ -7476,6 +7451,7 @@ zipStorePath=wrapper/dists
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_like_collection"
+            style="?attr/floatingActionButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
@@ -7483,21 +7459,19 @@ zipStorePath=wrapper/dists
             app:layout_constraintTop_toBottomOf="@id/collection_detail_cover_image"
             app:layout_constraintBottom_toBottomOf="@id/collection_detail_cover_image"
             app:layout_constraintEnd_toEndOf="parent"
-            app:tint="@color/white"
             android:contentDescription="@string/like_button_desc"/>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_add_item_to_collection"
+            style="?attr/floatingActionButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
-            app:layout_constraintBottom_toTopOf="@+id/comment_input_layout"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/comments_title"
             app:layout_constraintEnd_toEndOf="parent"
             app:srcCompat="@drawable/ic_add_24"
             android:contentDescription="Add item to collection"
-            app:backgroundTint="?attr/colorSecondary"
-            app:tint="@color/white"
             tools:visibility="visible"/>
 
         <TextView
@@ -7694,7 +7668,7 @@ zipStorePath=wrapper/dists
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/comment_input_layout"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            style="?attr/textInputStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -7715,6 +7689,7 @@ zipStorePath=wrapper/dists
 
         <Button
             android:id="@+id/post_comment_button"
+            style="?attr/materialButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -8299,11 +8274,13 @@ zipStorePath=wrapper/dists
 ###############################################################################
 
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg_pattern_overlay"
     android:padding="16dp"
     tools:context=".fragments.user.LoginFragment">
 
@@ -9175,7 +9152,6 @@ zipStorePath=wrapper/dists
 # FILE: app\src\main\res\layout\item_collection_card.xml
 ###############################################################################
 
-<?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -9184,9 +9160,7 @@ zipStorePath=wrapper/dists
     android:layout_marginStart="16dp"
     android:layout_marginTop="8dp"
     android:layout_marginEnd="16dp"
-    android:layout_marginBottom="8dp"
-    app:cardElevation="4dp"
-    app:cardCornerRadius="8dp">
+    android:layout_marginBottom="8dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -9201,7 +9175,7 @@ zipStorePath=wrapper/dists
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            tools:srcCompat="@drawable/ic_launcher_background" /> <!-- Заглушка -->
+            tools:srcCompat="@drawable/ic_launcher_background" />
 
         <TextView
             android:id="@+id/collection_title_text_view"
@@ -9211,6 +9185,7 @@ zipStorePath=wrapper/dists
             android:layout_marginTop="12dp"
             android:layout_marginEnd="16dp"
             android:textAppearance="?attr/textAppearanceHeadline6"
+            android:textColor="?attr/colorOnSurface"
             android:maxLines="2"
             android:ellipsize="end"
             app:layout_constraintTop_toBottomOf="@id/collection_cover_image_view"
@@ -9258,6 +9233,7 @@ zipStorePath=wrapper/dists
                 android:layout_marginStart="4dp"
                 android:layout_marginEnd="16dp"
                 android:textAppearance="?attr/textAppearanceCaption"
+                android:textColor="?android:attr/textColorSecondary"
                 tools:text="1.2K" />
 
             <ImageView
@@ -9274,9 +9250,9 @@ zipStorePath=wrapper/dists
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
                 android:textAppearance="?attr/textAppearanceCaption"
+                android:textColor="?android:attr/textColorSecondary"
                 tools:text="10.5K" />
         </LinearLayout>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>
 
@@ -9723,9 +9699,75 @@ zipStorePath=wrapper/dists
 
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="purple_primary">#6A0DAD</color>
+    <color name="purple_primary_dark">#4B0082</color>
+    <color name="cyan_accent">#00ACC1</color>
+    <color name="cyan_accent_dark">#00838F</color>
+
+    <color name="light_background">#F7F9FC</color>
+    <color name="light_surface">#FFFFFF</color>
+    <color name="light_text_primary">#DE000000</color>
+    <color name="light_text_secondary">#8A000000</color>
+    <color name="light_error">#B00020</color>
+
+    <color name="dark_background">#121212</color>
+    <color name="dark_surface">#1E1E1E</color>
+    <color name="dark_text_primary">#FFFFFFFF</color>
+    <color name="dark_text_secondary">#B3FFFFFF</color>
+    <color name="dark_error">#CF6679</color>
+
+    <color name="color_liked">#E91E63</color>
+    <color name="color_control_normal_light">#757575</color>
+    <color name="color_control_normal_dark">#BDBDBD</color>
+
+    <color name="primary">#3A1078</color>
+    <color name="primary_variant">#4E31AA</color>
+    <color name="secondary">#2F58CD</color>
+    <color name="secondary_variant">#4942E4</color>
+    <color name="accent">#C147E9</color>
+    <color name="accent_light">#E5B8F4</color>
+    <color name="background">#150050</color>
+    <color name="surface">#21007F</color>
+    <color name="error">#F96666</color>
+    <color name="on_primary">#FFFFFF</color>
+    <color name="on_secondary">#FFFFFF</color>
+    <color name="on_background">#F1F1F1</color>
+    <color name="on_surface">#F1F1F1</color>
+    <color name="on_error">#FFFFFF</color>
+
+    <color name="aurora_deep_sky">#0A0F2D</color>
+    <color name="aurora_twilight_surface">#161B3A</color>
+    <color name="aurora_void">#05071A</color>
+
+    <color name="aurora_green_flare">#1EE0AC</color>
+    <color name="aurora_green_flare_darker">#15A37F</color>
+    <color name="aurora_magenta_glow">#C724B1</color>
+    <color name="aurora_magenta_glow_darker">#9B1B8A</color>
+    <color name="aurora_cyan_shimmer">#00D4FF</color>
+
+    <color name="aurora_light_text">#E0E7FF</color>
+    <color name="aurora_muted_text">#8A9BD8</color>
+
+    <color name="aurora_error_dark">#FF6B6B</color>
+    <color name="aurora_on_error_dark">#000000</color>
+
+    <color name="aurora_day_sky">#E6EFFF</color>
+    <color name="aurora_cloud_surface">#FFFFFF</color>
+
+    <color name="aurora_vibrant_teal">#00A99D</color>
+    <color name="aurora_vibrant_teal_darker">#007A70</color>
+    <color name="aurora_electric_purple">#7B2CBF</color>
+    <color name="aurora_electric_purple_darker">#5A1E8C</color>
+
+    <color name="aurora_deep_indigo_text">#1E215D</color>
+    <color name="aurora_slate_text">#5C677D</color>
+
+    <color name="aurora_error_light">#D90429</color>
+    <color name="aurora_on_error_light">#FFFFFF</color>
+
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="color_liked">#FF0000</color>
+    <color name="transparent">#00000000</color>
 </resources>
 
 ###############################################################################
@@ -9882,13 +9924,155 @@ zipStorePath=wrapper/dists
 ###############################################################################
 
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Base.Theme.FinalProject" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    <style name="Base.Theme.FinalProject" parent="Theme.Material3.Light.NoActionBar">
+        <item name="colorPrimary">@color/aurora_vibrant_teal</item>
+        <item name="colorOnPrimary">@color/aurora_cloud_surface</item>
+        <item name="colorPrimaryContainer">@color/aurora_vibrant_teal_darker</item>
+        <item name="colorOnPrimaryContainer">@color/aurora_cloud_surface</item>
+
+        <item name="colorSecondary">@color/aurora_electric_purple</item>
+        <item name="colorOnSecondary">@color/aurora_cloud_surface</item>
+        <item name="colorSecondaryContainer">@color/aurora_electric_purple_darker</item>
+        <item name="colorOnSecondaryContainer">@color/aurora_cloud_surface</item>
+
+        <item name="colorTertiary">@color/aurora_cyan_shimmer</item>
+        <item name="colorOnTertiary">@color/aurora_deep_indigo_text</item>
+        <item name="colorTertiaryContainer">#A0E7FF</item>
+        <item name="colorOnTertiaryContainer">@color/aurora_deep_indigo_text</item>
+
+        <item name="android:colorBackground">@color/aurora_day_sky</item>
+        <item name="colorOnBackground">@color/aurora_deep_indigo_text</item>
+
+        <item name="colorSurface">@color/aurora_cloud_surface</item>
+        <item name="colorOnSurface">@color/aurora_deep_indigo_text</item>
+        <item name="colorSurfaceVariant">#E0E5F0</item>
+        <item name="colorOnSurfaceVariant">@color/aurora_slate_text</item>
+
+        <item name="colorError">@color/aurora_error_light</item>
+        <item name="colorOnError">@color/aurora_on_error_light</item>
+        <item name="colorErrorContainer">#FFDAD6</item>
+        <item name="colorOnErrorContainer">@color/aurora_error_light</item>
+
+        <item name="colorOutline">@color/aurora_slate_text</item>
+        <item name="colorOutlineVariant">#C0C5D0</item>
+
+
+        <item name="android:statusBarColor">@color/aurora_day_sky</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
+
+        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.App.Aurora.SmallComponent</item>
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.App.Aurora.MediumComponent</item>
+        <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.App.Aurora.LargeComponent</item>
+
+        <item name="materialCardViewStyle">@style/Widget.App.AuroraCardView</item>
+        <item name="materialButtonStyle">@style/Widget.App.AuroraButton</item>
+        <item name="textInputStyle">@style/Widget.App.AuroraTextInputLayout.OutlinedBox</item>
+        <item name="floatingActionButtonStyle">@style/Widget.App.AuroraFloatingActionButton</item>
+        <item name="toolbarStyle">@style/Widget.App.AuroraToolbar</item>
+        <item name="bottomNavigationStyle">@style/Widget.App.AuroraBottomNavigationView</item>
+        <item name="textAppearanceHeadline5">@style/TextAppearance.App.Aurora.Headline5</item>
+        <item name="textAppearanceHeadline6">@style/TextAppearance.App.Aurora.Headline6</item>
+        <item name="textAppearanceSubtitle1">@style/TextAppearance.App.Aurora.Subtitle1</item>
+        <item name="textAppearanceBody1">@style/TextAppearance.App.Aurora.Body1</item>
+        <item name="textAppearanceBody2">@style/TextAppearance.App.Aurora.Body2</item>
+        <item name="textAppearanceCaption">@style/TextAppearance.App.Aurora.Caption</item>
+        <item name="textAppearanceButton">@style/TextAppearance.App.Aurora.Button</item>
+
+        <item name="android:textColorPrimary">@color/aurora_deep_indigo_text</item>
+        <item name="android:textColorSecondary">@color/aurora_slate_text</item>
+        <item name="colorControlNormal">@color/aurora_slate_text</item>
+        <item name="dividerColor">#1F5C677D</item>
     </style>
 
     <style name="Theme.FinalProject" parent="Base.Theme.FinalProject" />
+
+    <style name="ShapeAppearance.App.Aurora.SmallComponent" parent="ShapeAppearance.Material3.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">8dp</item>
+    </style>
+    <style name="ShapeAppearance.App.Aurora.MediumComponent" parent="ShapeAppearance.Material3.MediumComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">12dp</item>
+    </style>
+    <style name="ShapeAppearance.App.Aurora.LargeComponent" parent="ShapeAppearance.Material3.LargeComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">16dp</item>
+    </style>
+
+    <style name="Widget.App.AuroraCardView" parent="Widget.Material3.CardView.Elevated">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.AuroraCard</item>
+        <item name="shapeAppearance">?attr/shapeAppearanceMediumComponent</item>
+        <item name="cardElevation">4dp</item>
+    </style>
+    <style name="ThemeOverlay.App.AuroraCard" parent="">
+        <item name="colorSurface">@color/aurora_cloud_surface</item>
+        <item name="colorOnSurface">@color/aurora_deep_indigo_text</item>
+        <item name="colorOutline">#207B2CBF</item>
+    </style>
+
+    <style name="Widget.App.AuroraButton" parent="Widget.Material3.Button">
+        <item name="shapeAppearance">?attr/shapeAppearanceSmallComponent</item>
+        <item name="android:paddingTop">12dp</item>
+        <item name="android:paddingBottom">12dp</item>
+        <item name="backgroundTint">?attr/colorPrimary</item>
+        <item name="android:textColor">?attr/colorOnPrimary</item>
+    </style>
+    <style name="Widget.App.AuroraButton.Outlined" parent="Widget.Material3.Button.OutlinedButton">
+        <item name="shapeAppearance">?attr/shapeAppearanceSmallComponent</item>
+        <item name="android:paddingTop">12dp</item>
+        <item name="android:paddingBottom">12dp</item>
+        <item name="strokeColor">?attr/colorPrimary</item>
+        <item name="android:textColor">?attr/colorPrimary</item>
+    </style>
+
+    <style name="Widget.App.AuroraTextInputLayout.OutlinedBox" parent="Widget.Material3.TextInputLayout.OutlinedBox">
+        <item name="shapeAppearance">?attr/shapeAppearanceSmallComponent</item>
+        <item name="boxStrokeColor">@color/text_input_layout_stroke_color_light</item>
+        <item name="hintTextColor">?attr/colorPrimary</item>
+    </style>
+
+    <style name="Widget.App.AuroraFloatingActionButton" parent="Widget.Material3.FloatingActionButton.Primary">
+        <item name="shapeAppearance">?attr/shapeAppearanceMediumComponent</item>
+        <item name="backgroundTint">?attr/colorSecondary</item>
+        <item name="tint">?attr/colorOnSecondary</item>
+    </style>
+
+    <style name="Widget.App.AuroraToolbar" parent="Widget.Material3.Toolbar.OnSurface">
+        <item name="android:background">?attr/colorSurface</item>
+        <item name="titleTextColor">?attr/colorOnSurface</item>
+        <item name="subtitleTextColor">?attr/colorOnSurfaceVariant</item>
+    </style>
+    <style name="Widget.App.AuroraBottomNavigationView" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
+        <item name="android:background">?attr/colorSurface</item>
+        <item name="itemIconTint">@drawable/bottom_nav_item_tint_light</item>
+        <item name="itemTextColor">@drawable/bottom_nav_item_tint_light</item>
+        <item name="itemActiveIndicatorStyle">@style/Widget.App.AuroraBottomNavIndicator</item>
+    </style>
+    <style name="Widget.App.AuroraBottomNavIndicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
+        <item name="android:color">?attr/colorPrimaryContainer</item>
+    </style>
+
+    <style name="TextAppearance.App.Aurora.Headline5" parent="TextAppearance.Material3.HeadlineSmall">
+        <item name="android:textColor">?attr/colorOnBackground</item>
+    </style>
+    <style name="TextAppearance.App.Aurora.Headline6" parent="TextAppearance.Material3.TitleLarge">
+        <item name="android:textColor">?attr/colorOnSurface</item>
+    </style>
+    <style name="TextAppearance.App.Aurora.Subtitle1" parent="TextAppearance.Material3.TitleMedium">
+        <item name="android:textColor">?attr/colorOnSurface</item>
+    </style>
+    <style name="TextAppearance.App.Aurora.Body1" parent="TextAppearance.Material3.BodyLarge">
+        <item name="android:textColor">?attr/colorOnSurface</item>
+    </style>
+    <style name="TextAppearance.App.Aurora.Body2" parent="TextAppearance.Material3.BodyMedium">
+        <item name="android:textColor">?attr/colorOnSurfaceVariant</item>
+    </style>
+    <style name="TextAppearance.App.Aurora.Caption" parent="TextAppearance.Material3.LabelSmall">
+        <item name="android:textColor">?attr/colorOnSurfaceVariant</item>
+    </style>
+    <style name="TextAppearance.App.Aurora.Button" parent="TextAppearance.Material3.LabelLarge">
+        <item name="android:textColor">?attr/colorOnPrimary</item>
+    </style>
 </resources>
 
 ###############################################################################
@@ -9896,11 +10080,105 @@ zipStorePath=wrapper/dists
 ###############################################################################
 
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Base.Theme.FinalProject" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+    <style name="Base.Theme.FinalProject" parent="Theme.Material3.Dark.NoActionBar">
+        <item name="colorPrimary">@color/aurora_green_flare</item>
+        <item name="colorOnPrimary">@color/aurora_deep_sky</item>
+        <item name="colorPrimaryContainer">@color/aurora_green_flare_darker</item>
+        <item name="colorOnPrimaryContainer">@color/aurora_light_text</item>
+
+        <item name="colorSecondary">@color/aurora_magenta_glow</item>
+        <item name="colorOnSecondary">@color/aurora_light_text</item>
+        <item name="colorSecondaryContainer">@color/aurora_magenta_glow_darker</item>
+        <item name="colorOnSecondaryContainer">@color/aurora_light_text</item>
+
+        <item name="colorTertiary">@color/aurora_cyan_shimmer</item>
+        <item name="colorOnTertiary">@color/aurora_deep_sky</item>
+        <item name="colorTertiaryContainer">#004A7F</item>
+        <item name="colorOnTertiaryContainer">@color/aurora_light_text</item>
+
+        <item name="android:colorBackground">@color/aurora_deep_sky</item>
+        <item name="colorOnBackground">@color/aurora_light_text</item>
+
+        <item name="colorSurface">@color/aurora_twilight_surface</item>
+        <item name="colorOnSurface">@color/aurora_light_text</item>
+        <item name="colorSurfaceVariant">#2A305A</item>
+        <item name="colorOnSurfaceVariant">@color/aurora_muted_text</item>
+
+        <item name="colorError">@color/aurora_error_dark</item>
+        <item name="colorOnError">@color/aurora_on_error_dark</item>
+        <item name="colorErrorContainer">#93000A</item>
+        <item name="colorOnErrorContainer">@color/aurora_error_dark</item>
+
+        <item name="colorOutline">@color/aurora_muted_text</item>
+        <item name="colorOutlineVariant">#505A8A</item>
+
+        <item name="android:statusBarColor">@color/aurora_void</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">false</item>
+
+        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.App.Aurora.SmallComponent</item>
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.App.Aurora.MediumComponent</item>
+        <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.App.Aurora.LargeComponent</item>
+
+        <item name="materialCardViewStyle">@style/Widget.App.AuroraCardView.Dark</item>
+        <item name="materialButtonStyle">@style/Widget.App.AuroraButton.Dark</item>
+        <item name="textInputStyle">@style/Widget.App.AuroraTextInputLayout.OutlinedBox.Dark</item>
+        <item name="floatingActionButtonStyle">@style/Widget.App.AuroraFloatingActionButton.Dark</item>
+        <item name="toolbarStyle">@style/Widget.App.AuroraToolbar.Dark</item>
+        <item name="bottomNavigationStyle">@style/Widget.App.AuroraBottomNavigationView.Dark</item>
+
+        <item name="textAppearanceHeadline5">@style/TextAppearance.App.Aurora.Headline5.Dark</item>
+        <item name="textAppearanceHeadline6">@style/TextAppearance.App.Aurora.Headline6.Dark</item>
+
+        <item name="android:textColorPrimary">@color/aurora_light_text</item>
+        <item name="android:textColorSecondary">@color/aurora_muted_text</item>
+        <item name="colorControlNormal">@color/aurora_muted_text</item>
+        <item name="dividerColor">#1FE0E7FF</item>
     </style>
+
+    <style name="Widget.App.AuroraCardView.Dark" parent="Widget.Material3.CardView.Elevated">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.AuroraCard.Dark</item>
+        <item name="shapeAppearance">?attr/shapeAppearanceMediumComponent</item>
+        <item name="cardElevation">6dp</item>
+    </style>
+    <style name="ThemeOverlay.App.AuroraCard.Dark" parent="">
+        <item name="colorSurface">@color/aurora_twilight_surface</item>
+        <item name="colorOnSurface">@color/aurora_light_text</item>
+        <item name="colorOutline">#30C724B1</item>
+    </style>
+
+    <style name="Widget.App.AuroraButton.Dark" parent="Widget.App.AuroraButton" />
+
+    <style name="Widget.App.AuroraTextInputLayout.OutlinedBox.Dark" parent="Widget.Material3.TextInputLayout.OutlinedBox">
+        <item name="shapeAppearance">?attr/shapeAppearanceSmallComponent</item>
+        <item name="boxStrokeColor">@color/text_input_layout_stroke_color_dark</item>
+        <item name="hintTextColor">?attr/colorPrimary</item>
+    </style>
+
+    <style name="Widget.App.AuroraFloatingActionButton.Dark" parent="Widget.App.AuroraFloatingActionButton" />
+
+    <style name="Widget.App.AuroraToolbar.Dark" parent="Widget.Material3.Toolbar.OnSurface">
+        <item name="android:background">?attr/colorSurface</item>
+        <item name="titleTextColor">?attr/colorOnSurface</item>
+        <item name="subtitleTextColor">?attr/colorOnSurfaceVariant</item>
+    </style>
+
+    <style name="Widget.App.AuroraBottomNavigationView.Dark" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
+        <item name="android:background">?attr/colorSurface</item>
+        <item name="itemIconTint">@drawable/bottom_nav_item_tint_dark</item>
+        <item name="itemTextColor">@drawable/bottom_nav_item_tint_dark</item>
+        <item name="itemActiveIndicatorStyle">@style/Widget.App.AuroraBottomNavIndicator.Dark</item>
+    </style>
+    <style name="Widget.App.AuroraBottomNavIndicator.Dark" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
+        <item name="android:color">?attr/colorPrimaryContainer</item>
+    </style>
+
+    <style name="TextAppearance.App.Aurora.Headline5.Dark" parent="TextAppearance.Material3.HeadlineSmall">
+        <item name="android:textColor">?attr/colorOnBackground</item>
+    </style>
+    <style name="TextAppearance.App.Aurora.Headline6.Dark" parent="TextAppearance.Material3.TitleLarge">
+        <item name="android:textColor">?attr/colorOnSurface</item>
+    </style>
+
 </resources>
 
 ###############################################################################
@@ -9957,6 +10235,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updatePadding
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
@@ -9976,11 +10255,23 @@ class MainActivity : AppCompatActivity() {
 
         enableEdgeToEdge()
         setContentView(binding.root)
+
         ViewCompat.setOnApplyWindowInsetsListener(binding.main) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            v.updatePadding(
+                left = systemBars.left,
+                top = systemBars.top,
+                right = systemBars.right
+            )
             insets
         }
+
+        ViewCompat.setOnApplyWindowInsetsListener(binding.bottomNavigationView) { view, windowInsets ->
+            val insets = windowInsets.getInsets(WindowInsetsCompat.Type.navigationBars())
+            view.updatePadding(bottom = insets.bottom)
+            windowInsets
+        }
+
 
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
@@ -13450,7 +13741,7 @@ data class SortProperty(
 
 ###############################################################################
 # SUMMARY
-# Total files: 92
-# Total size: 570.47 KB
-# Processing time: 0.79 seconds
+# Total files: 99
+# Total size: 587.41 KB
+# Processing time: 1.7 seconds
 ###############################################################################

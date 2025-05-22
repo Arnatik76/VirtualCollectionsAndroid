@@ -1,3 +1,0 @@
-@echo off
-echo Running code collection script...
-powershell.exe -ExecutionPolicy Bypass -File "%~dp0CollectCode.ps1"
